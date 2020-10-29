@@ -1,5 +1,9 @@
 package com.github.monstertecg.sockets;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 /** Genera conectividad entre clientes
  * @author Luis Delgado
  * @version 1.0
@@ -7,14 +11,12 @@ package com.github.monstertecg.sockets;
  */
 public class Conectividad {
 
-    Socket socket;
-    ServerSocket serverSocket;
+    private Socket socket;
+    private ServerSocket serverSocket;
     
     public void ReservarPuerto() throws IOException {
 
     }
-
-    private ServerSocket serverSocket;
 
     /** Prueba si un puerto está disponible
      * 
