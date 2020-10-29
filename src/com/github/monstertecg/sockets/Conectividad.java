@@ -265,4 +265,8 @@ public class Conectividad {
 
         return puerto;
     }
+
+    public String ObtenerIP(){
+        return this.ipPropia;
+    }
 }
