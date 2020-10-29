@@ -9,7 +9,7 @@ public class LoggingHandler {
 
     public FileHandler Handler(final Logger LOGGER) {
         try {
-            final FileHandler manejadorDeArchivos = new FileHandler("logging.txt", true);
+            final FileHandler manejadorDeArchivos = new FileHandler("logging.log", true);
 
             LOGGER.addHandler(manejadorDeArchivos);
 
