@@ -111,13 +111,9 @@ public class Conectividad {
 
         this.serverSocket = new ServerSocket(puertoEnUso);
 
-        new Thread(()->{
-            this.ComprobadorDeConexion();
-        }).start();
+        new Thread(this::ComprobadorDeConexion).start();
 
-        new Thread(()->{
-            this.BucleComprobador();
-        }).start();
+        new Thread(this::BucleComprobador).start();
 
         while (true) {
 
@@ -125,9 +121,7 @@ public class Conectividad {
 
                 this.socket = serverSocket.accept();
 
-                new Thread(()->{
-                    this.Conectado();
-                }).start();
+                new Thread(this::Conectado).start();
 
             }
             catch (IOException e) {
