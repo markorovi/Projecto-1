@@ -1,30 +1,30 @@
 package com.github.monstertecg.plantillasDeListas;
 
 public class SingleList<T> {
-    private ListaSimple<T> first;
+    private ListaSimple<T> primero;
 
     public SingleList() {
-        this.first = null;
+        this.primero = null;
     }
 
-    public boolean isEmpty() {
-        return this.first == null;
+    public boolean esNulo() {
+        return this.primero == null;
     }
 
     /**
      * Adds an element to the end
      *
-     * @param element the element to add
+     * @param elemento the element to add
      */
-    public void add(T element) {
-        if (this.isEmpty()) {
-            this.first = new ListaSimple(element);
+    public void Añadir(T elemento) {
+        if (this.esNulo()) {
+            this.primero = new ListaSimple(elemento);
         } else {
-            ListaSimple<T> ref = this.first;
-            while (ref.getNext() != null) {
-                ref = ref.getNext();
+            ListaSimple<T> temporal = this.primero;
+            while (temporal.getSiguiente() != null) {
+                temporal = temporal.getSiguiente();
             }
-            ref.setNext(new ListaSimple(element));
+            temporal.setSiguiente(new ListaSimple(elemento));
         }
 
     }

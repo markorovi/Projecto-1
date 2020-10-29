@@ -1,11 +1,19 @@
 package com.github.monstertecg.plantillasDeListas;
 
+/**
+ * Crea lista tipo pila
+ *
+ * @author Luis Delgado
+ * @version 1.0
+ * @since 0.4
+ */
 public class ListaSimple<T> {
     private T value;
-    private ListaSimple next;
+    private ListaSimple siguiente;
+    private ListaSimple primero;
 
     public ListaSimple() {
-        this.next = null;
+        this.siguiente = null;
     }
 
     public ListaSimple(T value) {
@@ -15,7 +23,7 @@ public class ListaSimple<T> {
 
     public ListaSimple(T value, ListaSimple next) {
         this(value);
-        this.next = next;
+        this.siguiente = next;
     }
 
     public T getValue() {
@@ -26,11 +34,11 @@ public class ListaSimple<T> {
         this.value = value;
     }
 
-    public ListaSimple<T> getNext() {
-        return next;
+    public ListaSimple<T> getSiguiente() {
+        return siguiente;
     }
 
-    public void setNext(ListaSimple<T> next) {
-        this.next = next;
+    public void setSiguiente(ListaSimple<T> siguiente) {
+        this.siguiente = siguiente;
     }
 }
