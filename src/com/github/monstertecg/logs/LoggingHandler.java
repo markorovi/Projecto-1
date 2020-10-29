@@ -5,6 +5,14 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Almacena los logs en un archivo
+ *
+ * @author Luis Delgado
+ * @version 1.0
+ * @since 0.2
+ */
+
 public class LoggingHandler {
 
     public FileHandler Handler(final Logger LOGGER) {

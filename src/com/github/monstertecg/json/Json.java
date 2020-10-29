@@ -6,16 +6,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+/**
+ * Genera conectividad entre clientes
+ *
+ * @author Luis Delgado
+ * @version 1.0
+ * @since 0.3
+ */
+
 public class Json {
 
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
 
     private static ObjectMapper getDefaultObjectMapper() {
-        ObjectMapper defaultObjectMapper = new ObjectMapper();
-        return defaultObjectMapper;
+        return new ObjectMapper();
     }
 
-    public static JsonNode parse (String jsonSource) throws JsonProcessingException, IOException {
+    public static JsonNode parse(String jsonSource) throws IOException {
         return objectMapper.readTree(jsonSource);
     }
 

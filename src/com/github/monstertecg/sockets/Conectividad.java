@@ -1,54 +1,76 @@
 package com.github.monstertecg.sockets;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.monstertecg.json.Json;
 import com.github.monstertecg.logs.LoggingHandler;
+import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
-/** Genera conectividad entre clientes
+/**
+ * Genera conectividad entre clientes
+ *
  * @author Luis Delgado
  * @version 1.0
  * @since 0.1
  */
 public class Conectividad {
 
-    private Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
-
     private static Conectividad instancia;
-
+    private static boolean conexionActualizada = false;
+    private Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
     private Socket socket;
     private ServerSocket serverSocket;
-    private int puertoEnUso;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-    private static boolean conexionActualizada = false;
     private boolean conectado = false;
     private int tiempoEsperando = 0;
     private int conteoComprobacion = 0;
+    private JSONObject jsonObject = new JSONObject();
+
+    // Aspectos de host
+    private String ipPropia;
+    private String ipDestino;
+    private int puertoDestino;
+    private int puertoEnUso;
 
 
-    public synchronized static Conectividad obtenerInstancia(){
-        if (instancia == null){
+    public synchronized static Conectividad obtenerInstancia(String ipDestino, int puertoDestino) {
+        if (instancia == null) {
             instancia = new Conectividad();
         }
+
+        instancia.ipDestino = ipDestino;
+        instancia.puertoDestino = puertoDestino;
+
         return instancia;
     }
 
+    /**
+     * Detiene el juego si el oponenete no responde.
+     */
+
     private void ComprobadorDeConexion() {
 
-        while (this.conectado){
-            if (this.tiempoEsperando == 15){
+        while (this.conectado) {
+            if (this.tiempoEsperando == 15) {
                 //mostrar mensaje de que el otro compa anda en las nubes
+                System.out.println("El otro compa juega desde el surquí.");
             }
             try {
                 Thread.sleep(1000);
                 this.tiempoEsperando++;
+
             } catch (InterruptedException e) {
+
                 FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.warning(e.getMessage());
                 fHandler.close();
@@ -59,54 +81,60 @@ public class Conectividad {
 
     private void BucleComprobador() {
 
-        while (this.conectado){
-            if (this.conteoComprobacion == 5){
-                //enviar mensaje
+        while (this.conectado) {
+            if (this.conteoComprobacion == 5) {
+                this.jsonObject.put("MensajeSecreto", "acknowledge");
+                this.EnviarMensaje(this.jsonObject.toString());
             }
             try {
                 Thread.sleep(1000);
                 this.tiempoEsperando++;
+
             } catch (InterruptedException e) {
+
                 FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.warning(e.getMessage());
                 fHandler.close();
             }
+            conteoComprobacion++;
 
         }
     }
 
-    public void EnviarMensaje (String hostDestino, int puertoDestino, String mensaje, int puertoOrigen){
+    public void EnviarMensaje(String mensaje) {
 
         try {
 
-            socket = new Socket(hostDestino, puertoDestino);
+            Socket socketEnvio = new Socket(this.ipDestino, puertoDestino);
 
-            inputStream = new DataInputStream(socket.getInputStream());
-            outputStream = new DataOutputStream(socket.getOutputStream());
+            this.outputStream = new DataOutputStream(socketEnvio.getOutputStream());
 
-            outputStream.writeUTF(puertoOrigen + ": " + mensaje);
+            outputStream.writeUTF(mensaje);
 
             outputStream.close();
 
             socket.close();
 
-            return;
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
 
             System.out.println("Problemas de conexión.");
-            return;
 
         }
     }
 
-    /** Genera el bucle para la espera de paquetes.
+    /**
+     * Genera el bucle para la espera de paquetes.
+     *
      * @throws IOException
      */
 
-    private void BucleDeConexion() throws IOException{
+    private void BucleDeConexion() throws IOException {
 
+        try {
+            this.ipPropia = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         this.puertoEnUso = BuscaPuerto();
 
         this.serverSocket = new ServerSocket(puertoEnUso);
@@ -114,6 +142,8 @@ public class Conectividad {
         new Thread(this::ComprobadorDeConexion).start();
 
         new Thread(this::BucleComprobador).start();
+
+        this.conectado = true;
 
         while (true) {
 
@@ -123,8 +153,7 @@ public class Conectividad {
 
                 new Thread(this::Conectado).start();
 
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
 
                 this.socket.close();
 
@@ -134,12 +163,18 @@ public class Conectividad {
 
     public void Conectado() {
 
-        String recibido;
+        JsonNode jnode;
+
         while (true) {
             try {
-                recibido = this.inputStream.readUTF();
 
-                ComprobarMensajeSecreto(recibido);
+                jnode = Json.parse(this.inputStream.readUTF());
+
+                try {
+                    ComprobarMensajeSecreto(jnode.get("MensajeSecreto").asText());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 break;
 
@@ -151,20 +186,19 @@ public class Conectividad {
         }
         try {
             this.inputStream.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void ComprobarMensajeSecreto(String texto) {
-        switch (texto){
+    private void ComprobarMensajeSecreto(String texto) throws IOException {
+        switch (texto) {
             case "acknowledge":
                 this.tiempoEsperando = 0;
                 break;
 
             case "desconectar":
-                //desconectar todo
+                this.socket.close();
                 break;
 
             default:
@@ -173,8 +207,9 @@ public class Conectividad {
         System.out.println(texto);
     }
 
-    /** Prueba si un puerto está disponible
-     * 
+    /**
+     * Prueba si un puerto está disponible
+     *
      * @param puerto de prueba
      * @return valor buleano de si el puerto está disponible
      */
@@ -188,16 +223,16 @@ public class Conectividad {
             serverSocket.close();
             resultado = true;
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             resultado = false;
         }
 
         return (resultado);
     }
 
-    /** Busca un puerto disponible, comenzando en 40 000
-     * 
+    /**
+     * Busca un puerto disponible, comenzando en 40 000
+     *
      * @return puerto disponible
      */
 
@@ -210,7 +245,7 @@ public class Conectividad {
         LOGGER.info("Buscando puerto...");
         fHandler.close();
 
-        while (encontrado == false) {
+        while (!encontrado) {
 
             if (puerto > 65535) {
                 fHandler = (new LoggingHandler().Handler(LOGGER));
@@ -218,16 +253,12 @@ public class Conectividad {
                 fHandler.close();
 
                 break;
-            }
-
-            else if (RevisaPuerto(puerto)){
+            } else if (RevisaPuerto(puerto)) {
                 fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.info("Puerto encontrado: " + puerto);
                 fHandler.close();
                 encontrado = true;
-            }
-
-            else{
+            } else {
                 puerto++;
             }
         }
