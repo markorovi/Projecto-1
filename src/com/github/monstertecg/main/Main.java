@@ -1,7 +1,5 @@
 package com.github.monstertecg.main;
 
-import com.github.monstertecg.plantillasDeListas.*;
-
 /**
  * Ejecuta el código completo
  *
@@ -12,9 +10,10 @@ import com.github.monstertecg.plantillasDeListas.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        System.out.println("Main");
+        System.out.println("Todo funciona, tenga un buen día.");
+
 
     }
 
