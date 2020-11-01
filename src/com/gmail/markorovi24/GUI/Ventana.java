@@ -6,7 +6,7 @@ public class Ventana {
 
     public void crearVentana(String name, int width, int height) {
         Ventana.setTitle(name);
-        Ventana.setSize(width, height)
+        Ventana.setSize(width, height);
         Ventana.setLayout(null);
         Ventana.setResizable(false);
         Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
