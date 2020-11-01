@@ -1,4 +1,4 @@
-package com.gmail.markorovi24.GUI;
+package com.gmail.markorovi24.HUDCards;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
