@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.3
+ * @since 0.1.7
  */
 
 public class Json {
