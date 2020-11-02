@@ -1,4 +1,6 @@
 package com.gmail.markorovi24.HUDCards;
+import com.gmail.markorovi24.Mediator.Mediador;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -9,7 +11,8 @@ import java.awt.event.MouseEvent;
 public class MyCards {
     JLabel Card = new JLabel();
     boolean moving = false;
-    boolean isUp = false;
+    Mediador Control;
+    boolean isUp;
 
     public JLabel getCard(){
         return Card;
@@ -41,7 +44,8 @@ public class MyCards {
     }
 
 
-    public void builder(Color color, int x, int y, int width, int height){
+    public void builder(Color color, int x, int y, int width, int height, Mediador mediador){
+        this.Control = mediador;
         Card.setOpaque(true);
         Card.setBackground(color);
         Card.setBounds(x, y, width, height);
@@ -53,16 +57,20 @@ public class MyCards {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if(!moving && !isUp){
+                if (!Control.getCardsState() && !moving) {
                     moving = true;
+                    Control.setCardUp(true);
                     isUp = true;
                     animate(Card, new Point(Card.getX(), Card.getY() - 45), 20, 30);
-                } else if (!moving && isUp){
+                } else if (Control.getCardsState() && !moving && isUp) {
                     moving = true;
+                    Control.setCardUp(false);
                     isUp = false;
                     animate(Card, new Point(Card.getX(), Card.getY() + 45), 20, 30);
                 }
             }
+
+
 
             @Override
             public void mouseReleased(MouseEvent e) {

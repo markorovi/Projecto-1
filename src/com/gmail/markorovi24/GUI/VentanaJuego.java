@@ -3,21 +3,24 @@ import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.PlayedDeck;
 import com.gmail.markorovi24.HUDCards.RivalCards;
+import com.gmail.markorovi24.Mediator.Mediador;
 
 import java.awt.*;
 
 
 public class VentanaJuego extends Ventana{
     public void configurarMenu(){
+        Mediador Control = new Mediador();
+
         MyCards MyCard1 = new MyCards();
         MyCards MyCard2 = new MyCards();
         MyCards MyCard3 = new MyCards();
         MyCards MyCard4 = new MyCards();
 
-        MyCard1.builder(Color.black, 180, 500, 120, 160);
-        MyCard2.builder(Color.black, 330, 500, 120, 160);
-        MyCard3.builder(Color.black, 480, 500, 120, 160);
-        MyCard4.builder(Color.black, 630, 500, 120, 160);
+        MyCard1.builder(Color.black, 180, 500, 120, 160, Control);
+        MyCard2.builder(Color.black, 330, 500, 120, 160, Control);
+        MyCard3.builder(Color.black, 480, 500, 120, 160, Control);
+        MyCard4.builder(Color.black, 630, 500, 120, 160, Control);
 
         Deck GameDeck = new Deck();
         PlayedDeck CardsPlayed = new PlayedDeck();
