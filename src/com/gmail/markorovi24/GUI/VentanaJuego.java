@@ -49,7 +49,7 @@ public class VentanaJuego extends Ventana{
         Ventana.add(GameDeck.getDeck());
         Ventana.add(CardsPlayed.getPlayedDeck());
 
-        crearVentana("test", 960,720);
+        crearVentana("test", 1110,910);
         habilitarVentana();
     }
 
