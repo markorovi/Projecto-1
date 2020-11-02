@@ -1,6 +1,7 @@
 package com.github.monstertecg.main;
 
 import com.github.monstertecg.sockets.Conectividad;
+import org.json.JSONObject;
 
 import java.util.Scanner;
 
@@ -18,23 +19,26 @@ public class Main {
 
         System.out.println("Todo funciona, tenga un buen día.");
 
+        // variables -----------------------------------------------------------
+
         Conectividad conexion;
+        JSONObject json = new JSONObject();
+
+        json.put("Mensaje", "Hola");
+
+        // Código ---------------------------------------------------------------
 
         conexion = Conectividad.obtenerInstancia();
 
         Scanner scan = new Scanner(System.in);
 
-        if (scan.nextLine().equals("1")) {
-            conexion.EstablecerDestino("40000", conexion.ObtenerOrigen()[1]);
-
-            conexion.BucleDeConexion();
-        }
-
         conexion.EstablecerDestino("40000", conexion.ObtenerOrigen()[1]);
+
+        new Thread(conexion::BucleDeConexion).start();
 
         System.out.println(conexion.ObtenerDestino()[1]);
 
-        conexion.EnviarMensaje("Hola");
+        conexion.EnviarMensaje(json.toString());
     }
 
 }

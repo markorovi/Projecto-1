@@ -55,7 +55,8 @@ public class Conectividad {
         } catch (UnknownHostException e) {
             FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
             LOGGER.info(e.getMessage());
-            fHandler.close();        }
+            fHandler.close();
+        }
         return instancia;
     }
 
@@ -110,11 +111,15 @@ public class Conectividad {
 
         try {
 
+            System.out.println("enviando " + mensaje);
+
             Socket socketEnvio = new Socket(this.ipDestino, puertoDestino);
 
             DataOutputStream outputStream = new DataOutputStream(socketEnvio.getOutputStream());
 
+            System.out.println("antes de enviar");
             outputStream.writeUTF(mensaje);
+            System.out.println("después de enviar");
 
             outputStream.close();
 
@@ -190,7 +195,7 @@ public class Conectividad {
 
                 jnode = Json.parse(inputStream.readUTF());
 
-                ComprobarMensajeSecreto(jnode.get("MensajeSecreto").asText());
+                ComprobarMensajeSecreto(jnode.get("Mensaje").asText());
 
                 /* Añadir comprobación para:
                     Cartas
@@ -199,6 +204,8 @@ public class Conectividad {
                     Sincronización de reloj
                     no sé qué otra putada más
                  */
+
+                System.out.println(jnode.get("MensajeSecreto").asText());
 
                 break;
 
@@ -225,7 +232,6 @@ public class Conectividad {
         switch (texto) {
             case "acknowledge":
                 this.tiempoEsperando = 0;
-                System.out.println("reiniciando conteo");
                 break;
 
             case "desconectar":
