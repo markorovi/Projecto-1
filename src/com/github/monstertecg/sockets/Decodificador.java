@@ -50,7 +50,7 @@ public class Decodificador {
 
         String idCarta = mensajeCodificado.get("id").asText();
 
-        JsonNode archivoTempo = archivo.get("hechizo");
+        JsonNode archivoTempo = archivo.get("hechizos");
 
         archivoTempo = archivoTempo.get(idCarta);
 
