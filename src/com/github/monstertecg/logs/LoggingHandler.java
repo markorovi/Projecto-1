@@ -10,7 +10,7 @@ import java.util.logging.SimpleFormatter;
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.2
+ * @since 0.1.2
  */
 
 public class LoggingHandler {

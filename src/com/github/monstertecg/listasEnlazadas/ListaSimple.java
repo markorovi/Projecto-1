@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.4
+ * @since 0.2.2
  */
 public class ListaSimple<T> {
 

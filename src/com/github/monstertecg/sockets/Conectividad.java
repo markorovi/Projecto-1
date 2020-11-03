@@ -12,6 +12,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -20,21 +21,22 @@ import java.util.logging.Logger;
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.1
+ * @since 0.1.0
  */
 public class Conectividad {
 
     private static Conectividad instancia;
-    private static boolean conexionActualizada = false;
-    private Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
     private Socket socket;
     private ServerSocket serverSocket;
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
+    private JSONObject jsonObject = new JSONObject();
+
+    // Asegurar conexión
+    private boolean seguirIntentando = true;
     private boolean conectado = false;
     private int tiempoEsperando = 0;
     private int conteoComprobacion = 0;
-    private JSONObject jsonObject = new JSONObject();
+    private static boolean conexionActualizada = false;
 
     // Aspectos de host
     private String ipPropia;
@@ -43,14 +45,18 @@ public class Conectividad {
     private int puertoEnUso;
 
 
-    public synchronized static Conectividad obtenerInstancia(String ipDestino, int puertoDestino) {
+    public synchronized static Conectividad obtenerInstancia() {
         if (instancia == null) {
             instancia = new Conectividad();
         }
 
-        instancia.ipDestino = ipDestino;
-        instancia.puertoDestino = puertoDestino;
-
+        try {
+            instancia.ipPropia = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
+            LOGGER.info(e.getMessage());
+            fHandler.close();
+        }
         return instancia;
     }
 
@@ -63,7 +69,7 @@ public class Conectividad {
         while (this.conectado) {
             if (this.tiempoEsperando == 15) {
                 //mostrar mensaje de que el otro compa anda en las nubes
-                System.out.println("El otro compa juega desde el surquí.");
+                System.out.println("El otro compa juega desde el zurquí.");
             }
             try {
                 Thread.sleep(1000);
@@ -105,11 +111,15 @@ public class Conectividad {
 
         try {
 
+            System.out.println("enviando " + mensaje);
+
             Socket socketEnvio = new Socket(this.ipDestino, puertoDestino);
 
-            this.outputStream = new DataOutputStream(socketEnvio.getOutputStream());
+            DataOutputStream outputStream = new DataOutputStream(socketEnvio.getOutputStream());
 
+            System.out.println("antes de enviar");
             outputStream.writeUTF(mensaje);
+            System.out.println("después de enviar");
 
             outputStream.close();
 
@@ -128,16 +138,16 @@ public class Conectividad {
      * @throws IOException
      */
 
-    private void BucleDeConexion() throws IOException {
+    public void BucleDeConexion() {
 
-        try {
-            this.ipPropia = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
         this.puertoEnUso = BuscaPuerto();
 
-        this.serverSocket = new ServerSocket(puertoEnUso);
+        try {
+            this.serverSocket = new ServerSocket(puertoEnUso);
+        } catch (IOException e) {
+            FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
+            LOGGER.info(e.getMessage());
+            fHandler.close();        }
 
         new Thread(this::ComprobadorDeConexion).start();
 
@@ -155,7 +165,17 @@ public class Conectividad {
 
             } catch (IOException e) {
 
-                this.socket.close();
+                FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
+                LOGGER.info(e.getMessage());
+                fHandler.close();
+
+                try {
+                    this.socket.close();
+                } catch (IOException ioException) {
+                    fHandler = (new LoggingHandler().Handler(LOGGER));
+                    LOGGER.info(ioException.getMessage());
+                    fHandler.close();
+                }
 
             }
         }
@@ -165,16 +185,27 @@ public class Conectividad {
 
         JsonNode jnode;
 
+        DataInputStream inputStream;
         while (true) {
             try {
 
-                jnode = Json.parse(this.inputStream.readUTF());
+                this.socket = serverSocket.accept();
 
-                try {
-                    ComprobarMensajeSecreto(jnode.get("MensajeSecreto").asText());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                inputStream = new DataInputStream(socket.getInputStream());
+
+                jnode = Json.parse(inputStream.readUTF());
+
+                ComprobarMensajeSecreto(jnode.get("Mensaje").asText());
+
+                /* Añadir comprobación para:
+                    Cartas
+                    Cambio de turno
+                    Solicitud de pausa
+                    Sincronización de reloj
+                    no sé qué otra putada más
+                 */
+
+                System.out.println(jnode.get("MensajeSecreto").asText());
 
                 break;
 
@@ -183,11 +214,17 @@ public class Conectividad {
                 LOGGER.info(e.getMessage());
                 fHandler.close();
             }
+
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         try {
-            this.inputStream.close();
+            inputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.LOGGER.info("La conexión tuvo problemas para cerrarse. Mensaje de error: " + e.getMessage());
         }
     }
 
@@ -199,6 +236,7 @@ public class Conectividad {
 
             case "desconectar":
                 this.socket.close();
+                System.out.println("Se desconectó voluntariamente.");
                 break;
 
             default:
@@ -236,7 +274,7 @@ public class Conectividad {
      * @return puerto disponible
      */
 
-    public int BuscaPuerto() {
+    private int BuscaPuerto() {
 
         int puerto = 40000;
         boolean encontrado = false;
@@ -266,7 +304,13 @@ public class Conectividad {
         return puerto;
     }
 
-    public String ObtenerIP(){
-        return this.ipPropia;
+    public String[] ObtenerOrigen(){ return new String[] {Integer.toString(puertoEnUso), this.ipPropia}; }
+
+    public void EstablecerDestino(String puertoDestino, String ipDestino){
+        this.puertoDestino = Integer.parseInt(puertoDestino);
+        this.ipDestino = ipDestino;
     }
+
+    public String[] ObtenerDestino (){ return new String[] {Integer.toString(puertoDestino), ipDestino}; }
+
 }
