@@ -13,6 +13,7 @@ public class MyCards {
     boolean moving = false;
     MediadorCartas Control;
     boolean isUp;
+    boolean acceptable;
 
     public JLabel getCard(){
         return Card;
@@ -79,7 +80,7 @@ public class MyCards {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                System.out.println("hola");
+
             }
 
             @Override

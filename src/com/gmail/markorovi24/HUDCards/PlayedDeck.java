@@ -10,6 +10,7 @@ public class PlayedDeck {
     JLabel PlayedDeck = new JLabel();
     Random azar = new Random();
 
+
     //Esto esta intentando la interaccion con el click
     private void randomTest(){
         PlayedDeck.setBackground(new Color(azar.nextInt(256), azar.nextInt(256), azar.nextInt(256), azar.nextInt(256)));
@@ -24,6 +25,7 @@ public class PlayedDeck {
         PlayedDeck.setBounds(x, y, width, height);
         randomTest();
         PlayedDeck.addMouseListener(new MouseInputListener() {
+
             @Override
             public void mouseDragged(MouseEvent e) {
 
@@ -58,6 +60,8 @@ public class PlayedDeck {
             public void mouseExited(MouseEvent e) {
 
             }
+
+
         });
     }
 }
