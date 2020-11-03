@@ -1,9 +1,11 @@
 package com.github.monstertecg.main;
 
-import com.github.monstertecg.sockets.Conectividad;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.monstertecg.json.Json;
+import com.github.monstertecg.sockets.Decodificador;
+import com.gmail.markorovi24.Cartas.Cartas;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Ejecuta el código completo
@@ -18,27 +20,42 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Todo funciona, tenga un buen día.");
+//
+//        // variables -----------------------------------------------------------
+//
+//        Conectividad conexion;
+//        JSONObject json = new JSONObject();
+//
+//        json.put("Mensaje", "Hola");
+//
+//        // Código ---------------------------------------------------------------
+//
+//        conexion = Conectividad.obtenerInstancia();
+//
+//        Scanner scan = new Scanner(System.in);
+//
+//        conexion.EstablecerDestino("40000", conexion.ObtenerOrigen()[1]);
+//
+//        new Thread(conexion::BucleDeConexion).start();
+//
+//        System.out.println(conexion.ObtenerDestino()[1]);
+//
+//        conexion.EnviarMensaje(json.toString());
 
-        // variables -----------------------------------------------------------
+        JsonNode nodo;
 
-        Conectividad conexion;
-        JSONObject json = new JSONObject();
+        try {
+            nodo = Json.getFromFile("json.json");
 
-        json.put("Mensaje", "Hola");
+            Cartas carta = Decodificador.Decodificar(nodo);
 
-        // Código ---------------------------------------------------------------
+            carta.Mostrar();
 
-        conexion = Conectividad.obtenerInstancia();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        Scanner scan = new Scanner(System.in);
 
-        conexion.EstablecerDestino("40000", conexion.ObtenerOrigen()[1]);
-
-        new Thread(conexion::BucleDeConexion).start();
-
-        System.out.println(conexion.ObtenerDestino()[1]);
-
-        conexion.EnviarMensaje(json.toString());
     }
 
 }

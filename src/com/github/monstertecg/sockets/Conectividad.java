@@ -3,7 +3,6 @@ package com.github.monstertecg.sockets;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.logs.LoggingHandler;
-import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,7 +28,6 @@ public class Conectividad {
     private static final Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
     private Socket socket;
     private ServerSocket serverSocket;
-    private JSONObject jsonObject = new JSONObject();
 
     // Asegurar conexión
     private boolean seguirIntentando = true;
@@ -60,53 +58,6 @@ public class Conectividad {
         return instancia;
     }
 
-    /**
-     * Detiene el juego si el oponenete no responde.
-     */
-
-    private void ComprobadorDeConexion() {
-
-        while (this.conectado) {
-            if (this.tiempoEsperando == 15) {
-                //mostrar mensaje de que el otro compa anda en las nubes
-                System.out.println("El otro compa juega desde el zurquí.");
-            }
-            try {
-                Thread.sleep(1000);
-                this.tiempoEsperando++;
-
-            } catch (InterruptedException e) {
-
-                FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
-                LOGGER.warning(e.getMessage());
-                fHandler.close();
-            }
-
-        }
-    }
-
-    private void BucleComprobador() {
-
-        while (this.conectado) {
-            if (this.conteoComprobacion == 5) {
-                this.jsonObject.put("MensajeSecreto", "acknowledge");
-                this.EnviarMensaje(this.jsonObject.toString());
-            }
-            try {
-                Thread.sleep(1000);
-                this.tiempoEsperando++;
-
-            } catch (InterruptedException e) {
-
-                FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
-                LOGGER.warning(e.getMessage());
-                fHandler.close();
-            }
-            conteoComprobacion++;
-
-        }
-    }
-
     public void EnviarMensaje(String mensaje) {
 
         try {
@@ -134,8 +85,6 @@ public class Conectividad {
 
     /**
      * Genera el bucle para la espera de paquetes.
-     *
-     * @throws IOException
      */
 
     public void BucleDeConexion() {
@@ -148,10 +97,6 @@ public class Conectividad {
             FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
             LOGGER.info(e.getMessage());
             fHandler.close();        }
-
-        new Thread(this::ComprobadorDeConexion).start();
-
-        new Thread(this::BucleComprobador).start();
 
         this.conectado = true;
 
