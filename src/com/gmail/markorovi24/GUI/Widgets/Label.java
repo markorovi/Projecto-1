@@ -19,4 +19,8 @@ public class Label {
         Label.setText(texto);
     }
 
+    public void setText(String texto){
+        Label.setText(texto);
+    }
+
 }

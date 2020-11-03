@@ -56,12 +56,18 @@ public class VentanaJuego extends Ventana{
         GameDeck.builder(330, 250, 120, 160);
         CardsPlayed.builder(630, 250, 120, 160);
 
+        Text ActiveCards = new Text();
+        ActiveCards.builder(15, 750, 150, 100, Color.white);
+
+        Label Texto1 = new Label();
+        Texto1.builder(15, 710, 150, 30, Color.white, "Efectos activos");
+
         Button Boton1 = new Button();
-        Boton1.builder(950, 800, 100,50, "Jugar", Color.white);
+        Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
         Boton1.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Codigo boton abajo derecha
+                
             }
         });
 
@@ -70,7 +76,7 @@ public class VentanaJuego extends Ventana{
         Boton2.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Codigo boton abajo derecha
+
             }
         });
 
@@ -79,7 +85,7 @@ public class VentanaJuego extends Ventana{
         Boton3.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Codigo boton abajo derecha
+
             }
         });
 
@@ -88,15 +94,10 @@ public class VentanaJuego extends Ventana{
         Boton4.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Codigo boton abajo derecha
+
             }
         });
 
-        Text ActiveCards = new Text();
-        ActiveCards.builder(15, 750, 150, 100, Color.white);
-
-        Label Texto1 = new Label();
-        Texto1.builder(15, 710, 150, 30, Color.white, "Efectos activos");
 
         Ventana.add(MyCard1.getCard());
         Ventana.add(MyCard2.getCard());
