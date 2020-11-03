@@ -3,14 +3,14 @@ import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.PlayedDeck;
 import com.gmail.markorovi24.HUDCards.RivalCards;
-import com.gmail.markorovi24.Mediator.Mediador;
+import com.gmail.markorovi24.Mediator.MediadorCartas;
 
 import java.awt.*;
 
 
 public class VentanaJuego extends Ventana{
     public void configurarMenu(){
-        Mediador Control = new Mediador();
+        MediadorCartas Control = new MediadorCartas();
 
         MyCards MyCard1 = new MyCards();
         MyCards MyCard2 = new MyCards();

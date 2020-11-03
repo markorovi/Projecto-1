@@ -1,6 +1,6 @@
 package com.gmail.markorovi24.Mediator;
 
-public class Mediador {
+public class MediadorCartas {
     private boolean isACardUp = false;
 
     public void setCardUp(boolean ACardUp) {
