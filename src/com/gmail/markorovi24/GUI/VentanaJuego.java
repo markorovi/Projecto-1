@@ -27,16 +27,16 @@ public class VentanaJuego extends Ventana{
         MyCards MyCard9 = new MyCards();
         MyCards MyCard10 = new MyCards();
 
-        MyCard1.builder(Color.black, 180, 490, 120, 160, Control);
-        MyCard2.builder(Color.black, 330, 490, 120, 160, Control);
-        MyCard3.builder(Color.black, 480, 490, 120, 160, Control);
-        MyCard4.builder(Color.black, 630, 490, 120, 160, Control);
-        MyCard5.builder(Color.black, 780, 490, 120, 160, Control);
-        MyCard6.builder(Color.black, 180, 700, 120, 160, Control);
-        MyCard7.builder(Color.black, 330, 700, 120, 160, Control);
-        MyCard8.builder(Color.black, 480, 700, 120, 160, Control);
-        MyCard9.builder(Color.black, 630, 700, 120, 160, Control);
-        MyCard10.builder(Color.black, 780, 700, 120, 160, Control);
+        MyCard1.builder(180, 490, 120, 160, Control);
+        MyCard2.builder(330, 490, 120, 160, Control);
+        MyCard3.builder(480, 490, 120, 160, Control);
+        MyCard4.builder(630, 490, 120, 160, Control);
+        MyCard5.builder(780, 490, 120, 160, Control);
+        MyCard6.builder(180, 700, 120, 160, Control);
+        MyCard7.builder(330, 700, 120, 160, Control);
+        MyCard8.builder(480, 700, 120, 160, Control);
+        MyCard9.builder(630, 700, 120, 160, Control);
+        MyCard10.builder(780, 700, 120, 160, Control);
 
         Deck GameDeck = new Deck();
         PlayedDeck CardsPlayed = new PlayedDeck();
@@ -47,11 +47,11 @@ public class VentanaJuego extends Ventana{
         RivalCards RivalCard4 = new RivalCards();
         RivalCards RivalCard5 = new RivalCards();
 
-        RivalCard1.builder(Color.black, 180, 30, 120, 160);
-        RivalCard2.builder(Color.black, 330, 30, 120, 160);
-        RivalCard3.builder(Color.black, 480, 30, 120, 160);
-        RivalCard4.builder(Color.black, 630, 30, 120, 160);
-        RivalCard5.builder(Color.black, 780, 30, 120, 160);
+        RivalCard1.builder(180, 30, 120, 160);
+        RivalCard2.builder(330, 30, 120, 160);
+        RivalCard3.builder(480, 30, 120, 160);
+        RivalCard4.builder(630, 30, 120, 160);
+        RivalCard5.builder(780, 30, 120, 160);
 
         GameDeck.builder(330, 250, 120, 160);
         CardsPlayed.builder(630, 250, 120, 160);
@@ -59,8 +59,20 @@ public class VentanaJuego extends Ventana{
         Text ActiveCards = new Text();
         ActiveCards.builder(15, 750, 150, 100, Color.white);
 
+        Text SelectedCardEffects = new Text();
+        SelectedCardEffects.builder(15, 600, 150, 100, Color.white);
+
+        Text ListCardEffect = new Text();
+        ListCardEffect.builder(925, 600, 150, 100, Color.white);
+
         Label Texto1 = new Label();
         Texto1.builder(15, 710, 150, 30, Color.white, "Efectos activos");
+
+        Label Texto2 = new Label();
+        Texto2.builder(15, 560, 150, 30, Color.white, "Carta Seleccionada");
+
+        Label Texto3 = new Label();
+        Texto3.builder(925, 560, 150, 30, Color.white, "Carta del Deck");
 
         Button Boton1 = new Button();
         Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
@@ -121,7 +133,11 @@ public class VentanaJuego extends Ventana{
         Ventana.add(Boton3.getBoton());
         Ventana.add(Boton4.getBoton());
         Ventana.add(ActiveCards.getText());
+        Ventana.add(SelectedCardEffects.getText());
+        Ventana.add(ListCardEffect.getText());
         Ventana.add(Texto1.getLabel());
+        Ventana.add(Texto2.getLabel());
+        Ventana.add(Texto3.getLabel());
 
         crearVentana("test", 1110,910);
         habilitarVentana();

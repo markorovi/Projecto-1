@@ -1,12 +1,15 @@
 package com.gmail.markorovi24.HUDCards;
 import com.gmail.markorovi24.Mediator.MediadorCartas;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.nio.file.Paths;
+
 
 public class MyCards {
     JLabel Card = new JLabel();
@@ -17,6 +20,13 @@ public class MyCards {
 
     public JLabel getCard(){
         return Card;
+    }
+
+    public void setImage(String name) {
+        String path = Paths.get("").toAbsolutePath().toString();
+        path = path + "\\src\\main\\resources\\images\\";
+        Card.setIcon(new ImageIcon(path + name));
+
     }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
@@ -45,10 +55,10 @@ public class MyCards {
     }
 
 
-    public void builder(Color color, int x, int y, int width, int height, MediadorCartas mediador){
+    public void builder(int x, int y, int width, int height, MediadorCartas mediador){
         this.Control = mediador;
         Card.setOpaque(true);
-        Card.setBackground(color);
+        setImage("Interrogacion.jpg");
         Card.setBounds(x, y, width, height);
         Card.addMouseListener(new MouseInputListener() {
             @Override
