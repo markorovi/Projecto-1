@@ -1,15 +1,15 @@
-package com.github.monstertecg.plantillasDeListas;
+package com.github.monstertecg.listasEnlazadas;
 
 /**
  * Crea lista tipo pila
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.4
+ * @since 0.2.0
  */
 public class ListaStack<T> {
-    private ListaStack ultimo = null;
-    private ListaStack anterior = null;
+    private ListaStack<T> ultimo = null;
+    private ListaStack<T> anterior = null;
     private T valor = null;
 
     /**
@@ -19,9 +19,7 @@ public class ListaStack<T> {
      */
     public ListaStack(T valor){
         this.valor = valor;
-        if (this.ultimo == null){
-            this.ultimo = this;
-        }
+        this.ultimo = this;
     }
 
     /**
