@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class ListaSimple<T> {
 
-    private static Logger LOGGER = Logger.getLogger(ListaSimple.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ListaSimple.class.getName());
 
     private T value = null;
     private ListaSimple<T> siguiente = null;

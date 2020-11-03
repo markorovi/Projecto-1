@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -16,14 +18,35 @@ import java.io.IOException;
 
 public class Json {
 
-    private static ObjectMapper objectMapper = getDefaultObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static ObjectMapper getDefaultObjectMapper() {
-        return new ObjectMapper();
-    }
-
-    public static JsonNode parse(String jsonSource) throws IOException {
+    public static JsonNode parse(String jsonSource) throws JsonProcessingException{
         return objectMapper.readTree(jsonSource);
     }
 
+    public static JsonNode getFromFile(String path) throws IOException {
+
+        String json = null;
+
+        try {
+
+            try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+
+                while (line != null) {
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
+                }
+                json = sb.toString();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return parse(json);
+
+    }
 }
