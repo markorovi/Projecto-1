@@ -1,0 +1,40 @@
+Formato de envío de mensajes a través de JSON.
+
+Cada mensaje debe incluir lo siguiente:
+declaración de carta
+actualización de vida
+informe de abandono
+
+--------------------------------------------------------------------------------
+                        Declaracaiones de cartas.
+
+Las posibles son las siguientes:
+"Carta seleccionada": "esbirros"
+"Carta seleccionada": "hechizos"
+"Carta seleccionada": "secretos"
+"Carta seleccionada": "salto"
+"Carta seleccionada": null
+
+Si el tipo de carta es esbirros, hechizos o secretos,
+obligatoriamente debe incluir la id en forma de String:
+"id": "0" (valor representativo)
+
+Los esbirros tienen id desde 0 hasta 19.
+Los hechizos tienen id desde 0 hasta 9.
+Los secretos tienen id desde 0 hasta 9.
+
+--------------------------------------------------------------------------------
+                        Actualización de vida.
+
+Se debe incluir la vida actual del jugador:
+"vida": 1000 (valor representativo)
+
+
+--------------------------------------------------------------------------------
+                        Informe de abandono.
+
+Si el jugador abandona o no, se debe informar así:
+"abandonar": false
+
+
+--------------------------------------------------------------------------------

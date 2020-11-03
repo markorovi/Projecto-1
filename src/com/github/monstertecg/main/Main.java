@@ -24,36 +24,8 @@ public class Main {
 //        // variables -----------------------------------------------------------
 //
 //        Conectividad conexion;
-//        JSONObject json = new JSONObject();
 //
-//        json.put("Mensaje", "Hola");
-//
-//        // Código ---------------------------------------------------------------
-//
-//        conexion = Conectividad.obtenerInstancia();
-//
-//        Scanner scan = new Scanner(System.in);
-//
-//        conexion.EstablecerDestino("40000", conexion.ObtenerOrigen()[1]);
-//
-//        new Thread(conexion::BucleDeConexion).start();
-//
-//        System.out.println(conexion.ObtenerDestino()[1]);
-//
-//        conexion.EnviarMensaje(json.toString());
 
-        JsonNode nodo;
-
-        try {
-            nodo = Json.getFromFile("json.json");
-
-            Cartas carta = Decodificador.Decodificar(nodo);
-
-            carta.Mostrar();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
 
     }

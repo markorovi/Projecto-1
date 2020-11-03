@@ -11,7 +11,6 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -28,13 +27,6 @@ public class Conectividad {
     private static final Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
     private Socket socket;
     private ServerSocket serverSocket;
-
-    // Asegurar conexión
-    private boolean seguirIntentando = true;
-    private boolean conectado = false;
-    private int tiempoEsperando = 0;
-    private int conteoComprobacion = 0;
-    private static boolean conexionActualizada = false;
 
     // Aspectos de host
     private String ipPropia;
@@ -98,8 +90,6 @@ public class Conectividad {
             LOGGER.info(e.getMessage());
             fHandler.close();        }
 
-        this.conectado = true;
-
         while (true) {
 
             try {
@@ -140,17 +130,11 @@ public class Conectividad {
 
                 jnode = Json.parse(inputStream.readUTF());
 
-                ComprobarMensajeSecreto(jnode.get("Mensaje").asText());
+                // Comprueba cartas
+                Decodificador.DecodificarCartas(jnode);
 
-                /* Añadir comprobación para:
-                    Cartas
-                    Cambio de turno
-                    Solicitud de pausa
-                    Sincronización de reloj
-                    no sé qué otra putada más
-                 */
 
-                System.out.println(jnode.get("MensajeSecreto").asText());
+                Decodificador.DecodificarMiscelaneos(jnode);
 
                 break;
 
@@ -171,23 +155,6 @@ public class Conectividad {
         } catch (IOException e) {
             this.LOGGER.info("La conexión tuvo problemas para cerrarse. Mensaje de error: " + e.getMessage());
         }
-    }
-
-    private void ComprobarMensajeSecreto(String texto) throws IOException {
-        switch (texto) {
-            case "acknowledge":
-                this.tiempoEsperando = 0;
-                break;
-
-            case "desconectar":
-                this.socket.close();
-                System.out.println("Se desconectó voluntariamente.");
-                break;
-
-            default:
-                break;
-        }
-        System.out.println(texto);
     }
 
     /**
