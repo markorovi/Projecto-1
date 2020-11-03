@@ -29,7 +29,7 @@ public class Decodificador {
     }
 
 
-    public static Esbirros DecodificarEsbirro(JsonNode mensajeCodificado) {
+    private static Esbirros DecodificarEsbirro(JsonNode mensajeCodificado) {
 
         String idCarta = mensajeCodificado.get("id").asText();
 
@@ -46,7 +46,7 @@ public class Decodificador {
         return new Esbirros(nombre, descripcion, frase, dano, mana);
     }
 
-    public static Hechizos DecodificadorHechizos(JsonNode mensajeCodificado) {
+    private static Hechizos DecodificadorHechizos(JsonNode mensajeCodificado) {
 
         String idCarta = mensajeCodificado.get("id").asText();
 
@@ -61,7 +61,7 @@ public class Decodificador {
         return new Hechizos(nombre, descripcion, mana);
     }
 
-    public static Secretos DecodificadorSecretos(JsonNode mensajeCodificado) {
+    private static Secretos DecodificadorSecretos(JsonNode mensajeCodificado) {
 
         String idCarta = mensajeCodificado.get("id").asText();
 
@@ -77,31 +77,42 @@ public class Decodificador {
         return new Secretos(nombre, descripcion, frase, mana);
     }
 
-    public static Cartas Decodificar(JsonNode nodo) {
+    public static Cartas DecodificarCartas(JsonNode mensajeCodificado) {
         Cartas carta = null;
 
-        switch (nodo.get("Carta seleccionada").asText()){
+        switch (mensajeCodificado.get("Carta seleccionada").asText()){
 
             case "esbirro":
 
-                carta = Decodificador.DecodificarEsbirro(nodo);
+                carta = Decodificador.DecodificarEsbirro(mensajeCodificado);
                 break;
 
             case "hechizos":
-                carta = Decodificador.DecodificadorHechizos(nodo);
+                carta = Decodificador.DecodificadorHechizos(mensajeCodificado);
                 break;
 
             case "secretos":
-                carta = Decodificador.DecodificadorSecretos(nodo);
+                carta = Decodificador.DecodificadorSecretos(mensajeCodificado);
                 break;
 
             case "saltar":
                 System.out.println("se ha saltado el turno");
 
             default:
-                System.out.println("la carta no existe");
+                System.out.println("sin carta");
         }
         return carta;
+    }
+
+    public static void DecodificarMiscelaneos(JsonNode mensajeCodificado){
+        int vida = mensajeCodificado.get("vida").asInt();
+        boolean muerto = vida < 1;
+        boolean abandonar = mensajeCodificado.get("abandonar").asBoolean();
+
+        try {
+            System.out.println(mensajeCodificado.get("MensajeSecreto").asText());
+        } catch (Exception e){ /*no había mensaje secreto*/ }
+
     }
 
 }
