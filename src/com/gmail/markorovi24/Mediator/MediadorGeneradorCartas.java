@@ -1,6 +1,7 @@
 package com.gmail.markorovi24.Mediator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
+import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.github.monstertecg.listasEnlazadas.ListaStack;
 import com.gmail.markorovi24.Cartas.Cartas;
@@ -62,28 +63,31 @@ public class MediadorGeneradorCartas {
         return Pila;
     }
 
-//    public void ramdomizadorHand(){
-//
-//        for (int i = 0; i < 4; i++) {
-//            int type = rand.nextInt(3);
-//            if (type == 1) {
-//                int card = rand.nextInt(20);
-//                JsonNode attr = Diccionario.get("esbirros").get(String.valueOf(card));
-//                Lista.Agregar(createCard("esbirros", String.valueOf(card), attr));
-//
-//            } else if (type == 2) {
-//                int card = rand.nextInt(10);
-//                Diccionario.get("hechizos").get(String.valueOf(card));
-//                JsonNode attr = Diccionario.get("hechizos").get(String.valueOf(card));
-//                Lista.Agregar(createCard("hechizos", String.valueOf(card), attr));
-//
-//            } else {
-//                int card = rand.nextInt(10);
-//                Diccionario.get("secretos").get(String.valueOf(card));
-//                JsonNode attr = Diccionario.get("secretos").get(String.valueOf(card));
-//                Lista.Agregar(createCard("secretos", String.valueOf(card), attr));
-//            }
-//        }
-//    }
+    public ListaCircularDoble<Cartas> ramdomizadorHand(){
+        ListaCircularDoble<Cartas> Lista = new ListaCircularDoble<Cartas>();
+
+        for (int i = 0; i < 4; i++) {
+            int type = rand.nextInt(3);
+            if (type == 1) {
+                int card = rand.nextInt(20);
+                JsonNode attr = Diccionario.get("esbirros").get(String.valueOf(card));
+                Lista.Agregar(createCard("esbirros", String.valueOf(card), attr));
+
+            } else if (type == 2) {
+                int card = rand.nextInt(10);
+                Diccionario.get("hechizos").get(String.valueOf(card));
+                JsonNode attr = Diccionario.get("hechizos").get(String.valueOf(card));
+                Lista.Agregar(createCard("hechizos", String.valueOf(card), attr));
+
+            } else {
+                int card = rand.nextInt(10);
+                Diccionario.get("secretos").get(String.valueOf(card));
+                JsonNode attr = Diccionario.get("secretos").get(String.valueOf(card));
+                Lista.Agregar(createCard("secretos", String.valueOf(card), attr));
+            }
+        }
+
+        return Lista;
+    }
 
 }

@@ -78,6 +78,7 @@ public class ListaCircularDoble<T> {
             } else {
                 this.primero = this.primero.siguiente;
                 this.primero.EstablecerObjetoAnterior(BuscaUltimo(this.primero));
+                //Esto esta dando problemas, y tambien hay que cambiar el .siguiente del ultimo, porque sigue apuntando al que se esta queriendo eliminar
             }
         } else {
             this.primero.EliminarAux(indice, this.primero);

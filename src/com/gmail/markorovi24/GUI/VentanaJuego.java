@@ -1,4 +1,5 @@
 package com.gmail.markorovi24.GUI;
+import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
@@ -8,6 +9,7 @@ import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 import com.gmail.markorovi24.GUI.Widgets.*;
 import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorVidaMana;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,6 +39,18 @@ public class VentanaJuego extends Ventana{
         MyCard8.builder(480, 700, 120, 160, ControlCartas);
         MyCard9.builder(630, 700, 120, 160, ControlCartas);
         MyCard10.builder(780, 700, 120, 160, ControlCartas);
+
+        ListaDoble<MyCards> Hand = new ListaDoble<MyCards>();
+        Hand.Agregar(MyCard1);
+        Hand.Agregar(MyCard2);
+        Hand.Agregar(MyCard3);
+        Hand.Agregar(MyCard4);
+        Hand.Agregar(MyCard5);
+        Hand.Agregar(MyCard6);
+        Hand.Agregar(MyCard7);
+        Hand.Agregar(MyCard8);
+        Hand.Agregar(MyCard9);
+        Hand.Agregar(MyCard10);
 
         Deck GameDeck = new Deck();
         Deck CardsPlayed = new Deck();
@@ -91,7 +105,19 @@ public class VentanaJuego extends Ventana{
         Boton1.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                for (int i = 0; i < ControlDecks.getHandCards(); i++){
+                    if (Hand.Obtener(i).getIsUp()){
+                        ControlDecks.agregarHistorial(ControlDecks.getHand().Obtener(i));
+                        ControlDecks.eliminarHandCard(i);
+
+                        for (int k = 0; k < ControlDecks.getHandCards(); k++){
+                            Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
+                            System.out.println(ControlDecks.getHand().Obtener(k).getNombre());
+                        }
+                        Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
+                        break;
+                    }
+                }
             }
         });
 
@@ -121,6 +147,11 @@ public class VentanaJuego extends Ventana{
 
             }
         });
+
+
+        for (int i = 0; i < 4; i++){
+            Hand.Obtener(i).setImage(ControlDecks.getHand().Obtener(i).getNombre() + ".jpg");
+        }
 
 
         Ventana.add(MyCard1.getCard());
