@@ -27,6 +27,10 @@ public class Json {
         return objectMapper.readTree(jsonSource);
     }
 
+    public static JSONObject parseJSONObject(String jsonSource) {
+        return new JSONObject(jsonSource);
+    }
+
     public static JsonNode getFromFile(String path) throws IOException {
 
         String json = null;
@@ -63,7 +67,7 @@ public class Json {
          return jsonObject.toString();
      }
 
-     public JsonNode getCartas(String cartas){
+     public static JsonNode getCartas(String cartas){
         JsonNode jsonNode = null;
         JSONObject temporal = new JSONObject();
         int i = 0;

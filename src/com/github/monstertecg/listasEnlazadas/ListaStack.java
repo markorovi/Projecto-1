@@ -8,18 +8,25 @@ package com.github.monstertecg.listasEnlazadas;
  * @since 0.2.0
  */
 public class ListaStack<T> {
-    private ListaStack<T> ultimo = null;
+    private ListaStack<T> ultimo;
     private ListaStack<T> anterior = null;
+    private ListaStack<T> referencia;
     private T valor = null;
+
+    public ListaStack(){
+        this.ultimo = null;
+        this.referencia = this;
+    }
 
     /**
      * Constructor
      *
      * @param valor
      */
-    public ListaStack(T valor){
+    public ListaStack(T valor, ListaStack<T> referencia){
         this.valor = valor;
         this.ultimo = this;
+        this.referencia = referencia;
     }
 
     /**
@@ -27,8 +34,8 @@ public class ListaStack<T> {
      *
      * @param valor
      */
-    public void AgregarElemento(T valor){
-        ListaStack siguienteTemporal = new ListaStack(valor);
+    public void Agregar(T valor){
+        ListaStack siguienteTemporal = new ListaStack(valor, this.referencia);
         siguienteTemporal.EstablecerAnterior(this.ultimo);
         ActualizarUltimo(siguienteTemporal);
     }
@@ -47,8 +54,11 @@ public class ListaStack<T> {
      *
      */
     public void EliminarUltimoElemento(){
-        if (ultimo.anterior == null) {
-            throw new IndexOutOfBoundsException("No hay elementos compa, la lista está vacía.");
+        if (this.ultimo == null) {
+            throw new IndexOutOfBoundsException("La pila está vacía.");
+        } else if (ultimo.anterior == null) {
+            this.referencia.ultimo = null;
+            return;
         }
         ActualizarUltimo(this.ultimo.anterior);
     }
