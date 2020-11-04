@@ -46,3 +46,7 @@ Si el jugador abandona o no, se debe informar así:
 
 
 --------------------------------------------------------------------------------
+                        Otros objetos no obligatorios
+
+"Mensaje": "mensaje" (valor representantivo)
+no es necesario, sirve para debuggear

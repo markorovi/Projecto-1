@@ -66,7 +66,7 @@ public class ListaStack<T> {
     /**
      * Establece el último para que todos tengan la misma referencia al mismo último.
      */
-    private void ActualizarUltimo (ListaStack ultimo){
+    private void ActualizarUltimo (ListaStack<T> ultimo){
         if (this.anterior == null){
             this.ultimo = ultimo;
             return;
@@ -114,7 +114,7 @@ public class ListaStack<T> {
      *
      * @param anterior
      */
-    private void EstablecerAnterior(ListaStack anterior){
+    private void EstablecerAnterior(ListaStack<T> anterior){
         this.anterior = anterior;
     }
 

@@ -82,7 +82,7 @@ public class Decodificador {
 
         switch (mensajeCodificado.get("Carta seleccionada").asText()){
 
-            case "esbirro":
+            case "esbirros":
 
                 carta = Decodificador.DecodificarEsbirro(mensajeCodificado);
                 break;
@@ -109,7 +109,7 @@ public class Decodificador {
         boolean abandonar = mensajeCodificado.get("abandonar").asBoolean();
 
         try {
-            System.out.println(mensajeCodificado.get("MensajeSecreto").asText());
+            System.out.println(mensajeCodificado.get("Mensaje").asText());
         } catch (Exception e){ /*no había mensaje secreto*/ }
 
     }
