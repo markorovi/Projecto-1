@@ -3,6 +3,7 @@ Formato de envío de mensajes a través de JSON.
 Cada mensaje debe incluir lo siguiente:
 declaración de carta
 actualización de vida
+actualización de maná
 informe de abandono
 
 --------------------------------------------------------------------------------
@@ -28,6 +29,13 @@ Los secretos tienen id desde 0 hasta 9.
 
 Se debe incluir la vida actual del jugador:
 "vida": 1000 (valor representativo)
+
+
+--------------------------------------------------------------------------------
+                        Actualización de maná.
+
+Se debe incluir el maná actual del jugador:
+"maná": 200 (valor representativo)
 
 
 --------------------------------------------------------------------------------
