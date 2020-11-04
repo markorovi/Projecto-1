@@ -1,24 +1,22 @@
 package com.github.monstertecg.listasEnlazadas;
 
-import java.util.logging.Logger;
-
 /**
  * Crea lista tipo pila
  *
  * @author Luis Delgado
  * @version 1.0
- * @since 0.5.5
+ * @since 0.6.0
  */
-public class ListaDoble<T> {
+public class ListaCircularDoble<T> {
 
     private T valor = null;
-    private ListaDoble<T> siguiente = null;
-    private ListaDoble<T> anterior = null;
-    private ListaDoble<T> primero = null;
+    private ListaCircularDoble<T> siguiente = null;
+    private ListaCircularDoble<T> anterior = null;
+    private ListaCircularDoble<T> primero = null;
 
-    public ListaDoble() { }
+    public ListaCircularDoble() { }
 
-    public ListaDoble(T value) {
+    public ListaCircularDoble(T value) {
         this.valor = value;
     }
 
@@ -29,12 +27,16 @@ public class ListaDoble<T> {
      */
     public void Agregar(T elemento) {
         if (this.primero == null) {
-            this.primero = new ListaDoble<T>(elemento);
+            this.primero = new ListaCircularDoble<T>(elemento);
+            this.primero.EstablecerObjetoSiguiente(this.primero);
+            this.primero.EstablecerObjetoAnterior(this.primero);
         } else {
-            ListaDoble<T> temporal = new ListaDoble<T>(elemento);
-            ListaDoble<T> ultimo = this.primero.BuscaUltimo();
+            ListaCircularDoble<T> temporal = new ListaCircularDoble<T>(elemento);
+            ListaCircularDoble<T> ultimo = this.primero.BuscaUltimo(this.primero);
             temporal.EstablecerObjetoAnterior(ultimo);
             ultimo.EstablecerObjetoSiguiente(temporal);
+            temporal.EstablecerObjetoSiguiente(this.primero);
+            this.primero.EstablecerObjetoAnterior(temporal);
         }
     }
 
@@ -42,10 +44,10 @@ public class ListaDoble<T> {
         if (this.primero == null && indice != 0) {
             throw new IndexOutOfBoundsException("La lista está vacía");
         }else if(this.primero == null){
-            this.primero = new ListaDoble<T>(elemento);
+            this.primero = new ListaCircularDoble<T>(elemento);
         } else {
-            ListaDoble<T> temporal = new ListaDoble<T>(elemento);
-            ListaDoble<T> anteriorPosicion = this.ObtenerObjeto(indice);
+            ListaCircularDoble<T> temporal = new ListaCircularDoble<T>(elemento);
+            ListaCircularDoble<T> anteriorPosicion = this.ObtenerObjeto(indice);
             anteriorPosicion.ObtenerObjetoAnterior().EstablecerObjetoSiguiente(temporal);
             temporal.EstablecerObjetoAnterior(anteriorPosicion.ObtenerObjetoAnterior());
             temporal.EstablecerObjetoSiguiente(anteriorPosicion);
@@ -57,11 +59,11 @@ public class ListaDoble<T> {
      * Busca el último elemento de la lista
      * @return último elemento
      */
-    private ListaDoble<T> BuscaUltimo(){
-        if (this.siguiente == null){
+    private ListaCircularDoble<T> BuscaUltimo(ListaCircularDoble<T> primero){
+        if (this.siguiente == primero){
             return this;
         } else {
-            return this.siguiente.BuscaUltimo();
+            return this.siguiente.BuscaUltimo(primero);
         }
     }
 
@@ -75,24 +77,24 @@ public class ListaDoble<T> {
                 throw new IndexOutOfBoundsException("La lista está vacía, no se pueden eliminar elementos");
             } else {
                 this.primero = this.primero.siguiente;
-                this.primero.EstablecerObjetoAnterior(null);
+                this.primero.EstablecerObjetoAnterior(BuscaUltimo(this.primero));
             }
         } else {
-            this.primero.EliminarAux(indice);
+            this.primero.EliminarAux(indice, this.primero);
         }
     }
 
-    private void EliminarAux (int indice) {
+    private void EliminarAux (int indice, ListaCircularDoble<T> primero) {
         if (indice -1 == 0) {
-            if (this.siguiente == null){
+            if (this.siguiente == primero){
                 throw new IndexOutOfBoundsException("El índice está fuera de los límites de la lista.");
             }
             this.siguiente = this.siguiente.ObtenerObjetoSiguiente();
-            if (this.siguiente != null) {
+            if (this.siguiente != primero) {
                 this.siguiente.EstablecerObjetoAnterior(this);
             }
         } else {
-            this.siguiente.EliminarAux(indice -1);
+            this.siguiente.EliminarAux(indice -1, primero);
         }
     }
 
@@ -104,15 +106,15 @@ public class ListaDoble<T> {
         if (this.primero == null) {
             return 0;
         } else {
-            return this.primero.LargoAux();
+            return this.primero.LargoAux(this.primero);
         }
     }
 
-    private int LargoAux(){
-        if (this.siguiente == null){
+    private int LargoAux(ListaCircularDoble<T> primero){
+        if (this.siguiente == primero){
             return 1;
         } else {
-            return this.siguiente.LargoAux() + 1;
+            return this.siguiente.LargoAux(primero) + 1;
         }
     }
 
@@ -125,7 +127,7 @@ public class ListaDoble<T> {
         if (this.primero == null) {
             throw new IndexOutOfBoundsException("El el índice solicitado sobrepasa el largo de la lista.");
         }
-        return this.primero.ObtenerAux(indice);
+        return this.primero.ObtenerAux(indice, this.primero);
     }
 
     /**
@@ -133,46 +135,53 @@ public class ListaDoble<T> {
      * @param indice
      * @return valor
      */
-    private T ObtenerAux(int indice) {
+    private T ObtenerAux(int indice, ListaCircularDoble<T> primero) {
         if (indice == 0) {
             return this.valor;
-        } else if (this.siguiente == null) {
+        } else if (this.siguiente == primero) {
             throw new IndexOutOfBoundsException("El el índice solicitado sobrepasa el largo de la lista.");
         } else {
-            return this.siguiente.ObtenerAux(indice -1);
+            return this.siguiente.ObtenerAux(indice -1, primero);
         }
     }
 
-    private ListaDoble<T> ObtenerObjeto(int indice) {
+    private ListaCircularDoble<T> ObtenerObjeto(int indice) {
         if (this.primero == null) {
             throw new IndexOutOfBoundsException("El el índice solicitado sobrepasa el largo de la lista.");
         }
-        return this.primero.ObtenerObjetoAux(indice);
+        return this.primero.ObtenerObjetoAux(indice, this.primero);
     }
 
-    private ListaDoble<T> ObtenerObjetoAux(int indice) {
+    private ListaCircularDoble<T> ObtenerObjetoAux(int indice, ListaCircularDoble<T> primero) {
         if (indice == 0) {
             return this;
-        } else if (this.siguiente == null) {
-            throw new IndexOutOfBoundsException("El el índice solicitado sobrepasa el largo de la lista.");
+        } else if (this.siguiente == primero) {
+            throw new IndexOutOfBoundsException("El índice solicitado sobrepasa el largo de la lista.");
         } else {
-            return this.siguiente.ObtenerObjetoAux(indice -1);
+            return this.siguiente.ObtenerObjetoAux(indice -1, primero);
         }
     }
 
+
+
+
+
+
+
+
+    public Object asd(){
+        return this.primero.siguiente.ObtenerElemento();
+    }
+
     public T ObtenerAnteriorDe(int indice){
-        if (indice == 0) {
-            throw new IndexOutOfBoundsException("No se puede obtener un elemento posterior al último elemento.");
-        } else if (this.primero == null) {
+        if (this.primero == null) {
                 throw new IndexOutOfBoundsException("La lista está vacía.");
         }
         return this.ObtenerObjeto(indice).ObtenerObjetoAnterior().ObtenerElemento();
     }
 
     public T ObtenerSiguienteDe(int indice){
-        if (indice == this.Largo()-1) {
-            throw new IndexOutOfBoundsException("No se puede obtener un elemento anterior a primer elemento.");
-        } else if (this.primero == null) {
+        if (this.primero == null) {
             throw new IndexOutOfBoundsException("La lista está vacía.");
         }
         return this.ObtenerObjeto(indice).ObtenerObjetoSiguiente().ObtenerElemento();
@@ -196,11 +205,11 @@ public class ListaDoble<T> {
         }
     }
 
-    private ListaDoble<T> ObtenerObjetoSiguiente() {
+    private ListaCircularDoble<T> ObtenerObjetoSiguiente() {
         return this.siguiente;
     }
 
-    private ListaDoble<T> ObtenerObjetoAnterior() {
+    private ListaCircularDoble<T> ObtenerObjetoAnterior() {
         return this.anterior;
     }
 
@@ -208,11 +217,11 @@ public class ListaDoble<T> {
         return this.valor;
     }
 
-    private void EstablecerObjetoSiguiente(ListaDoble<T> siguiente) {
+    private void EstablecerObjetoSiguiente(ListaCircularDoble<T> siguiente) {
         this.siguiente = siguiente;
     }
 
-    private void EstablecerObjetoAnterior(ListaDoble<T> anterior){
+    private void EstablecerObjetoAnterior(ListaCircularDoble<T> anterior){
         this.anterior = anterior;
     }
 
