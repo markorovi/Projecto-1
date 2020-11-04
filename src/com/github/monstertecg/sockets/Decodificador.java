@@ -110,7 +110,7 @@ public class Decodificador {
 
         try {
             System.out.println(mensajeCodificado.get("Mensaje").asText());
-        } catch (Exception e){ /*no había mensaje secreto*/ }
+        } catch (Exception e){ /*no había mensaje secreto*/ System.out.println("no había mensaje secreto"); }
 
     }
 

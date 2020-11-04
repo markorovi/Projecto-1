@@ -21,6 +21,7 @@ public class VentanaMenu extends Ventana{
             MediadorMyCards Control4 = new MediadorMyCards();
 
             Control4.setMyDeck(Control3.ramdomizadorDeck());
+            Control4.setHand(Control3.ramdomizadorHand());
 
             VentanaJuego Juego = new VentanaJuego();
             Juego.configurarMenu(Control1, Control2, Control4);

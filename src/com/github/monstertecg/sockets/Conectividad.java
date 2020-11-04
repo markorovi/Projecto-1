@@ -90,31 +90,15 @@ public class Conectividad {
         } catch (IOException e) {
             FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
             LOGGER.info(e.getMessage());
-            fHandler.close();        }
+            fHandler.close();
+        }
 
         while (true) {
 
-            try {
+            System.out.println("bucleeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
-                this.socket = serverSocket.accept();
+            this.Conectado();
 
-                new Thread(this::Conectado).start();
-
-            } catch (IOException e) {
-
-                FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
-                LOGGER.info(e.getMessage());
-                fHandler.close();
-
-                try {
-                    this.socket.close();
-                } catch (IOException ioException) {
-                    fHandler = (new LoggingHandler().Handler(LOGGER));
-                    LOGGER.info(ioException.getMessage());
-                    fHandler.close();
-                }
-
-            }
         }
     }
 
@@ -125,37 +109,38 @@ public class Conectividad {
         DataInputStream inputStream;
         while (true) {
             try {
+                System.out.println("bucleee dooooooooos");
 
                 this.socket = serverSocket.accept();
 
                 inputStream = new DataInputStream(socket.getInputStream());
 
-                jnode = Json.parse(inputStream.readUTF());
+                String entrada = inputStream.readUTF();
+
+                System.out.println("recibido " + entrada);
+
+                jnode = Json.parse(entrada);
 
                 // Comprueba cartas
-                Decodificador.DecodificarCartas(jnode);
+                // Decodificador.DecodificarCartas(jnode);
 
 
                 Decodificador.DecodificarMiscelaneos(jnode);
 
-                break;
+                try {
+                    inputStream.close();
+                    socket.close();
+                } catch (IOException e) {
+                    LOGGER.info("La conexión tuvo problemas para cerrarse. Mensaje de error: " + e.getMessage());
+                    break;
+                }
 
             } catch (IOException e) {
                 FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.info(e.getMessage());
                 fHandler.close();
+                break;
             }
-
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            inputStream.close();
-        } catch (IOException e) {
-            this.LOGGER.info("La conexión tuvo problemas para cerrarse. Mensaje de error: " + e.getMessage());
         }
     }
 

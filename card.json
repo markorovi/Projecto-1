@@ -2,7 +2,7 @@
   "esbirros": {
     "0": {
       "nombre": "La vaca",
-      "descripcion": "Desde San Carlos, este animal te enviste a una gran velocidad.",
+      "descripcion": "Desde San Carlos, este animal te embiste a una gran velocidad.",
       "frase": "Mu.",
       "daño": 15,
       "mana": 15
@@ -191,7 +191,7 @@
       "mana": 15
     },
     "9": {
-      "nombre": "Escudo sagrado.",
+      "nombre": "Escudo sagrado",
       "descripcion": "Si el rival usa un esbirro en su siguiente turno, este no hará nada de daño.",
       "mana": 15
     }

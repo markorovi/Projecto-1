@@ -21,6 +21,10 @@ public class MyCards {
         return Card;
     }
 
+    public boolean getIsUp(){
+        return isUp;
+    }
+
     public void setImage(String name) {
         String path = Paths.get("").toAbsolutePath().toString();
         path = path + "\\src\\main\\resources\\images\\";
