@@ -24,16 +24,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        System.out.println("Funciona, tenga un buen día.");
-//
-//        Conectividad conexion = Conectividad.obtenerInstancia();
-//
-//        conexion.BucleDeConexion();
-//
-//        String mensaje = Json.VarToString("hechizos", "1", 1000, 200, false, "hola buenas");
-//
-//        conexion.EnviarMensaje(mensaje);
+        System.out.println("Funciona, tenga un buen día.");
 
+        Conectividad conexion = Conectividad.obtenerInstancia();
+
+        new Thread(conexion::BucleDeConexion).start();
+
+        String mensaje = Json.VarToString("hechizos", "1", 1000, 200, false, "hola buenas");
+
+        conexion.EstablecerDestino("40000", "127.1.1.1");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        conexion.EnviarMensaje(mensaje);
     }
 
 }
