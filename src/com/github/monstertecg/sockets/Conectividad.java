@@ -56,15 +56,11 @@ public class Conectividad {
 
         try {
 
-            System.out.println("enviando " + mensaje);
-
             Socket socketEnvio = new Socket(this.ipDestino, puertoDestino);
 
             DataOutputStream outputStream = new DataOutputStream(socketEnvio.getOutputStream());
 
-            System.out.println("antes de enviar");
             outputStream.writeUTF(mensaje);
-            System.out.println("después de enviar");
 
             outputStream.close();
 
@@ -95,8 +91,6 @@ public class Conectividad {
 
         while (true) {
 
-            System.out.println("bucleeeeeeeeeeeeeeeeeeeeeeeeeeee");
-
             this.Conectado();
 
         }
@@ -109,15 +103,12 @@ public class Conectividad {
         DataInputStream inputStream;
         while (true) {
             try {
-                System.out.println("bucleee dooooooooos");
 
                 this.socket = serverSocket.accept();
 
                 inputStream = new DataInputStream(socket.getInputStream());
 
                 String entrada = inputStream.readUTF();
-
-                System.out.println("recibido " + entrada);
 
                 jnode = Json.parse(entrada);
 
