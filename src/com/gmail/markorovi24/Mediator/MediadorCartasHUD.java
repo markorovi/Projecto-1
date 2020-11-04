@@ -1,6 +1,6 @@
 package com.gmail.markorovi24.Mediator;
 
-public class MediadorCartas {
+public class MediadorCartasHUD {
     private boolean isACardUp = false;
 
 
