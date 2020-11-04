@@ -43,7 +43,7 @@ public class Decodificador {
         int dano = archivoTempo.get("daño").asInt();
         int mana = archivoTempo.get("mana").asInt();
 
-        return new Esbirros(nombre, descripcion, frase, dano, mana);
+        return new Esbirros(idCarta, nombre, descripcion, frase, dano, mana);
     }
 
     private static Hechizos DecodificadorHechizos(JsonNode mensajeCodificado) {
@@ -58,7 +58,7 @@ public class Decodificador {
         String descripcion = archivoTempo.get("descripcion").asText();
         int mana = archivoTempo.get("mana").asInt();
 
-        return new Hechizos(nombre, descripcion, mana);
+        return new Hechizos(idCarta, nombre, descripcion, mana);
     }
 
     private static Secretos DecodificadorSecretos(JsonNode mensajeCodificado) {
@@ -74,7 +74,7 @@ public class Decodificador {
         String frase = archivoTempo.get("frase").asText();
         int mana = archivoTempo.get("mana").asInt();
 
-        return new Secretos(nombre, descripcion, frase, mana);
+        return new Secretos(idCarta, nombre, descripcion, frase, mana);
     }
 
     public static Cartas DecodificarCartas(JsonNode mensajeCodificado) {
@@ -106,7 +106,6 @@ public class Decodificador {
 
     public static void DecodificarMiscelaneos(JsonNode mensajeCodificado){
         int vida = mensajeCodificado.get("vida").asInt();
-        boolean muerto = vida < 1;
         boolean abandonar = mensajeCodificado.get("abandonar").asBoolean();
 
         try {

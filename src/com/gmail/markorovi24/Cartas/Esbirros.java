@@ -2,8 +2,9 @@ package com.gmail.markorovi24.Cartas;
 
 public class Esbirros extends Cartas {
 
-    public Esbirros(String nombre, String descripcion, String frase, int dano, int mana) {
-        super(nombre, descripcion, frase, dano, mana);
+
+    public Esbirros(String id, String nombre, String descripcion, String frase, int dano, int mana) {
+        super(id, nombre, descripcion, frase, dano, mana);
     }
 
     @Override

@@ -2,8 +2,9 @@ package com.gmail.markorovi24.Cartas;
 
 public class Secretos extends Cartas {
 
-    public Secretos(String nombre, String descripcion, String frase, int mana) {
-        super(nombre, descripcion, frase, 0, mana);
+
+    public Secretos(String id, String nombre, String descripcion, String frase, int mana) {
+        super(id, nombre, descripcion, frase, mana);
     }
 
     @Override

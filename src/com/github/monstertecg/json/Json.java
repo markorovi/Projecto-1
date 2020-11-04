@@ -3,6 +3,9 @@ package com.github.monstertecg.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.monstertecg.listasEnlazadas.ListaSimple;
+import com.gmail.markorovi24.Cartas.Cartas;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,5 +52,52 @@ public class Json {
         return parse(json);
     }
 
-    // public JsonNode
+     public static String VarToString(String carta, String id, int vida, int mana, boolean abandonar, String mensaje) {
+         JSONObject jsonObject = new JSONObject();
+         jsonObject.put("Carta seleccionada", carta);
+         jsonObject.put("vida", vida);
+         jsonObject.put("mana", mana);
+         jsonObject.put("abandonar", abandonar);
+         jsonObject.put("Mensaje", mensaje);
+
+         return jsonObject.toString();
+     }
+
+     public JsonNode getCartas(String cartas){
+        JsonNode jsonNode = null;
+        JSONObject temporal = new JSONObject();
+        int i = 0;
+        boolean bucle = true;
+
+        try{
+            Json.parse(cartas);
+        } catch (Exception e) {
+            bucle = false;
+        }
+        while (true) {
+            try {
+
+            } catch (Exception e) {
+                break;
+            }
+        }
+        return jsonNode;
+     }
+
+     public static String CartasToString(ListaSimple<Cartas> cartas){
+        JSONObject jsonObject = new JSONObject();
+
+        int largo = cartas.Largo();
+        for (int i = 0; i < largo; i++){
+
+            Cartas carta = cartas.ObtenerValor(i);
+            JSONObject cartaTemp = new JSONObject();
+            cartaTemp.put("Carta Seleccionada", carta.getTipo());
+            cartaTemp.put("id", carta.getId());
+
+            jsonObject.put(String.valueOf(i), cartaTemp.toString());
+        }
+
+        return jsonObject.toString();
+     }
 }

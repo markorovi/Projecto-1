@@ -35,17 +35,19 @@ public class Conectividad {
     private int puertoEnUso;
 
 
-    public synchronized static Conectividad obtenerInstancia() {
-        if (instancia == null) {
-            instancia = new Conectividad();
-        }
-
+    public Conectividad(){
         try {
-            instancia.ipPropia = InetAddress.getLocalHost().getHostAddress();
+            this.ipPropia = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
             LOGGER.info(e.getMessage());
             fHandler.close();
+        }
+    }
+
+    public synchronized static Conectividad obtenerInstancia() {
+        if (instancia == null) {
+            instancia = new Conectividad();
         }
         return instancia;
     }
@@ -81,7 +83,7 @@ public class Conectividad {
 
     public void BucleDeConexion() {
 
-        this.puertoEnUso = BuscaPuerto();
+        this.puertoEnUso = this.BuscaPuerto();
 
         try {
             this.serverSocket = new ServerSocket(puertoEnUso);
@@ -116,7 +118,7 @@ public class Conectividad {
         }
     }
 
-    public void Conectado() {
+    private void Conectado() {
 
         JsonNode jnode;
 
