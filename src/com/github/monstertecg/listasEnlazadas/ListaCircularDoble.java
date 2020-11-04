@@ -76,9 +76,13 @@ public class ListaCircularDoble<T> {
             if (this.primero == null) {
                 throw new IndexOutOfBoundsException("La lista está vacía, no se pueden eliminar elementos");
             } else {
-                this.primero = this.primero.siguiente;
-                this.primero.EstablecerObjetoAnterior(BuscaUltimo(this.primero));
-                //Esto esta dando problemas, y tambien hay que cambiar el .siguiente del ultimo, porque sigue apuntando al que se esta queriendo eliminar
+                ListaCircularDoble<T> temporal = this.primero.ObtenerObjetoSiguiente();
+                temporal.EstablecerObjetoAnterior(this.primero.BuscaUltimo(this.primero));
+                if (this.primero == temporal.ObtenerObjetoSiguiente()){
+                    temporal.EstablecerObjetoSiguiente(temporal);
+                }
+                this.primero.BuscaUltimo(this.primero).EstablecerObjetoSiguiente(temporal);
+                this.primero = temporal;
             }
         } else {
             this.primero.EliminarAux(indice, this.primero);

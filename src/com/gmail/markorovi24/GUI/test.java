@@ -24,6 +24,13 @@ public class test {
 
         prueba.Eliminar(0);
 
+        System.out.println(prueba.Obtener(0));
+        System.out.println(prueba.Obtener(1));
+        System.out.println(prueba.Obtener(2));
+
+        System.out.println(prueba.ObtenerAnteriorDe(0));
+        System.out.println(prueba.ObtenerSiguienteDe(2));
+
 
     }
 }
