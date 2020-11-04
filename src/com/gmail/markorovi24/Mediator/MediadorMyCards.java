@@ -1,10 +1,12 @@
 package com.gmail.markorovi24.Mediator;
 
+import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.github.monstertecg.listasEnlazadas.ListaStack;
 import com.gmail.markorovi24.Cartas.Cartas;
 
 public class MediadorMyCards {
     ListaStack<Cartas> MyDeck;
+    ListaDoble<Cartas> Historial;
     int Contador = 16;
 
     public ListaStack<Cartas> getMyDeck() {
