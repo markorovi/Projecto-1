@@ -1,5 +1,7 @@
 package com.gmail.markorovi24.GUI;
 
+import com.gmail.markorovi24.Mediator.MediadorGeneradorCartas;
+
 public class test {
     public static void main(String[] args){
         VentanaMenu test = new VentanaMenu();

@@ -29,21 +29,21 @@
       "mana": 15
     },
     "4": {
-      "nombre": "El correcaminos",
+      "nombre": "Correcaminos",
       "descripcion": "Al intentar perseguir a este veloz animal, un yunque te ha caído encima.",
       "frase": "Yunque patrocinado por la marca ACME.",
       "daño": 70,
       "mana": 15
     },
     "5": {
-      "nombre": "Pedro picapiedra",
+      "nombre": "Picapiedra",
       "descripcion": "Sin querer has viajado en el tiempo, y este cavernícola te ha agarrado a garrotazos.",
       "frase": "Yabba dabba doo.",
       "daño": 40,
       "mana": 15
     },
     "6": {
-      "nombre": "La hormiga atómica",
+      "nombre": "Hormiga atomica",
       "descripcion": "A pesar de su tamaño, esta hormiga te ha mandado por los aires de tan solo un golpe.",
       "frase": "No jodas con la hormiga.",
       "daño": 80,
@@ -205,7 +205,7 @@
       "mana": 15
     },
     "1": {
-      "nombre": "Lucho el cartucho",
+      "nombre": "Lucho el del cartucho",
       "descripcion": "Si un jugador tiene 10 cartas en mano y más de 500 de vida, recibe un daño de 499.",
       "frase": "Prepárate chiquita.",
       "mana": 15
@@ -223,13 +223,13 @@
       "mana": 15
     },
     "4": {
-      "nombre": "Yoshi",
+      "nombre": "Fat yoshi",
       "descripcion": "Cuando uno de los jugadores esté llegue a estar a menos de 50 de vida, yoshi hará su aparición.",
       "frase": "YOSHIIIIIII",
       "mana": 15
     },
     "5": {
-      "nombre": "Omae wa mo, shindeiru",
+      "nombre": "Omae wa mo shindeiru",
       "descripcion": "Si se juega la carta de la mosca, esta será potenciada hasta tal punto que 1 de los jugadores morirá instantáneamente",
       "frase": "nani?",
       "mana": 15

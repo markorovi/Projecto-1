@@ -1,5 +1,7 @@
 package com.gmail.markorovi24.GUI;
-import com.gmail.markorovi24.Mediator.MediadorCartas;
+import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
+import com.gmail.markorovi24.Mediator.MediadorGeneradorCartas;
+import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
 import javax.swing.*;
@@ -13,10 +15,15 @@ public class VentanaMenu extends Ventana{
         b1.addActionListener(e -> {
             //Codigo para el boton 1
             Ventana.setVisible(false);
-            MediadorCartas Control1 = new MediadorCartas();
+            MediadorCartasHUD Control1 = new MediadorCartasHUD();
             MediadorVidaMana Control2 = new MediadorVidaMana();
+            MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
+            MediadorMyCards Control4 = new MediadorMyCards();
+
+            Control4.setMyDeck(Control3.ramdomizadorDeck());
+
             VentanaJuego Juego = new VentanaJuego();
-            Juego.configurarMenu(Control1, Control2);
+            Juego.configurarMenu(Control1, Control2, Control4);
         });
         b2.addActionListener(e -> {
             //Codigo para el boton 2

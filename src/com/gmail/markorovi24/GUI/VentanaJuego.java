@@ -4,8 +4,9 @@ import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.RivalCards;
-import com.gmail.markorovi24.Mediator.MediadorCartas;
+import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 import com.gmail.markorovi24.GUI.Widgets.*;
+import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionListener;
 
 
 public class VentanaJuego extends Ventana{
-    public void configurarMenu(MediadorCartas ControlCartas, MediadorVidaMana ControlVidaMana){
+    public void configurarMenu(MediadorCartasHUD ControlCartas, MediadorVidaMana ControlVidaMana, MediadorMyCards ControlDecks){
         MyCards MyCard1 = new MyCards();
         MyCards MyCard2 = new MyCards();
         MyCards MyCard3 = new MyCards();
@@ -52,7 +53,7 @@ public class VentanaJuego extends Ventana{
         RivalCard4.builder(630, 30, 120, 160);
         RivalCard5.builder(780, 30, 120, 160);
 
-        GameDeck.builderWithActions(330, 250, 120, 160);
+        GameDeck.builderWithActions(330, 250, 120, 160, ControlDecks);
         CardsPlayed.builderWithOutActions(630, 250, 120, 160);
 
         Text ActiveCards = new Text();
