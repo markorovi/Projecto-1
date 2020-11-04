@@ -6,6 +6,5 @@ public class test {
         test.crearVentana("hola", 640,480);
         test.configurarMenu();
 
-//        }
     }
 }

@@ -3,10 +3,10 @@ import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
-import com.gmail.markorovi24.HUDCards.PlayedDeck;
 import com.gmail.markorovi24.HUDCards.RivalCards;
 import com.gmail.markorovi24.Mediator.MediadorCartas;
 import com.gmail.markorovi24.GUI.Widgets.*;
+import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,8 +14,7 @@ import java.awt.event.ActionListener;
 
 
 public class VentanaJuego extends Ventana{
-    MediadorCartas Control = new MediadorCartas();
-    public void configurarMenu(){
+    public void configurarMenu(MediadorCartas ControlCartas, MediadorVidaMana ControlVidaMana){
         MyCards MyCard1 = new MyCards();
         MyCards MyCard2 = new MyCards();
         MyCards MyCard3 = new MyCards();
@@ -27,19 +26,19 @@ public class VentanaJuego extends Ventana{
         MyCards MyCard9 = new MyCards();
         MyCards MyCard10 = new MyCards();
 
-        MyCard1.builder(180, 490, 120, 160, Control);
-        MyCard2.builder(330, 490, 120, 160, Control);
-        MyCard3.builder(480, 490, 120, 160, Control);
-        MyCard4.builder(630, 490, 120, 160, Control);
-        MyCard5.builder(780, 490, 120, 160, Control);
-        MyCard6.builder(180, 700, 120, 160, Control);
-        MyCard7.builder(330, 700, 120, 160, Control);
-        MyCard8.builder(480, 700, 120, 160, Control);
-        MyCard9.builder(630, 700, 120, 160, Control);
-        MyCard10.builder(780, 700, 120, 160, Control);
+        MyCard1.builder(180, 490, 120, 160, ControlCartas);
+        MyCard2.builder(330, 490, 120, 160, ControlCartas);
+        MyCard3.builder(480, 490, 120, 160, ControlCartas);
+        MyCard4.builder(630, 490, 120, 160, ControlCartas);
+        MyCard5.builder(780, 490, 120, 160, ControlCartas);
+        MyCard6.builder(180, 700, 120, 160, ControlCartas);
+        MyCard7.builder(330, 700, 120, 160, ControlCartas);
+        MyCard8.builder(480, 700, 120, 160, ControlCartas);
+        MyCard9.builder(630, 700, 120, 160, ControlCartas);
+        MyCard10.builder(780, 700, 120, 160, ControlCartas);
 
         Deck GameDeck = new Deck();
-        PlayedDeck CardsPlayed = new PlayedDeck();
+        Deck CardsPlayed = new Deck();
 
         RivalCards RivalCard1 = new RivalCards();
         RivalCards RivalCard2 = new RivalCards();
@@ -53,8 +52,8 @@ public class VentanaJuego extends Ventana{
         RivalCard4.builder(630, 30, 120, 160);
         RivalCard5.builder(780, 30, 120, 160);
 
-        GameDeck.builder(330, 250, 120, 160);
-        CardsPlayed.builder(630, 250, 120, 160);
+        GameDeck.builderWithActions(330, 250, 120, 160);
+        CardsPlayed.builderWithOutActions(630, 250, 120, 160);
 
         Text ActiveCards = new Text();
         ActiveCards.builder(15, 750, 150, 100, Color.white);
@@ -73,6 +72,18 @@ public class VentanaJuego extends Ventana{
 
         Label Texto3 = new Label();
         Texto3.builder(925, 560, 150, 30, Color.white, "Carta del Deck");
+
+        Label Texto4 = new Label();
+        Texto4.builder(480, 250, 120, 30, Color.white, "Vida rival: ");
+        Texto4.setValue(ControlVidaMana.getGuestHP());
+
+        Label Texto5 = new Label();
+        Texto5.builder(15, 500, 150, 30, Color.white, "Vida: ");
+        Texto5.setValue(ControlVidaMana.getHostHP());
+
+        Label Texto6 = new Label();
+        Texto6.builder(925, 500, 150, 30, Color.white, "Maná: ");
+        Texto6.setValue(ControlVidaMana.getHostMana());
 
         Button Boton1 = new Button();
         Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
@@ -127,7 +138,7 @@ public class VentanaJuego extends Ventana{
         Ventana.add(RivalCard4.getCard());
         Ventana.add(RivalCard5.getCard());
         Ventana.add(GameDeck.getDeck());
-        Ventana.add(CardsPlayed.getPlayedDeck());
+        Ventana.add(CardsPlayed.getDeck());
         Ventana.add(Boton1.getBoton());
         Ventana.add(Boton2.getBoton());
         Ventana.add(Boton3.getBoton());
@@ -138,6 +149,9 @@ public class VentanaJuego extends Ventana{
         Ventana.add(Texto1.getLabel());
         Ventana.add(Texto2.getLabel());
         Ventana.add(Texto3.getLabel());
+        Ventana.add(Texto4.getLabel());
+        Ventana.add(Texto5.getLabel());
+        Ventana.add(Texto6.getLabel());
 
         crearVentana("test", 1110,910);
         habilitarVentana();

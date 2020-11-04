@@ -1,27 +1,27 @@
 package com.gmail.markorovi24.HUDCards;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.nio.file.Paths;
 import java.util.Random;
 
 public class Deck {
     JLabel Deck = new JLabel();
-    Random azar = new Random();
 
-    //Esto esta intentando la interaccion con el click
-    private void randomTest(){
-        Deck.setBackground(new Color(azar.nextInt(256), azar.nextInt(256), azar.nextInt(256), azar.nextInt(256)));
+    public void setImage(String name) {
+        String path = Paths.get("").toAbsolutePath().toString();
+        path = path + "\\src\\main\\resources\\images\\";
+        Deck.setIcon(new ImageIcon(path + name));
     }
 
     public JLabel getDeck(){
         return Deck;
     }
 
-    public void builder(int x, int y, int width, int height){
+    public void builderWithActions(int x, int y, int width, int height){
         Deck.setOpaque(true);;
         Deck.setBounds(x, y, width, height);
-        randomTest();
+        setImage("Interrogacion.jpg");
         Deck.addMouseListener(new MouseInputListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -35,7 +35,7 @@ public class Deck {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Deck.setBackground(new Color(azar.nextInt(256), azar.nextInt(256), azar.nextInt(256), azar.nextInt(256)));
+
             }
 
             @Override
@@ -58,5 +58,11 @@ public class Deck {
 
             }
         });
+    }
+
+    public void builderWithOutActions(int x, int y, int width, int height) {
+        Deck.setOpaque(true);
+        Deck.setBounds(x, y, width, height);
+        setImage("Interrogacion.jpg");
     }
 }

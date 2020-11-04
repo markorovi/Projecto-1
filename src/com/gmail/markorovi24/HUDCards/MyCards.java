@@ -26,7 +26,6 @@ public class MyCards {
         String path = Paths.get("").toAbsolutePath().toString();
         path = path + "\\src\\main\\resources\\images\\";
         Card.setIcon(new ImageIcon(path + name));
-
     }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
