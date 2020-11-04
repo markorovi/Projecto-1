@@ -10,11 +10,11 @@ informe de abandono
                         Declaracaiones de cartas.
 
 Las posibles son las siguientes:
-"Carta seleccionada": "esbirros"
-"Carta seleccionada": "hechizos"
-"Carta seleccionada": "secretos"
-"Carta seleccionada": "salto"
-"Carta seleccionada": null
+"carta seleccionada": "esbirros"
+"carta seleccionada": "hechizos"
+"carta seleccionada": "secretos"
+"carta seleccionada": "salto"
+"carta seleccionada": null
 
 Si el tipo de carta es esbirros, hechizos o secretos,
 obligatoriamente debe incluir la id en forma de String:
@@ -48,5 +48,5 @@ Si el jugador abandona o no, se debe informar así:
 --------------------------------------------------------------------------------
                         Otros objetos no obligatorios
 
-"Mensaje": "mensaje" (valor representantivo)
-no es necesario, sirve para debuggear
+"mensaje": "mensaje" (valor representantivo)
+no es necesario, sirve para especificar el afitrión al inicio de la partida.

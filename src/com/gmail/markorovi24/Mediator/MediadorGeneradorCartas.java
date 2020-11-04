@@ -2,7 +2,6 @@ package com.gmail.markorovi24.Mediator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
-import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.github.monstertecg.listasEnlazadas.ListaStack;
 import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
@@ -25,20 +24,20 @@ public class MediadorGeneradorCartas {
     }
 
     private Cartas createCard(String type, String card, JsonNode canvas){
-        if (type.equals("esbirros")){
-            Cartas Card = new Esbirros(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("frase").asText(), canvas.get("daño").asInt(), canvas.get("mana").asInt());
-            return Card;
-        } else if (type.equals("hechizos")){
-            Cartas Card = new Hechizos(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("mana").asInt());
-            return Card;
-        } else {
-            Cartas Card = new Secretos(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("frase").asText(), canvas.get("mana").asInt());
-            return Card;
+        switch (type) {
+            case "esbirros":
+                return new Esbirros(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("frase").asText(), canvas.get("daño").asInt(), canvas.get("mana").asInt());
+            case "hechizos":
+                return new Hechizos(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("mana").asInt());
+            case "secretos":
+                return new Secretos(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("frase").asText(), canvas.get("mana").asInt());
+            default:
+                return null;
         }
     }
 
     public ListaStack<Cartas> ramdomizadorDeck(){
-        ListaStack<Cartas> Pila = new ListaStack<Cartas>();
+        ListaStack<Cartas> Pila = new ListaStack<>();
 
         for (int i = 0; i < 16; i++) {
             int type = rand.nextInt(3);
@@ -64,7 +63,7 @@ public class MediadorGeneradorCartas {
     }
 
     public ListaCircularDoble<Cartas> ramdomizadorHand(){
-        ListaCircularDoble<Cartas> Lista = new ListaCircularDoble<Cartas>();
+        ListaCircularDoble<Cartas> Lista = new ListaCircularDoble<>();
 
         for (int i = 0; i < 4; i++) {
             int type = rand.nextInt(3);

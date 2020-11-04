@@ -109,7 +109,12 @@ public class Decodificador {
         boolean abandonar = mensajeCodificado.get("abandonar").asBoolean();
 
         try {
-            System.out.println(mensajeCodificado.get("Mensaje").asText());
+            String mensaje = mensajeCodificado.get("mensaje").asText();
+
+            switch (mensaje) {
+                case "anfitrion":
+
+            }
         } catch (Exception e){ /*no había mensaje secreto*/ System.out.println("no había mensaje secreto"); }
 
     }

@@ -30,7 +30,7 @@ public class Main {
 
         new Thread(conexion::BucleDeConexion).start();
 
-        String mensaje = Json.VarToString("hechizos", "1", 1000, 200, false, "hola buenas");
+        String mensaje = Json.VarToString("hechizos", "1", 1000, 200, false, "anfitrion");
 
         conexion.EstablecerDestino("40000", "127.1.1.1");
 
@@ -41,8 +41,6 @@ public class Main {
         }
 
         conexion.EnviarMensaje(mensaje);
-
-        // FUNCIONAAAAAAAAAAAAAAAAA
     }
 
 }
