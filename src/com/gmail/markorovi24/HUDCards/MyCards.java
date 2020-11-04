@@ -1,7 +1,6 @@
 package com.gmail.markorovi24.HUDCards;
-import com.gmail.markorovi24.Mediator.MediadorCartas;
+import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -14,7 +13,7 @@ import java.nio.file.Paths;
 public class MyCards {
     JLabel Card = new JLabel();
     boolean moving = false;
-    MediadorCartas Control;
+    MediadorCartasHUD Control;
     boolean isUp;
     boolean acceptable;
 
@@ -54,7 +53,7 @@ public class MyCards {
     }
 
 
-    public void builder(int x, int y, int width, int height, MediadorCartas mediador){
+    public void builder(int x, int y, int width, int height, MediadorCartasHUD mediador){
         this.Control = mediador;
         Card.setOpaque(true);
         setImage("Interrogacion.jpg");

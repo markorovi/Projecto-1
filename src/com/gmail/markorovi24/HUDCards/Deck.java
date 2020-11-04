@@ -1,4 +1,7 @@
 package com.gmail.markorovi24.HUDCards;
+import com.gmail.markorovi24.Cartas.Cartas;
+import com.gmail.markorovi24.Mediator.MediadorMyCards;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
@@ -18,7 +21,7 @@ public class Deck {
         return Deck;
     }
 
-    public void builderWithActions(int x, int y, int width, int height){
+    public void builderWithActions(int x, int y, int width, int height, MediadorMyCards Control){
         Deck.setOpaque(true);;
         Deck.setBounds(x, y, width, height);
         setImage("Interrogacion.jpg");
@@ -35,7 +38,12 @@ public class Deck {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                Cartas card = Control.takeCard();
+                if (card != null){
+                    setImage(card.getNombre() + ".jpg");
+                } else {
+                    setImage("Interrogacion.jpg");
+                }
             }
 
             @Override
