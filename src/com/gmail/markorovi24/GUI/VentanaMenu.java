@@ -29,7 +29,24 @@ public class VentanaMenu extends Ventana{
             Juego.configurarMenu(Control1, Control2, Control4);
         });
         b2.addActionListener(e -> {
+
+            Ventana.setVisible(false);
+            VentanaIP IP = new VentanaIP();
+
+            IP.configurarMenu();
             //Codigo para el boton 2
+//            Ventana.setVisible(false);
+//            VentanaJuego Juego = new VentanaJuego();
+//            MediadorCartasHUD Control1 = new MediadorCartasHUD();
+//            MediadorVidaMana Control2 = new MediadorVidaMana();
+//            MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
+//            MediadorMyCards Control4 = new MediadorMyCards();
+//
+//            Control1.setVentana(Juego);
+//            Control4.setMyDeck(Control3.ramdomizadorDeck());
+//            Control4.setHand(Control3.ramdomizadorHand());
+//            Control4.setVentana(Juego);
+//            Juego.configurarMenu(Control1, Control2, Control4);
         });
         Ventana.add(b1);
         Ventana.add(b2);
