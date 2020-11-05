@@ -1,11 +1,13 @@
 package com.github.monstertecg.sockets;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -104,19 +106,27 @@ public class Decodificador {
         return carta;
     }
 
-    public static void DecodificarMiscelaneos(JsonNode mensajeCodificado){
+    public static boolean DecodificarMiscelaneos(JsonNode mensajeCodificado){
         int vida = mensajeCodificado.get("vida").asInt();
-        boolean abandonar = mensajeCodificado.get("abandonar").asBoolean();
+        int mana = mensajeCodificado.get("mana").asInt();
+
+
+        // llama al mediador para actualizar datos
+
+        try {
+            JsonNode infoInvitado = Json.parse(mensajeCodificado.get("mensaje").asText());
+
+            Conectividad.obtenerInstancia().EstablecerDestino(infoInvitado.get("puerto").asText(), infoInvitado.get("ip").asText());
+
+        } catch (JsonProcessingException e) { }
 
         try {
             String mensaje = mensajeCodificado.get("mensaje").asText();
 
-            switch (mensaje) {
-                case "anfitrion":
+            System.out.println("MENSAJE " + mensaje);
 
-            }
-        } catch (Exception e){ /*no había mensaje secreto*/ System.out.println("no había mensaje secreto"); }
-
+        } catch (Exception e){ System.out.println("no había mensaje secreto"); }
+        return mensajeCodificado.get("abandonar").asBoolean();
     }
 
 }

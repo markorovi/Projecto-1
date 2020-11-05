@@ -1,16 +1,9 @@
 package com.github.monstertecg.main;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
-import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
-import com.github.monstertecg.listasEnlazadas.ListaDoble;
-import com.github.monstertecg.listasEnlazadas.ListaStack;
 import com.github.monstertecg.sockets.Conectividad;
-import com.github.monstertecg.sockets.Decodificador;
-import com.gmail.markorovi24.Cartas.Cartas;
 
-import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Ejecuta el código completo
@@ -26,21 +19,55 @@ public class Main {
 
         System.out.println("Funciona, tenga un buen día.");
 
-        Conectividad conexion = Conectividad.obtenerInstancia();
+        // Probando conectividad
+
+        Conectividad conexion;
+
+        Scanner scanner = new Scanner(System.in);
+        String eleccion;
+        String eleccion1;
+        String textoMensaje;
+
+        System.out.println("¿Quiere ser anfitrión o invitado?");
+        while (true) {
+            System.out.println("Ingrese 1 para anfitrión.");
+            System.out.println("Ingrese 2 para invitado.");
+            eleccion = scanner.nextLine();
+
+            if (eleccion.equals("1")){
+                System.out.println();
+                textoMensaje = Json.VarToString("","",0,0,false,"¡holaaaaaaaaaaaaaaaa soy anfitrión!");
+                conexion = Conectividad.SerAnfitrion();
+                break;
+            } else if (eleccion.equals("2")) {
+                textoMensaje = Json.VarToString("","",0,0,false,"Y yo soy invitado. uwu");
+                conexion = Conectividad.SerInvitado();
+
+                System.out.println("Escriba el puerto del anfitrión al que se quiere conectar");
+                eleccion = scanner.nextLine();
+
+                System.out.println("Escriba la ip del anfitrión al que se quiere conectar");
+                eleccion1 = scanner.nextLine();
+
+                conexion.EstablecerDestino(eleccion, eleccion1);
+
+                break;
+            } else {
+                System.out.println("\nIngrese un número válido.\n");
+            }
+        }
+
 
         new Thread(conexion::BucleDeConexion).start();
 
-        String mensaje = Json.VarToString("hechizos", "1", 1000, 200, false, "anfitrion");
+        conexion.EnviarMensaje(textoMensaje);
 
-        conexion.EstablecerDestino("40000", "127.1.1.1");
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        boolean salir = false;
+        while (!salir) {
+            eleccion = scanner.nextLine();
+            conexion.EnviarMensaje(Json.VarToString("","",0,0,false,eleccion));
         }
 
-        conexion.EnviarMensaje(mensaje);
     }
 
 }

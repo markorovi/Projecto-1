@@ -3,6 +3,7 @@ package com.github.monstertecg.sockets;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.logs.LoggingHandler;
+import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,12 +28,15 @@ public class Conectividad {
     private static final Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
     private Socket socket;
     private ServerSocket serverSocket;
+    private boolean anfitrion;
+    private boolean conectado;
 
     // Aspectos de host
     private String ipPropia;
     private String ipDestino;
     private int puertoDestino;
     private int puertoEnUso;
+
 
 
     public Conectividad(){
@@ -52,6 +56,16 @@ public class Conectividad {
         return instancia;
     }
 
+    public static Conectividad SerAnfitrion(){
+        obtenerInstancia().EstablecerAnfitrion(true);
+        return instancia;
+    }
+
+    public static Conectividad SerInvitado(){
+        obtenerInstancia().EstablecerAnfitrion(false);
+        return instancia;
+    }
+
     public void EnviarMensaje(String mensaje) {
 
         try {
@@ -64,12 +78,10 @@ public class Conectividad {
 
             outputStream.close();
 
-            socket.close();
 
         } catch (IOException e) {
 
             System.out.println("Problemas de conexión.");
-
         }
     }
 
@@ -81,6 +93,11 @@ public class Conectividad {
 
         this.puertoEnUso = this.BuscaPuerto();
 
+        if (!anfitrion){ EnviarMensaje(Json.VarToString(
+                "","",0,0,false,(
+                        new JSONObject("{\"ip\":\"" + this.ipPropia + "\"," +
+                                " \"puerto\":\"" + this.puertoEnUso + "\"}").toString()))); }
+
         try {
             this.serverSocket = new ServerSocket(puertoEnUso);
         } catch (IOException e) {
@@ -90,9 +107,7 @@ public class Conectividad {
         }
 
         while (true) {
-
             this.Conectado();
-
         }
     }
 
@@ -115,8 +130,7 @@ public class Conectividad {
                 // Comprueba cartas
                 // Decodificador.DecodificarCartas(jnode);
 
-
-                Decodificador.DecodificarMiscelaneos(jnode);
+                this.conectado = Decodificador.DecodificarMiscelaneos(jnode);
 
                 try {
                     inputStream.close();
@@ -203,4 +217,7 @@ public class Conectividad {
 
     public String[] ObtenerDestino (){ return new String[] {Integer.toString(puertoDestino), ipDestino}; }
 
+    public void EstablecerAnfitrion(boolean anfitrion){ this.anfitrion = anfitrion; }
+
+    public boolean ObtenerAnfitrion(){ return this.anfitrion; }
 }

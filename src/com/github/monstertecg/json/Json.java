@@ -59,6 +59,7 @@ public class Json {
      public static String VarToString(String tipoCarta, String id, int vida, int mana, boolean abandonar, String mensaje) {
          JSONObject jsonObject = new JSONObject();
          jsonObject.put("carta seleccionada", tipoCarta);
+         jsonObject.put("id", id);
          jsonObject.put("vida", vida);
          jsonObject.put("mana", mana);
          jsonObject.put("abandonar", abandonar);

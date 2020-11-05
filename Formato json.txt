@@ -1,10 +1,11 @@
 Formato de envío de mensajes a través de JSON.
 
-Cada mensaje debe incluir lo siguiente:
+Un mensaje puede contener lo siguiente:
 declaración de carta
 actualización de vida
 actualización de maná
 informe de abandono
+
 
 --------------------------------------------------------------------------------
                         Declaracaiones de cartas.
@@ -50,3 +51,11 @@ Si el jugador abandona o no, se debe informar así:
 
 "mensaje": "mensaje" (valor representantivo)
 no es necesario, sirve para especificar el afitrión al inicio de la partida.
+
+"ip": "127.0.0.1" (valor representantivo)
+solo lo envía el invitado al inicio de la partida
+
+"puerto": "40000" (valor representantivo)
+solo lo envía el invitado al inicio de la partida
+
+
