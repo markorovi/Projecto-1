@@ -1,5 +1,6 @@
 package com.gmail.markorovi24.GUI;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
+import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
@@ -56,6 +57,7 @@ public class VentanaJuego extends Ventana{
     private MediadorCartasHUD ControlCartas = MediadorCartasHUD.obtenerInstancia();
     private MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
     private MediadorMyCards ControlDecks = MediadorMyCards.obtenerInstancia();
+    private MediadorServidor ControlServidor = MediadorServidor.obtenerInstancia();
 
     public void configurarMenu(){
 
@@ -115,24 +117,31 @@ public class VentanaJuego extends Ventana{
         this.Boton1.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < ControlDecks.getHandCards(); i++){
-                    if (Hand.Obtener(i).getIsUp()){
-                        Hand.Obtener(i).publicAnimate();
-                        ControlDecks.agregarHistorial(ControlDecks.getHand().Obtener(i));
-                        MediadorServidor.obtenerInstancia().enviarCarta(ControlDecks.getHand().Obtener(i));
-                        ControlDecks.eliminarHandCard(i);
+                if (ControlServidor.getMyTurn()){
+                    for (int i = 0; i < ControlDecks.getHandCards(); i++){
+                        if (Hand.Obtener(i).getIsUp() && ControlDecks.getHand().Obtener(i).getMana() < ControlVidaMana.getMyMana()) {
+                            Cartas card =  ControlDecks.getHand().Obtener(i);
+                            ControlServidor.setMyTurn(false);
+                            Hand.Obtener(i).publicAnimate();
+                            ControlDecks.agregarHistorial(card);
+                            ControlDecks.jugarCarta(card);
+                            ControlServidor.enviarCarta(card);
+                            ControlVidaMana.actualizarMana(card.getMana()); //
+                            actualizarMana();//
+                            ControlDecks.eliminarHandCard(i);
 
-                        CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
-                        ControlDecks.setIndex(ControlDecks.getContadorHistorial());
-                        actualizarCartaHistorial();
+                            CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
+                            ControlDecks.setIndex(ControlDecks.getContadorHistorial());
+                            actualizarCartaHistorial();
 
-                        ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
-                        for (int k = 0; k < ControlDecks.getHandCards(); k++){
-                            Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
+                            ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
+                            for (int k = 0; k < ControlDecks.getHandCards(); k++) {
+                                Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
+                            }
+                            Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
+                            actualizarCartaSeleccionada();
+                            break;
                         }
-                        Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
-                        actualizarCartaSeleccionada();
-                        break;
                     }
                 }
             }
@@ -168,6 +177,7 @@ public class VentanaJuego extends Ventana{
         this.Boton4.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ControlServidor.setMyTurn(false);
                 MediadorServidor.obtenerInstancia().noJugar();
             }
         });
@@ -279,4 +289,23 @@ public class VentanaJuego extends Ventana{
 
         }
     }
+
+    public void actualizarVida(){
+        this.Texto5.setValue(this.ControlVidaMana.getMyHP());
+    }
+
+    public void actualizarMana() {
+        this.Texto6.setValue(this.ControlVidaMana.getMyMana());
+    }
+
+    public void actualizarDano(){
+        this.Texto4.setValue(this.ControlVidaMana.getRivalHP());
+    }
+
+    public void actualizarHistorial() {
+        CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
+        ControlDecks.setIndex(ControlDecks.getContadorHistorial());
+        ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
+    }
+
 }

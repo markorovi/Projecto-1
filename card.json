@@ -5,140 +5,140 @@
       "descripcion": "Desde San Carlos, este animal te embiste a una gran velocidad.",
       "frase": "Mu.",
       "daño": 15,
-      "mana": 15
+      "mana": 300
     },
     "1": {
       "nombre": "El pato",
       "descripcion": "Recibes varios picotazos por parte de esta feroz ave.",
       "frase": "Cuak.",
       "daño": 30,
-      "mana": 15
+      "mana": 300
     },
     "2": {
       "nombre": "El tigre",
       "descripcion": "Dudas de si va primero la leche o el cereal.",
       "frase": "Gana con garra",
       "daño": 30,
-      "mana": 15
+      "mana": 300
     },
     "3": {
       "nombre": "La oveja",
       "descripcion": "Sufres del frío al ser teletransportado a un lugar extremadamente frío, donde solo está esta oveja que te admira sufrir.",
       "frase": "Hoooooooooooola amigo, ¿qué te has puesto una bufanda?, ah, ¿andás con frío?",
       "daño": 40,
-      "mana": 15
+      "mana": 300
     },
     "4": {
       "nombre": "Correcaminos",
       "descripcion": "Al intentar perseguir a este veloz animal, un yunque te ha caído encima.",
       "frase": "Yunque patrocinado por la marca ACME.",
       "daño": 70,
-      "mana": 15
+      "mana": 300
     },
     "5": {
       "nombre": "Picapiedra",
       "descripcion": "Sin querer has viajado en el tiempo, y este cavernícola te ha agarrado a garrotazos.",
       "frase": "Yabba dabba doo.",
       "daño": 40,
-      "mana": 15
+      "mana": 300
     },
     "6": {
       "nombre": "Hormiga atomica",
       "descripcion": "A pesar de su tamaño, esta hormiga te ha mandado por los aires de tan solo un golpe.",
       "frase": "No jodas con la hormiga.",
       "daño": 80,
-      "mana": 15
+      "mana": 300
     },
     "7": {
       "nombre": "Firulais",
       "descripcion": "El swag de este canino ha sido mucho más de lo que podías soportar.",
       "frase": "Woof.",
       "daño": 25,
-      "mana": 15
+      "mana": 300
     },
     "8": {
       "nombre": "Steve",
       "descripcion": "Siendo capaz de llevar más de 10 toneladas de roca encima, no eres rival ninguno para este personaje icónico.",
       "frase": "**te da un puñetazo**",
       "daño": 45,
-      "mana": 15
+      "mana": 300
     },
     "9": {
       "nombre": "Lion-o",
       "descripcion": "Con la Espada de los Presagios, este Thunderiano te ha acabado en tan solo un instante.",
       "frase": "Si fueras tan inteligente como repugnante,, quizá me causarías problemas.",
       "daño": 90,
-      "mana": 15
+      "mana": 300
     },
     "10": {
       "nombre": "La mosca",
       "descripcion": "Una mosca a estrado al campo de batalla.",
       "frase": "...",
       "daño": 1,
-      "mana": 15
+      "mana": 300
     },
     "11": {
       "nombre": "Shaggy",
       "descripcion": "Los poderes de este mero humano estan más allá de nuestro entendimientos.",
       "frase": "Yikes.",
       "daño": 100,
-      "mana": 15
+      "mana": 300
     },
     "12": {
       "nombre": "Tazer",
       "descripcion": "Perfecto para electrificar.",
       "frase": "haha, tazer go brrrrrrrr",
       "daño": 35,
-      "mana": 15
+      "mana": 300
     },
     "13": {
       "nombre": "Pistola de agua",
       "descripcion": "Obviamente, no la mejor elección para un juego tan caótico como este.",
       "frase": "Splash.",
       "daño": 10,
-      "mana": 15
+      "mana": 300
     },
     "14": {
       "nombre": "La platina",
       "descripcion": "Te has quedado atrapado en el tráfico por más de medio día.",
       "frase": "Ya veremos cuando se arregla.",
       "daño": 30,
-      "mana": 15
+      "mana": 300
     },
     "15": {
       "nombre": "Saitama",
       "descripcion": "100 lagartijas, 100 sentadillas, 100 abdominales y 10km todos los días hacen de este hombre el más fuerte de todos.",
       "frase": "Solo un héroe por diversión.",
       "daño": 150,
-      "mana": 15
+      "mana": 300
     },
     "16": {
       "nombre": "El lago del TEC",
       "descripcion": "No sabes donde te encuentras, solo puedes ver un lago desconocido frente a ti.",
       "frase": "**se tira al lago**",
       "daño": 15,
-      "mana": 15
+      "mana": 300
     },
     "17": {
       "nombre": "La polilla",
       "descripcion": "Información no disponible.",
       "frase": "LA LUZ ES LA RESPUESTA",
       "daño": 30,
-      "mana": 15
+      "mana": 300
     },
     "18": {
       "nombre": "Michael Jackson",
       "descripcion": "Este rey del pop te ha dejado por el suelo con sus pasos de baile.",
       "frase": "Annie are you ok?",
       "daño": 45,
-      "mana": 15
+      "mana": 300
     },
     "19": {
       "nombre": "John Wick",
       "descripcion": "Un lapicero es arma suficiente para este señor.",
       "frase": "Es personal.",
       "daño": 80,
-      "mana": 15
+      "mana": 300
     }
   },
 

@@ -3,9 +3,13 @@ package com.gmail.markorovi24.Mediator;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.sockets.Conectividad;
 import com.gmail.markorovi24.Cartas.Cartas;
+import com.gmail.markorovi24.Cartas.Esbirros;
+import com.gmail.markorovi24.Cartas.Hechizos;
+import com.gmail.markorovi24.Cartas.Secretos;
 
 public class MediadorServidor {
     MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
+    private boolean MyTurn;
 
 
     //Contructor singleton
@@ -16,6 +20,13 @@ public class MediadorServidor {
         } return Mediador;
     }
 
+    public void setMyTurn(boolean value){
+        this.MyTurn = value;
+    }
+
+    public boolean getMyTurn(){
+        return MyTurn;
+    }
 
 
     public void enviarCarta(Cartas card){
@@ -30,6 +41,40 @@ public class MediadorServidor {
     }
 
     public void recibido(Cartas card){
-        System.out.println( card.getNombre());
+        MediadorServidor.obtenerInstancia().setMyTurn(true);
+        MediadorMyCards.obtenerInstancia().setRemainingCards(1);
+        MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
+        String tipo = card.getTipo();
+
+        if(tipo.equals("esbirros")){
+            Esbirros esbirro = (Esbirros) card;
+            MediadorMyCards.obtenerInstancia().agregarHistorial(esbirro);
+            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
+            esbirro.Ataque();
+        } else if (tipo.equals("hechizos")){
+            Hechizos hechizo = (Hechizos) card;
+            MediadorMyCards.obtenerInstancia().agregarHistorial(hechizo);
+            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
+        } else if (tipo.equals("secretos")){
+            Secretos secreto = (Secretos) card;
+            MediadorMyCards.obtenerInstancia().agregarHistorial(secreto);
+            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
+        }
+        MediadorCartasHUD.obtenerInstancia().getVentana().actualizarCartaHistorial();
+        if (MediadorMyCards.obtenerInstancia().getContadorHistorial() > 1){
+            temporal.setMyMana(temporal.getMyMana() + (int) (temporal.getMyMana()*0.25));
+            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
+        }
     }
+
+    public void saltado(){
+        MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
+        MediadorServidor.obtenerInstancia().setMyTurn(true);
+        MediadorMyCards.obtenerInstancia().setRemainingCards(1);
+        if (MediadorMyCards.obtenerInstancia().getContadorHistorial() > 1){
+            temporal.setMyMana(temporal.getMyMana() + (int) (temporal.getMyMana()*0.25));
+            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
+        }
+    }
+
 }

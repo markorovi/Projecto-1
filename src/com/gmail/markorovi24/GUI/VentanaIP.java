@@ -47,6 +47,8 @@ public class VentanaIP extends Ventana{
                 Control4.setMyDeck(Control3.ramdomizadorDeck());
                 Control4.setHand(Control3.ramdomizadorHand());
                 Control4.setVentana(Juego);
+                Control4.setRemainingCards(0);
+                Control5.setMyTurn(false);
 
                 Juego.configurarMenu();
             }

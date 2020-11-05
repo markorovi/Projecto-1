@@ -35,6 +35,7 @@ public class VentanaMenu extends Ventana{
             Control4.setMyDeck(Control3.ramdomizadorDeck());
             Control4.setHand(Control3.ramdomizadorHand());
             Control4.setVentana(Juego);
+            Control5.setMyTurn(true);
 
             Juego.configurarMenu();
         });

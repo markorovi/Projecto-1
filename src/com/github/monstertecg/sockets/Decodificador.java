@@ -133,5 +133,6 @@ public class Decodificador {
                 System.out.println("no había mensaje secreto");
             }
         }
+        MediadorServidor.obtenerInstancia().saltado();
     }
 }

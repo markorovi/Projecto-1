@@ -1,5 +1,8 @@
 package com.gmail.markorovi24.Cartas;
 
+import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
+import com.gmail.markorovi24.Mediator.MediadorVidaMana;
+
 public class Esbirros extends Cartas {
 
 
@@ -14,8 +17,9 @@ public class Esbirros extends Cartas {
         System.out.println("daño: " + dano + ", mana: " + mana);
     }
 
-    public int Ataque(){
-        return this.dano;
+    public void Ataque(){
+        MediadorVidaMana.obtenerInstancia().recibirDano(this.dano);
+        MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
     }
 
 }

@@ -27,6 +27,9 @@ public class MediadorVidaMana {
 
     public void setMyMana(int myMana) {
         MyMana = myMana;
+        if (MyMana > 1000){
+            MyMana = 1000;
+        }
     }
 
     public int getRivalHP() {
@@ -51,5 +54,17 @@ public class MediadorVidaMana {
         } else if (this.MyHP <= 0){
 
         }
+    }
+
+    public void recibirDano(int dano){
+        this.MyHP -= dano;
+    }
+
+    public void actualizarMana(int mana){
+        this.MyMana -= mana;
+    }
+
+    public void producirDano(int dano){
+        this.RivalHP -= dano;
     }
 }

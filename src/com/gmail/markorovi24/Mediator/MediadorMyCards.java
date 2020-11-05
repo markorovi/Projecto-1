@@ -4,6 +4,10 @@ import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.github.monstertecg.listasEnlazadas.ListaStack;
 import com.gmail.markorovi24.Cartas.Cartas;
+import com.gmail.markorovi24.Cartas.Esbirros;
+import com.gmail.markorovi24.Cartas.Hechizos;
+import com.gmail.markorovi24.Cartas.Secretos;
+import com.gmail.markorovi24.GUI.Ventana;
 import com.gmail.markorovi24.GUI.VentanaJuego;
 
 public class MediadorMyCards {
@@ -15,6 +19,8 @@ public class MediadorMyCards {
     int HandCards = 4;
     int ContadorHistorial = 0;
     int Index = 0;
+    int remainingCards = 1;
+
 
     static MediadorMyCards Mediador;
     public static synchronized MediadorMyCards obtenerInstancia(){
@@ -25,6 +31,14 @@ public class MediadorMyCards {
 
     public VentanaJuego getVentana() {
         return Ventana;
+    }
+
+    public int getRemainingCards() {
+        return remainingCards;
+    }
+
+    public void setRemainingCards(int remainingCards) {
+        this.remainingCards = remainingCards;
     }
 
     public void setVentana(VentanaJuego ventana) {
@@ -94,13 +108,35 @@ public class MediadorMyCards {
     }
 
     public void takeCard(){
-        if (Contador != 0 && getHandCards() < 10) {
+        if (Contador != 0 && getHandCards() < 10 && remainingCards != 0) {
             Cartas Carta = MyDeck.ObtenerValor();
             MyDeck.EliminarUltimoElemento();
             agregarHand(Carta);
             setHandCards(getHandCards() + 1);
             Ventana.actualizarHand();
             Contador--;
+            remainingCards--;
+        }
+    }
+
+    public void jugarCarta(Cartas card){
+        String type = card.getTipo();
+
+        if(type.equals("esbirros")){
+            Esbirros esbirro = (Esbirros) card;
+            MediadorVidaMana.obtenerInstancia().producirDano(card.getDano());
+            Ventana.actualizarDano();
+
+        } else if (type.equals("hechizos")){
+            Hechizos hechizo = (Hechizos) card;
+            MediadorVidaMana.obtenerInstancia().producirDano(card.getDano());
+            Ventana.actualizarDano();
+
+        } else if (type.equals("secretos")){
+            Secretos secreto = (Secretos) card;
+            MediadorVidaMana.obtenerInstancia().producirDano(card.getDano());
+            Ventana.actualizarDano();
+
         }
     }
 }
