@@ -7,7 +7,6 @@ import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -106,9 +105,10 @@ public class Decodificador {
         return carta;
     }
 
-    public static boolean DecodificarMiscelaneos(JsonNode mensajeCodificado){
+    public static void DecodificarMiscelaneos(JsonNode mensajeCodificado) {
         int vida = mensajeCodificado.get("vida").asInt();
         int mana = mensajeCodificado.get("mana").asInt();
+        boolean abandnar = mensajeCodificado.get("abandonar").asBoolean();
 
 
         // llama al mediador para actualizar datos
@@ -118,15 +118,16 @@ public class Decodificador {
 
             Conectividad.obtenerInstancia().EstablecerDestino(infoInvitado.get("puerto").asText(), infoInvitado.get("ip").asText());
 
-        } catch (JsonProcessingException e) { }
+        } catch (JsonProcessingException jsonProcessingException) { // ya no es el primer mensaje}
 
-        try {
-            String mensaje = mensajeCodificado.get("mensaje").asText();
+            try {
+                String mensaje = mensajeCodificado.get("mensaje").asText();
 
-            System.out.println("MENSAJE " + mensaje);
+                System.out.println("MENSAJE " + mensaje);
 
-        } catch (Exception e){ System.out.println("no había mensaje secreto"); }
-        return mensajeCodificado.get("abandonar").asBoolean();
+            } catch (Exception e) {
+                System.out.println("no había mensaje secreto");
+            }
+        }
     }
-
 }

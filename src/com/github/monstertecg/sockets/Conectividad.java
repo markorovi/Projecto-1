@@ -130,7 +130,7 @@ public class Conectividad {
                 // Comprueba cartas
                 // Decodificador.DecodificarCartas(jnode);
 
-                this.conectado = Decodificador.DecodificarMiscelaneos(jnode);
+                Decodificador.DecodificarMiscelaneos(jnode);
 
                 try {
                     inputStream.close();
@@ -182,23 +182,18 @@ public class Conectividad {
 
         int puerto = 40000;
         boolean encontrado = false;
-
-        FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
         LOGGER.info("Buscando puerto...");
-        fHandler.close();
 
         while (!encontrado) {
 
             if (puerto > 65535) {
-                fHandler = (new LoggingHandler().Handler(LOGGER));
+                FileHandler fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.warning("No hay puertos disponibles.");
                 fHandler.close();
 
                 break;
             } else if (RevisaPuerto(puerto)) {
-                fHandler = (new LoggingHandler().Handler(LOGGER));
                 LOGGER.info("Puerto encontrado: " + puerto);
-                fHandler.close();
                 encontrado = true;
             } else {
                 puerto++;
