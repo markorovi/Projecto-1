@@ -1,47 +1,47 @@
 package com.gmail.markorovi24.Mediator;
 
 public class MediadorVidaMana {
-    int HostHP = 1000;
-    int HostMana= 200;
-    int GuestHP = 1000;
-    int GuestMana = 200;
+    int MyHP = 1000;
+    int MyMana = 200;
+    int RivalHP = 1000;
+    int RivalMana = 200;
 
-    public int getHostHP() {
-        return HostHP;
+    public int getMyHP() {
+        return MyHP;
     }
 
-    public void setHostHP(int hostHP) {
-        HostHP = hostHP;
+    public void setMyHP(int myHP) {
+        MyHP = myHP;
     }
 
-    public int getHostMana() {
-        return HostMana;
+    public int getMyMana() {
+        return MyMana;
     }
 
-    public void setHostMana(int hostMana) {
-        HostMana = hostMana;
+    public void setMyMana(int myMana) {
+        MyMana = myMana;
     }
 
-    public int getGuestHP() {
-        return GuestHP;
+    public int getRivalHP() {
+        return RivalHP;
     }
 
-    public void setGuestHP(int guestHP) {
-        GuestHP = guestHP;
+    public void setRivalHP(int rivalHP) {
+        RivalHP = rivalHP;
     }
 
-    public int getGuestMana() {
-        return GuestMana;
+    public int getRivalMana() {
+        return RivalMana;
     }
 
-    public void setGuestMana(int guestMana) {
-        GuestMana = guestMana;
+    public void setRivalMana(int rivalMana) {
+        RivalMana = rivalMana;
     }
 
     public void checkWinCondition(){
-        if (this.GuestHP <= 0){
+        if (this.RivalHP <= 0){
 
-        } else if (this.HostHP <= 0){
+        } else if (this.MyHP <= 0){
 
         }
     }

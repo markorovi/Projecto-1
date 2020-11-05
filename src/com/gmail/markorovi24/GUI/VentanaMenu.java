@@ -1,8 +1,6 @@
 package com.gmail.markorovi24.GUI;
-import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
-import com.gmail.markorovi24.Mediator.MediadorGeneradorCartas;
-import com.gmail.markorovi24.Mediator.MediadorMyCards;
-import com.gmail.markorovi24.Mediator.MediadorVidaMana;
+import com.github.monstertecg.sockets.Conectividad;
+import com.gmail.markorovi24.Mediator.*;
 
 import javax.swing.*;
 
@@ -13,18 +11,31 @@ public class VentanaMenu extends Ventana{
         b1.setBounds(120,220, 100, 100);
         b2.setBounds(400,220, 100, 100);
         b1.addActionListener(e -> {
-            //Codigo para el boton 1
+            Conectividad Host = Conectividad.SerAnfitrion();
+            (new Thread(Host::BucleDeConexion)).start();
+
+            while (!Host.isConnected()){
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+            }
+
             Ventana.setVisible(false);
             VentanaJuego Juego = new VentanaJuego();
             MediadorCartasHUD Control1 = new MediadorCartasHUD();
             MediadorVidaMana Control2 = new MediadorVidaMana();
             MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
             MediadorMyCards Control4 = new MediadorMyCards();
+            MediadorServidor Control5 = MediadorServidor.obtenerInstancia();
+
 
             Control1.setVentana(Juego);
             Control4.setMyDeck(Control3.ramdomizadorDeck());
             Control4.setHand(Control3.ramdomizadorHand());
             Control4.setVentana(Juego);
+            Control5.setControlVidaMana(Control2);
 
             Juego.configurarMenu(Control1, Control2, Control4);
         });

@@ -60,6 +60,8 @@ public class Main {
 
         new Thread(conexion::BucleDeConexion).start();
 
+        System.out.println("holaaaaaaaaaaaaa");
+
         conexion.EnviarMensaje(textoMensaje);
 
         boolean salir = false;

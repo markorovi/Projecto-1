@@ -1,16 +1,12 @@
 package com.gmail.markorovi24.GUI;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
-import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.RivalCards;
-import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
+import com.gmail.markorovi24.Mediator.*;
 import com.gmail.markorovi24.GUI.Widgets.*;
-import com.gmail.markorovi24.Mediator.MediadorGeneradorCartas;
-import com.gmail.markorovi24.Mediator.MediadorMyCards;
-import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
 
 import java.awt.*;
@@ -61,7 +57,6 @@ public class VentanaJuego extends Ventana{
     private MediadorVidaMana ControlVidaMana;
     private MediadorMyCards ControlDecks;
 
-
     public void configurarMenu(MediadorCartasHUD ControlCartasParametro, MediadorVidaMana ControlVidaManaParametro, MediadorMyCards ControlDecksParametro){
         this.ControlCartas = ControlCartasParametro;
         this.ControlVidaMana = ControlVidaManaParametro;
@@ -111,13 +106,13 @@ public class VentanaJuego extends Ventana{
         this.Texto3.builder(925, 560, 150, 30, Color.white, "Carta del Deck");
 
         this.Texto4.builder(480, 250, 120, 30, Color.white, "Vida rival: ");
-        this.Texto4.setValue(this.ControlVidaMana.getGuestHP());
+        this.Texto4.setValue(this.ControlVidaMana.getRivalHP());
 
         this.Texto5.builder(15, 500, 150, 30, Color.white, "Vida: ");
-        this.Texto5.setValue(this.ControlVidaMana.getHostHP());
+        this.Texto5.setValue(this.ControlVidaMana.getMyHP());
 
         this.Texto6.builder(925, 500, 150, 30, Color.white, "Maná: ");
-        this.Texto6.setValue(this.ControlVidaMana.getHostMana());
+        this.Texto6.setValue(this.ControlVidaMana.getMyMana());
 
         this.Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
         this.Boton1.getBoton().addActionListener(new ActionListener() {
@@ -127,6 +122,7 @@ public class VentanaJuego extends Ventana{
                     if (Hand.Obtener(i).getIsUp()){
                         Hand.Obtener(i).publicAnimate();
                         ControlDecks.agregarHistorial(ControlDecks.getHand().Obtener(i));
+                        MediadorServidor.obtenerInstancia().enviarCarta(ControlDecks.getHand().Obtener(i));
                         ControlDecks.eliminarHandCard(i);
 
                         CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
@@ -175,7 +171,7 @@ public class VentanaJuego extends Ventana{
         this.Boton4.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                MediadorServidor.obtenerInstancia().noJugar();
             }
         });
 

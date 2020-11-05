@@ -7,6 +7,7 @@ import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
+import com.gmail.markorovi24.Mediator.MediadorServidor;
 
 import java.io.IOException;
 
@@ -78,10 +79,10 @@ public class Decodificador {
         return new Secretos(idCarta, nombre, descripcion, frase, mana);
     }
 
-    public static Cartas DecodificarCartas(JsonNode mensajeCodificado) {
+    public static void DecodificarCartas(JsonNode mensajeCodificado) {
         Cartas carta = null;
 
-        switch (mensajeCodificado.get("Carta seleccionada").asText()){
+        switch (mensajeCodificado.get("carta seleccionada").asText()){
 
             case "esbirros":
 
@@ -102,7 +103,10 @@ public class Decodificador {
             default:
                 System.out.println("sin carta");
         }
-        return carta;
+        if (carta == null){
+            return;
+        }
+        MediadorServidor.obtenerInstancia().recibido(carta);
     }
 
     public static void DecodificarMiscelaneos(JsonNode mensajeCodificado) {

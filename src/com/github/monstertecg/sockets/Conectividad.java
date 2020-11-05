@@ -33,7 +33,7 @@ public class Conectividad {
 
     // Aspectos de host
     private String ipPropia;
-    private String ipDestino;
+    private String ipDestino = "";
     private int puertoDestino;
     private int puertoEnUso;
 
@@ -128,7 +128,7 @@ public class Conectividad {
                 jnode = Json.parse(entrada);
 
                 // Comprueba cartas
-                // Decodificador.DecodificarCartas(jnode);
+                Decodificador.DecodificarCartas(jnode);
 
                 Decodificador.DecodificarMiscelaneos(jnode);
 
@@ -215,4 +215,12 @@ public class Conectividad {
     public void EstablecerAnfitrion(boolean anfitrion){ this.anfitrion = anfitrion; }
 
     public boolean ObtenerAnfitrion(){ return this.anfitrion; }
+
+    public boolean isConnected(){
+        if(ipDestino.equals("")){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

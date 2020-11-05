@@ -1,9 +1,13 @@
 package com.gmail.markorovi24.GUI;
 
+import com.github.monstertecg.sockets.Conectividad;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.GUI.Widgets.TextBox;
+import com.gmail.markorovi24.Mediator.*;
 
+import javax.naming.ldap.Control;
+import javax.print.attribute.standard.Media;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +30,26 @@ public class VentanaIP extends Ventana{
         this.Boton.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Conectividad Host = Conectividad.SerInvitado();
+                Host.EstablecerDestino(Port.getText(), IP.getText());
+                (new Thread(Host::BucleDeConexion)).start();
 
+
+                Ventana.setVisible(false);
+                VentanaJuego Juego = new VentanaJuego();
+                MediadorCartasHUD Control1 = new MediadorCartasHUD();
+                MediadorVidaMana Control2 = new MediadorVidaMana();
+                MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
+                MediadorMyCards Control4 = new MediadorMyCards();
+                MediadorServidor Control5 = MediadorServidor.obtenerInstancia();
+
+                Control1.setVentana(Juego);
+                Control4.setMyDeck(Control3.ramdomizadorDeck());
+                Control4.setHand(Control3.ramdomizadorHand());
+                Control4.setVentana(Juego);
+                Control5.setControlVidaMana(Control2);
+
+                Juego.configurarMenu(Control1, Control2, Control4);
             }
         });
 
