@@ -38,12 +38,7 @@ public class Deck {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                Cartas card = Control.takeCard();
-                if (card != null){
-                    setImage(card.getNombre() + ".jpg");
-                } else {
-                    setImage("Interrogacion.jpg");
-                }
+                Control.takeCard();
             }
 
             @Override

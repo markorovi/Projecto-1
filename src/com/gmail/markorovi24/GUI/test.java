@@ -10,27 +10,5 @@ public class test {
         test.configurarMenu();
 
         ListaCircularDoble<Integer> prueba = new ListaCircularDoble<Integer>();
-
-        prueba.Agregar(1);
-        prueba.Agregar(2);
-        prueba.Agregar(3);
-        prueba.Agregar(4);
-
-        System.out.println(prueba.Obtener(0));
-        System.out.println(prueba.Obtener(1));
-        System.out.println(prueba.Obtener(2));
-        System.out.println(prueba.Obtener(3));
-
-
-        prueba.Eliminar(0);
-
-        System.out.println(prueba.Obtener(0));
-        System.out.println(prueba.Obtener(1));
-        System.out.println(prueba.Obtener(2));
-
-        System.out.println(prueba.ObtenerAnteriorDe(0));
-        System.out.println(prueba.ObtenerSiguienteDe(2));
-
-
     }
 }

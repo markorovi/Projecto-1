@@ -1,5 +1,6 @@
 package com.gmail.markorovi24.GUI;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
+import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.HUDCards.Deck;
@@ -7,6 +8,7 @@ import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.RivalCards;
 import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 import com.gmail.markorovi24.GUI.Widgets.*;
+import com.gmail.markorovi24.Mediator.MediadorGeneradorCartas;
 import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
@@ -17,131 +19,160 @@ import java.awt.event.ActionListener;
 
 
 public class VentanaJuego extends Ventana{
-    public void configurarMenu(MediadorCartasHUD ControlCartas, MediadorVidaMana ControlVidaMana, MediadorMyCards ControlDecks){
-        MyCards MyCard1 = new MyCards();
-        MyCards MyCard2 = new MyCards();
-        MyCards MyCard3 = new MyCards();
-        MyCards MyCard4 = new MyCards();
-        MyCards MyCard5 = new MyCards();
-        MyCards MyCard6 = new MyCards();
-        MyCards MyCard7 = new MyCards();
-        MyCards MyCard8 = new MyCards();
-        MyCards MyCard9 = new MyCards();
-        MyCards MyCard10 = new MyCards();
+    private final MyCards MyCard1 = new MyCards();
+    private final MyCards MyCard2 = new MyCards();
+    private final MyCards MyCard3 = new MyCards();
+    private final MyCards MyCard4 = new MyCards();
+    private final MyCards MyCard5 = new MyCards();
+    private final MyCards MyCard6 = new MyCards();
+    private final MyCards MyCard7 = new MyCards();
+    private final MyCards MyCard8 = new MyCards();
+    private final MyCards MyCard9 = new MyCards();
+    private final MyCards MyCard10 = new MyCards();
 
-        MyCard1.builder(180, 490, 120, 160, ControlCartas);
-        MyCard2.builder(330, 490, 120, 160, ControlCartas);
-        MyCard3.builder(480, 490, 120, 160, ControlCartas);
-        MyCard4.builder(630, 490, 120, 160, ControlCartas);
-        MyCard5.builder(780, 490, 120, 160, ControlCartas);
-        MyCard6.builder(180, 700, 120, 160, ControlCartas);
-        MyCard7.builder(330, 700, 120, 160, ControlCartas);
-        MyCard8.builder(480, 700, 120, 160, ControlCartas);
-        MyCard9.builder(630, 700, 120, 160, ControlCartas);
-        MyCard10.builder(780, 700, 120, 160, ControlCartas);
+    private final ListaDoble<MyCards> Hand = new ListaDoble<MyCards>();
 
-        ListaDoble<MyCards> Hand = new ListaDoble<MyCards>();
-        Hand.Agregar(MyCard1);
-        Hand.Agregar(MyCard2);
-        Hand.Agregar(MyCard3);
-        Hand.Agregar(MyCard4);
-        Hand.Agregar(MyCard5);
-        Hand.Agregar(MyCard6);
-        Hand.Agregar(MyCard7);
-        Hand.Agregar(MyCard8);
-        Hand.Agregar(MyCard9);
-        Hand.Agregar(MyCard10);
+    private final Deck GameDeck = new Deck();
+    private final Deck CardsPlayed = new Deck();
 
-        Deck GameDeck = new Deck();
-        Deck CardsPlayed = new Deck();
+    private final RivalCards RivalCard1 = new RivalCards();
+    private final RivalCards RivalCard2 = new RivalCards();
+    private final RivalCards RivalCard3 = new RivalCards();
+    private final RivalCards RivalCard4 = new RivalCards();
+    private final RivalCards RivalCard5 = new RivalCards();
 
-        RivalCards RivalCard1 = new RivalCards();
-        RivalCards RivalCard2 = new RivalCards();
-        RivalCards RivalCard3 = new RivalCards();
-        RivalCards RivalCard4 = new RivalCards();
-        RivalCards RivalCard5 = new RivalCards();
+    private final Text ActiveCards = new Text();
+    private final Text SelectedCardEffects = new Text();
+    private final Text ListCardEffect = new Text();
 
-        RivalCard1.builder(180, 30, 120, 160);
-        RivalCard2.builder(330, 30, 120, 160);
-        RivalCard3.builder(480, 30, 120, 160);
-        RivalCard4.builder(630, 30, 120, 160);
-        RivalCard5.builder(780, 30, 120, 160);
+    private final Label Texto1 = new Label();
+    private final Label Texto2 = new Label();
+    private final Label Texto3 = new Label();
+    private final Label Texto4 = new Label();
+    private final Label Texto5 = new Label();
+    private final Label Texto6 = new Label();
 
-        GameDeck.builderWithActions(330, 250, 120, 160, ControlDecks);
-        CardsPlayed.builderWithOutActions(630, 250, 120, 160);
+    private final Button Boton1 = new Button();
+    private final Button Boton2 = new Button();
+    private final Button Boton3 = new Button();
+    private final Button Boton4 = new Button();
 
-        Text ActiveCards = new Text();
-        ActiveCards.builder(15, 750, 150, 100, Color.white);
+    private MediadorCartasHUD ControlCartas;
+    private MediadorVidaMana ControlVidaMana;
+    private MediadorMyCards ControlDecks;
 
-        Text SelectedCardEffects = new Text();
-        SelectedCardEffects.builder(15, 600, 150, 100, Color.white);
 
-        Text ListCardEffect = new Text();
-        ListCardEffect.builder(925, 600, 150, 100, Color.white);
+    public void configurarMenu(MediadorCartasHUD ControlCartasParametro, MediadorVidaMana ControlVidaManaParametro, MediadorMyCards ControlDecksParametro){
+        this.ControlCartas = ControlCartasParametro;
+        this.ControlVidaMana = ControlVidaManaParametro;
+        this.ControlDecks = ControlDecksParametro;
 
-        Label Texto1 = new Label();
-        Texto1.builder(15, 710, 150, 30, Color.white, "Efectos activos");
+        this.MyCard1.builder(180, 490, 120, 160, this.ControlCartas);
+        this.MyCard2.builder(330, 490, 120, 160, this.ControlCartas);
+        this.MyCard3.builder(480, 490, 120, 160, this.ControlCartas);
+        this.MyCard4.builder(630, 490, 120, 160, this.ControlCartas);
+        this.MyCard5.builder(780, 490, 120, 160, this.ControlCartas);
+        this.MyCard6.builder(180, 700, 120, 160, this.ControlCartas);
+        this.MyCard7.builder(330, 700, 120, 160, this.ControlCartas);
+        this.MyCard8.builder(480, 700, 120, 160, this.ControlCartas);
+        this.MyCard9.builder(630, 700, 120, 160, this.ControlCartas);
+        this. MyCard10.builder(780, 700, 120, 160, this.ControlCartas);
 
-        Label Texto2 = new Label();
-        Texto2.builder(15, 560, 150, 30, Color.white, "Carta Seleccionada");
+        this.Hand.Agregar(MyCard1);
+        this.Hand.Agregar(MyCard2);
+        this.Hand.Agregar(MyCard3);
+        this.Hand.Agregar(MyCard4);
+        this.Hand.Agregar(MyCard5);
+        this.Hand.Agregar(MyCard6);
+        this.Hand.Agregar(MyCard7);
+        this.Hand.Agregar(MyCard8);
+        this.Hand.Agregar(MyCard9);
+        this.Hand.Agregar(MyCard10);
 
-        Label Texto3 = new Label();
-        Texto3.builder(925, 560, 150, 30, Color.white, "Carta del Deck");
+        this.RivalCard1.builder(180, 30, 120, 160);
+        this.RivalCard2.builder(330, 30, 120, 160);
+        this.RivalCard3.builder(480, 30, 120, 160);
+        this.RivalCard4.builder(630, 30, 120, 160);
+        this.RivalCard5.builder(780, 30, 120, 160);
 
-        Label Texto4 = new Label();
-        Texto4.builder(480, 250, 120, 30, Color.white, "Vida rival: ");
-        Texto4.setValue(ControlVidaMana.getGuestHP());
+        this.GameDeck.builderWithActions(330, 250, 120, 160, this.ControlDecks);
+        this.CardsPlayed.builderWithOutActions(630, 250, 120, 160);
 
-        Label Texto5 = new Label();
-        Texto5.builder(15, 500, 150, 30, Color.white, "Vida: ");
-        Texto5.setValue(ControlVidaMana.getHostHP());
+        this.ActiveCards.builder(15, 750, 150, 100, Color.white);
 
-        Label Texto6 = new Label();
-        Texto6.builder(925, 500, 150, 30, Color.white, "Maná: ");
-        Texto6.setValue(ControlVidaMana.getHostMana());
+        this.SelectedCardEffects.builder(15, 600, 150, 100, Color.white);
 
-        Button Boton1 = new Button();
-        Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
-        Boton1.getBoton().addActionListener(new ActionListener() {
+        this.ListCardEffect.builder(925, 600, 150, 100, Color.white);
+
+        this.Texto1.builder(15, 710, 150, 30, Color.white, "Efectos activos");
+
+        this.Texto2.builder(15, 560, 150, 30, Color.white, "Carta Seleccionada");
+
+        this.Texto3.builder(925, 560, 150, 30, Color.white, "Carta del Deck");
+
+        this.Texto4.builder(480, 250, 120, 30, Color.white, "Vida rival: ");
+        this.Texto4.setValue(this.ControlVidaMana.getGuestHP());
+
+        this.Texto5.builder(15, 500, 150, 30, Color.white, "Vida: ");
+        this.Texto5.setValue(this.ControlVidaMana.getHostHP());
+
+        this.Texto6.builder(925, 500, 150, 30, Color.white, "Maná: ");
+        this.Texto6.setValue(this.ControlVidaMana.getHostMana());
+
+        this.Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
+        this.Boton1.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < ControlDecks.getHandCards(); i++){
                     if (Hand.Obtener(i).getIsUp()){
+                        Hand.Obtener(i).publicAnimate();
                         ControlDecks.agregarHistorial(ControlDecks.getHand().Obtener(i));
                         ControlDecks.eliminarHandCard(i);
 
+                        CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
+                        ControlDecks.setIndex(ControlDecks.getContadorHistorial());
+                        actualizarCartaHistorial();
+
+                        ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
                         for (int k = 0; k < ControlDecks.getHandCards(); k++){
                             Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
-                            System.out.println(ControlDecks.getHand().Obtener(k).getNombre());
                         }
                         Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
+                        actualizarCartaSeleccionada();
                         break;
                     }
                 }
             }
         });
 
-        Button Boton2 = new Button();
-        Boton2.builder(630, 412, 50,35, "←", Color.white);
-        Boton2.getBoton().addActionListener(new ActionListener() {
+        this.Boton2.builder(630, 412, 50,35, "←", Color.white);
+        this.Boton2.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (ControlDecks.getIndex() - 1 <= -1){
+                } else {
+                    ControlDecks.setIndex(ControlDecks.getIndex() - 1);
+                    CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getIndex()).getNombre() + ".jpg");
+                    actualizarCartaHistorial();
+                }
             }
         });
 
-        Button Boton3 = new Button();
-        Boton3.builder(700, 412, 50,35, "→", Color.white);
-        Boton3.getBoton().addActionListener(new ActionListener() {
+        this.Boton3.builder(700, 412, 50,35, "→", Color.white);
+        this.Boton3.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (ControlDecks.getIndex() + 1 >= ControlDecks.getContadorHistorial()){
+                } else {
+                    ControlDecks.setIndex(ControlDecks.getIndex() + 1);
+                    CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getIndex()).getNombre() + ".jpg");
+                    actualizarCartaHistorial();
+                }
             }
         });
 
-        Button Boton4 = new Button();
-        Boton4.builder(950, 730, 100,50, "Saltar", Color.white);
-        Boton4.getBoton().addActionListener(new ActionListener() {
+        this.Boton4.builder(950, 730, 100,50, "Saltar", Color.white);
+        this.Boton4.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -150,44 +181,109 @@ public class VentanaJuego extends Ventana{
 
 
         for (int i = 0; i < 4; i++){
-            Hand.Obtener(i).setImage(ControlDecks.getHand().Obtener(i).getNombre() + ".jpg");
+            this.Hand.Obtener(i).setImage(this.ControlDecks.getHand().Obtener(i).getNombre() + ".jpg");
         }
 
-
-        Ventana.add(MyCard1.getCard());
-        Ventana.add(MyCard2.getCard());
-        Ventana.add(MyCard3.getCard());
-        Ventana.add(MyCard4.getCard());
-        Ventana.add(MyCard5.getCard());
-        Ventana.add(MyCard6.getCard());
-        Ventana.add(MyCard7.getCard());
-        Ventana.add(MyCard8.getCard());
-        Ventana.add(MyCard9.getCard());
-        Ventana.add(MyCard10.getCard());
-        Ventana.add(RivalCard1.getCard());
-        Ventana.add(RivalCard2.getCard());
-        Ventana.add(RivalCard3.getCard());
-        Ventana.add(RivalCard4.getCard());
-        Ventana.add(RivalCard5.getCard());
-        Ventana.add(GameDeck.getDeck());
-        Ventana.add(CardsPlayed.getDeck());
-        Ventana.add(Boton1.getBoton());
-        Ventana.add(Boton2.getBoton());
-        Ventana.add(Boton3.getBoton());
-        Ventana.add(Boton4.getBoton());
-        Ventana.add(ActiveCards.getText());
-        Ventana.add(SelectedCardEffects.getText());
-        Ventana.add(ListCardEffect.getText());
-        Ventana.add(Texto1.getLabel());
-        Ventana.add(Texto2.getLabel());
-        Ventana.add(Texto3.getLabel());
-        Ventana.add(Texto4.getLabel());
-        Ventana.add(Texto5.getLabel());
-        Ventana.add(Texto6.getLabel());
+        Ventana.add(this.MyCard1.getCard());
+        Ventana.add(this.MyCard2.getCard());
+        Ventana.add(this.MyCard3.getCard());
+        Ventana.add(this.MyCard4.getCard());
+        Ventana.add(this.MyCard5.getCard());
+        Ventana.add(this.MyCard6.getCard());
+        Ventana.add(this.MyCard7.getCard());
+        Ventana.add(this.MyCard8.getCard());
+        Ventana.add(this.MyCard9.getCard());
+        Ventana.add(this.MyCard10.getCard());
+        Ventana.add(this.RivalCard1.getCard());
+        Ventana.add(this.RivalCard2.getCard());
+        Ventana.add(this.RivalCard3.getCard());
+        Ventana.add(this.RivalCard4.getCard());
+        Ventana.add(this.RivalCard5.getCard());
+        Ventana.add(this.GameDeck.getDeck());
+        Ventana.add(this.CardsPlayed.getDeck());
+        Ventana.add(this.Boton1.getBoton());
+        Ventana.add(this.Boton2.getBoton());
+        Ventana.add(this.Boton3.getBoton());
+        Ventana.add(this.Boton4.getBoton());
+        Ventana.add(this.ActiveCards.getText());
+        Ventana.add(this.SelectedCardEffects.getText());
+        Ventana.add(this.ListCardEffect.getText());
+        Ventana.add(this.Texto1.getLabel());
+        Ventana.add(this.Texto2.getLabel());
+        Ventana.add(this.Texto3.getLabel());
+        Ventana.add(this.Texto4.getLabel());
+        Ventana.add(this.Texto5.getLabel());
+        Ventana.add(this.Texto6.getLabel());
 
         crearVentana("test", 1110,910);
         habilitarVentana();
     }
 
+    public void actualizarHand(){
+        for (int k = 0; k < ControlDecks.getHandCards(); k++){
+            Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
+        }
+    }
 
+    public void actualizarCartaSeleccionada(){
+        for (int i = 0; i < ControlDecks.getHandCards(); i++){
+            if (Hand.Obtener(i).getIsUp()){
+                String tipo = ControlDecks.getHand().Obtener(i).getTipo();
+                if (tipo.equals("esbirros")) {
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                    String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
+                    String frase = ControlDecks.getHand().Obtener(i).getFrase();
+                    int dano = ControlDecks.getHand().Obtener(i).getDano();
+                    int mana = ControlDecks.getHand().Obtener(i).getMana();
+                    SelectedCardEffects.setText(nombre + "\n" + descripcion + "\n" +frase +"\nDaño: " +dano +"\nManá: " + mana);
+                    break;
+                } else if (tipo.equals("hechizos")){
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                    String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
+                    int mana = ControlDecks.getHand().Obtener(i).getMana();
+
+                    SelectedCardEffects.setText(nombre + "\n" +descripcion + "\nManá: " +mana);
+                    break;
+                } else if (tipo.equals("secretos")){
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                    String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
+                    String frase = ControlDecks.getHand().Obtener(i).getFrase();
+                    int mana = ControlDecks.getHand().Obtener(i).getMana();
+
+                    SelectedCardEffects.setText(nombre + "\n" +descripcion + "\n" +frase +"\nManá: " + mana);
+                    break;
+                }
+            } else {
+                SelectedCardEffects.setText("");
+            }
+        }
+    }
+
+    public void actualizarCartaHistorial(){
+        int i = ControlDecks.getIndex();
+
+        String tipo = ControlDecks.getHistorial().Obtener(i).getTipo();
+        if (tipo.equals("esbirros")) {
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
+            String frase = ControlDecks.getHistorial().Obtener(i).getFrase();
+            int dano = ControlDecks.getHistorial().Obtener(i).getDano();
+            int mana = ControlDecks.getHistorial().Obtener(i).getMana();
+            ListCardEffect.setText(nombre + "\n" + descripcion + "\n" +frase +"\nDaño: " +dano +"\nManá: " + mana);
+        } else if (tipo.equals("hechizos")){
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
+            int mana = ControlDecks.getHistorial().Obtener(i).getMana();
+
+            ListCardEffect.setText(nombre + "\n" +descripcion + "\nManá: " +mana);
+        } else if (tipo.equals("secretos")){
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
+            String frase = ControlDecks.getHistorial().Obtener(i).getFrase();
+            int mana = ControlDecks.getHistorial().Obtener(i).getMana();
+
+            ListCardEffect.setText(nombre + "\n" +descripcion + "\n" +frase +"\nManá: " + mana);
+
+        }
+    }
 }

@@ -1,4 +1,5 @@
 package com.gmail.markorovi24.HUDCards;
+import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 
 import javax.swing.*;
@@ -15,7 +16,6 @@ public class MyCards {
     boolean moving = false;
     MediadorCartasHUD Control;
     boolean isUp;
-    boolean acceptable;
 
     public JLabel getCard(){
         return Card;
@@ -55,7 +55,19 @@ public class MyCards {
             }
         }).start();
     }
-
+    public void publicAnimate(){
+        if (!Control.getCardsState() && !moving) {
+            moving = true;
+            Control.setCardUp(true);
+            isUp = true;
+            animate(Card, new Point(Card.getX(), Card.getY() - 45), 20, 30);
+        } else if (Control.getCardsState() && !moving && isUp) {
+            moving = true;
+            Control.setCardUp(false);
+            isUp = false;
+            animate(Card, new Point(Card.getX(), Card.getY() + 45), 20, 30);
+        }
+    }
 
     public void builder(int x, int y, int width, int height, MediadorCartasHUD mediador){
         this.Control = mediador;
@@ -72,13 +84,13 @@ public class MyCards {
             public void mousePressed(MouseEvent e) {
                 if (!Control.getCardsState() && !moving) {
                     moving = true;
-                    Control.setCardUp(true);
                     isUp = true;
+                    Control.setCardUp(true);
                     animate(Card, new Point(Card.getX(), Card.getY() - 45), 20, 30);
                 } else if (Control.getCardsState() && !moving && isUp) {
                     moving = true;
-                    Control.setCardUp(false);
                     isUp = false;
+                    Control.setCardUp(false);
                     animate(Card, new Point(Card.getX(), Card.getY() + 45), 20, 30);
                 }
             }

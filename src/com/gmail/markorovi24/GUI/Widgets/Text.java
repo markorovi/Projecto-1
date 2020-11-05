@@ -19,4 +19,8 @@ public class Text {
         Texto.setEditable(false);
     }
 
+    public void setText(String texto){
+        Texto.setText(texto);
+    }
+
 }

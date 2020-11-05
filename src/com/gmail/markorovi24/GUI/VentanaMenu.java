@@ -15,15 +15,17 @@ public class VentanaMenu extends Ventana{
         b1.addActionListener(e -> {
             //Codigo para el boton 1
             Ventana.setVisible(false);
+            VentanaJuego Juego = new VentanaJuego();
             MediadorCartasHUD Control1 = new MediadorCartasHUD();
             MediadorVidaMana Control2 = new MediadorVidaMana();
             MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
             MediadorMyCards Control4 = new MediadorMyCards();
 
+            Control1.setVentana(Juego);
             Control4.setMyDeck(Control3.ramdomizadorDeck());
             Control4.setHand(Control3.ramdomizadorHand());
+            Control4.setVentana(Juego);
 
-            VentanaJuego Juego = new VentanaJuego();
             Juego.configurarMenu(Control1, Control2, Control4);
         });
         b2.addActionListener(e -> {
