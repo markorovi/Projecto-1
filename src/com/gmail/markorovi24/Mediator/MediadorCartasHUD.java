@@ -6,6 +6,13 @@ public class MediadorCartasHUD {
     private boolean isACardUp = false;
     VentanaJuego Ventana;
 
+    static MediadorCartasHUD Mediador;
+    public static synchronized MediadorCartasHUD obtenerInstancia(){
+        if (Mediador == null){
+            Mediador = new MediadorCartasHUD();
+        } return Mediador;
+    }
+
     public VentanaJuego getVentana() {
         return Ventana;
     }

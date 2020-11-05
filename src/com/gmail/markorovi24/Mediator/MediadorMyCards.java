@@ -16,6 +16,13 @@ public class MediadorMyCards {
     int ContadorHistorial = 0;
     int Index = 0;
 
+    static MediadorMyCards Mediador;
+    public static synchronized MediadorMyCards obtenerInstancia(){
+        if (Mediador == null){
+            Mediador = new MediadorMyCards();
+        } return Mediador;
+    }
+
     public VentanaJuego getVentana() {
         return Ventana;
     }

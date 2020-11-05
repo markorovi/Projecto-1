@@ -5,7 +5,7 @@ import com.github.monstertecg.sockets.Conectividad;
 import com.gmail.markorovi24.Cartas.Cartas;
 
 public class MediadorServidor {
-    MediadorVidaMana ControlVidaMana;
+    MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
 
 
     //Contructor singleton
@@ -16,9 +16,7 @@ public class MediadorServidor {
         } return Mediador;
     }
 
-    public void setControlVidaMana(MediadorVidaMana Control){
-        ControlVidaMana = Control;
-    }
+
 
     public void enviarCarta(Cartas card){
         String tipo = card.getTipo();
@@ -32,6 +30,6 @@ public class MediadorServidor {
     }
 
     public void recibido(Cartas card){
-        System.out.println(card.getNombre());
+        System.out.println( card.getNombre());
     }
 }

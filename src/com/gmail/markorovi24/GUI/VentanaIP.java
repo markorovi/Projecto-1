@@ -37,19 +37,18 @@ public class VentanaIP extends Ventana{
 
                 Ventana.setVisible(false);
                 VentanaJuego Juego = new VentanaJuego();
-                MediadorCartasHUD Control1 = new MediadorCartasHUD();
-                MediadorVidaMana Control2 = new MediadorVidaMana();
-                MediadorGeneradorCartas Control3 = new MediadorGeneradorCartas();
-                MediadorMyCards Control4 = new MediadorMyCards();
+                MediadorCartasHUD Control1 = MediadorCartasHUD.obtenerInstancia();
+                MediadorVidaMana Control2 = MediadorVidaMana.obtenerInstancia();
+                MediadorGeneradorCartas Control3 = MediadorGeneradorCartas.obtenerInstancia();
+                MediadorMyCards Control4 = MediadorMyCards.obtenerInstancia();
                 MediadorServidor Control5 = MediadorServidor.obtenerInstancia();
 
                 Control1.setVentana(Juego);
                 Control4.setMyDeck(Control3.ramdomizadorDeck());
                 Control4.setHand(Control3.ramdomizadorHand());
                 Control4.setVentana(Juego);
-                Control5.setControlVidaMana(Control2);
 
-                Juego.configurarMenu(Control1, Control2, Control4);
+                Juego.configurarMenu();
             }
         });
 

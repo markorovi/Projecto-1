@@ -13,6 +13,13 @@ import java.util.Random;
 
 public class MediadorGeneradorCartas {
 
+    static MediadorGeneradorCartas Mediador;
+    public static synchronized MediadorGeneradorCartas obtenerInstancia(){
+        if (Mediador == null){
+            Mediador = new MediadorGeneradorCartas();
+        } return Mediador;
+    }
+
     Random rand = new Random();
     JsonNode Diccionario;
     {

@@ -53,14 +53,11 @@ public class VentanaJuego extends Ventana{
     private final Button Boton3 = new Button();
     private final Button Boton4 = new Button();
 
-    private MediadorCartasHUD ControlCartas;
-    private MediadorVidaMana ControlVidaMana;
-    private MediadorMyCards ControlDecks;
+    private MediadorCartasHUD ControlCartas = MediadorCartasHUD.obtenerInstancia();
+    private MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
+    private MediadorMyCards ControlDecks = MediadorMyCards.obtenerInstancia();
 
-    public void configurarMenu(MediadorCartasHUD ControlCartasParametro, MediadorVidaMana ControlVidaManaParametro, MediadorMyCards ControlDecksParametro){
-        this.ControlCartas = ControlCartasParametro;
-        this.ControlVidaMana = ControlVidaManaParametro;
-        this.ControlDecks = ControlDecksParametro;
+    public void configurarMenu(){
 
         this.MyCard1.builder(180, 490, 120, 160, this.ControlCartas);
         this.MyCard2.builder(330, 490, 120, 160, this.ControlCartas);

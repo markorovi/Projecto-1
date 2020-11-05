@@ -6,6 +6,13 @@ public class MediadorVidaMana {
     int RivalHP = 1000;
     int RivalMana = 200;
 
+    static MediadorVidaMana Mediador;
+    public static synchronized MediadorVidaMana obtenerInstancia(){
+        if (Mediador == null){
+            Mediador = new MediadorVidaMana();
+        } return Mediador;
+    }
+
     public int getMyHP() {
         return MyHP;
     }
