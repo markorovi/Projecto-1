@@ -171,11 +171,47 @@ public class ListaDoble<T> {
 
     public T ObtenerSiguienteDe(int indice){
         if (indice == this.Largo()-1) {
-            throw new IndexOutOfBoundsException("No se puede obtener un elemento anterior a primer elemento.");
+            throw new IndexOutOfBoundsException("No se puede obtener un elemento siguiente al último elemento.");
         } else if (this.primero == null) {
             throw new IndexOutOfBoundsException("La lista está vacía.");
         }
         return this.ObtenerObjeto(indice).ObtenerObjetoSiguiente().ObtenerElemento();
+    }
+
+
+    public T ObtenerAnteriorDeElemento(T elemento){
+        if (this.primero == null) {
+            throw new IndexOutOfBoundsException("La lista está vacía.");
+        } else
+            return this.primero.ObtenerAnteriorDeElementoAux(elemento);
+    }
+    private T ObtenerAnteriorDeElementoAux(T elemento){
+        if (this.primero == elemento) {
+            throw new IndexOutOfBoundsException("El primer elemento no tiene anterior.");
+        } else if (this.siguiente == null) {
+            throw new IndexOutOfBoundsException("El elemento -> "+ elemento +" <- no pertenece a la lista.");
+        } else if (this.siguiente == elemento) {
+            return this.valor;
+        } else {
+            return this.siguiente.ObtenerSiguienteDeElementoAux(elemento);
+        }
+    }
+
+
+    public T ObtenerSiguienteDeElemento(T elemento){
+        if (this.primero == null) {
+            throw new IndexOutOfBoundsException("La lista está vacía.");
+        } else
+        return this.primero.ObtenerSiguienteDeElementoAux(elemento);
+    }
+    private T ObtenerSiguienteDeElementoAux(T elemento){
+        if (this.primero == elemento){
+            return this.primero.ObtenerObjetoSiguiente().ObtenerElemento();
+        } else if (this.siguiente == null) {
+            throw new IndexOutOfBoundsException("El elemento es el último de la lista, no tiene siguiente.");
+        } else {
+            return this.primero.ObtenerSiguienteDeElementoAux(elemento);
+        }
     }
 
     public void CambiarValor(int indice, T valor){
