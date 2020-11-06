@@ -175,6 +175,7 @@ public class Decodificador {
             } else if(id.equals("7")) {
                 //tipo 7
                 // programar que esta vaina cambie las cartas por ??? durante un turno
+
             } else if(id.equals("8")) {
                 //tipo 8
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP()-150);
