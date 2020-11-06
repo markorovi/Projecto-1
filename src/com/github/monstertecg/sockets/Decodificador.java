@@ -103,9 +103,14 @@ public class Decodificador {
                 carta = Decodificador.DecodificadorSecretos(mensajeCodificado);
                 break;
 
-            case "especial":
+            case "curar":
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() + Integer.parseInt(mensajeCodificado.asText()));
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
                 return;
+
+            case "dañar":
+                MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() - Integer.parseInt(mensajeCodificado.asText()));
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
 
             default:
                 System.out.println("sin carta");
