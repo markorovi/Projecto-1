@@ -181,7 +181,7 @@
     },
     "7": {
       "nombre": "Ceguera",
-      "descripcion": "Deniega visión al rival de sus propias cartas en su siguiente turno.",
+      "descripcion": "Provoca que el rival lance una carta aleatoria.",
       "mana": 20
     },
     "8": {

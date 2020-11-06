@@ -1,9 +1,8 @@
 package com.github.monstertecg.main;
 
+import com.github.monstertecg.Reproductor.Reproductor;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.sockets.Conectividad;
-import com.gmail.markorovi24.Cartas.Cartas;
-import com.gmail.markorovi24.Cartas.Hechizos;
 
 import java.util.Scanner;
 
@@ -20,6 +19,11 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("Funciona, tenga un buen día.");
+
+        Reproductor reproductor = Reproductor.ObtenerInstancia();
+
+        System.out.println("ESCUCHANDO CHAYANNE");
+        reproductor.Chayanne();
 
         // Probando conectividad
 
