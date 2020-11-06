@@ -1,4 +1,5 @@
 package com.gmail.markorovi24.GUI;
+
 import javax.swing.*;
 
 public class Ventana {

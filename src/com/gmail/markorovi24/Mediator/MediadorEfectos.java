@@ -2,6 +2,7 @@ package com.gmail.markorovi24.Mediator;
 
 import com.github.monstertecg.Reproductor.Reproductor;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
+import com.gmail.markorovi24.Cartas.Esbirros;
 
 import java.util.Random;
 
@@ -40,7 +41,8 @@ public class MediadorEfectos {
                 switch (i){
                     case 0:
                         if (MediadorMyCards.obtenerInstancia().getHandCards() == 0){
-
+                            MediadorMyCards.obtenerInstancia().agregarHand(new Esbirros("10", "La mosca", "Una mosca a estrado al campo de batalla.", "bzzz", 1, 10));
+                            MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards() + 1);
                         }
                         break;
 

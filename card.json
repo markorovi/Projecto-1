@@ -200,19 +200,19 @@
   "secretos": {
     "0": {
       "nombre": "Marco Salvaje",
-      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes. Si te quedas sin cartas, obtienes un esbirro y un hechizo.",
+      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes. Si te quedas sin cartas, obtienes a La mosca.",
       "frase": "Hola buenas.",
       "mana": 75
     },
     "1": {
       "nombre": "Lucho el del cartucho",
-      "descripcion": "Si tienes 7 cartas en mano, tu fondo de pantalla será actualizado.",
+      "descripcion": "Si tienes 7 cartas en mano, lucho el del cartucho pasara con un parlante a todo volumen.",
       "frase": "Prepárate chiquita.",
       "mana": 70
     },
     "2": {
       "nombre": "El tecVegetal",
-      "descripcion": "Cada vez que se juegue una carta de ahora en adelante, existe la posilibidad de que el tecDigital se caiga hasta aqui mismo.",
+      "descripcion": "Existe una probabilidad de que por un momento se perdia la conexión, haciendo que las cartas se 'caigan' como el tecVegetal.",
       "frase": "El tecDigital se ha caído, de nuevo.",
       "mana": 10
     },
