@@ -3,6 +3,7 @@ package com.gmail.markorovi24.Mediator;
 import com.github.monstertecg.Reproductor.Reproductor;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.gmail.markorovi24.Cartas.Esbirros;
+import com.gmail.markorovi24.HUDCards.MyCards;
 
 import java.util.Random;
 
@@ -56,21 +57,31 @@ public class MediadorEfectos {
                     case 2:
                         int azar = rand.nextInt(50);
                         if(azar == 0){
-
+                            ListaDoble<MyCards> lista = MediadorCartasHUD.obtenerInstancia().getVentana().obtenerCartas();
+                            setEfectosEn(1, false);
+                            for(int k = 0; k < 10; k++){
+                                lista.Obtener(k).setImage("se cae.jpg");
+                            }
+                            System.out.println("funciona");
                         }
                         break;
 
                     case 3:
-                        int azar2 = rand.nextInt(2);
+                        int azar2 = rand.nextInt(999);
                         if (azar2 == 0){
-
+                            //dano
                         }
                         break;
 
                     case 4:
                         if(MediadorVidaMana.obtenerInstancia().getMyHP() < 50){
                             setEfectosEn(4, false);
-
+                            int restantes = 10 - MediadorMyCards.obtenerInstancia().getHandCards();
+                                for(int j = 0; j < restantes; j++){
+                                    MediadorMyCards.obtenerInstancia().agregarHand(new Esbirros("10", "La mosca", "Una mosca a entrado al cambo de batalla", "bzzz", 1, 10));
+                                    MediadorMyCards.obtenerInstancia().setHandCards(10);
+                                }
+                            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
                         }
                         break;
 
@@ -78,7 +89,7 @@ public class MediadorEfectos {
                         System.out.println(MediadorMyCards.obtenerInstancia().getContadorHistorial());
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1).getNombre().equals("La mosca")){
                             setEfectosEn(5, false);
-
+                            //dano
                         }
                         break;
 
@@ -92,21 +103,24 @@ public class MediadorEfectos {
                     case 7:
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1 ).getTipo().equals("hechizos")) {
                             setEfectosEn(7, false);
-
+                            MediadorVidaMana.obtenerInstancia().setMyMana(500);
+                            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
                         }
                         break;
 
                     case 8:
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() - 1).getTipo().equals("esbirros")) {
                             setEfectosEn(8, false);
-
+                            MediadorVidaMana.obtenerInstancia().setMyMana(1000);
+                            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
                         }
                         break;
 
                     case 9:
                         if (MediadorVidaMana.obtenerInstancia().getMyMana() < 100) {
                             setEfectosEn(9, false);
-
+                            MediadorVidaMana.obtenerInstancia().setMyMana(800);
+                            MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
                         }
                         break;
 

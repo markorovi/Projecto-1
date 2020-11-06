@@ -72,7 +72,7 @@
     },
     "10": {
       "nombre": "La mosca",
-      "descripcion": "Una mosca a estrado al campo de batalla.",
+      "descripcion": "Una mosca a entrado al campo de batalla.",
       "frase": "bzzz",
       "daño": 1,
       "mana": 10
@@ -242,7 +242,7 @@
     },
     "7": {
       "nombre": "Hernan Jimenez",
-      "descripcion": "Cuando un 'hechiste'  sea lanzado, un chiste tan malo es contado que tu maná es establecido en 500.",
+      "descripcion": "Cuando un 'hechiste' sea lanzado, un chiste tan malo es contado que tu maná es establecido en 500.",
       "frase": "Chistes, chistes everywhere.",
       "mana": 70
     },

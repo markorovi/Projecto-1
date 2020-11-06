@@ -362,4 +362,8 @@ public class VentanaJuego extends Ventana{
             ActiveCards.setText(texto);
         }
     }
+
+    public ListaDoble<MyCards> obtenerCartas() {
+        return this.Hand;
+    }
 }
