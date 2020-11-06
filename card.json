@@ -166,7 +166,7 @@
     },
     "4": {
       "nombre": "Sacrificio",
-      "descripcion": "Por hacerte 100 de daño, puedes lanzar 2 cartas más.",
+      "descripcion": "Por hacerte 50 de daño, hazle 250 de daño al rival.",
       "mana": 50
     },
     "5": {
@@ -176,7 +176,7 @@
     },
     "6": {
       "nombre": "Karma",
-      "descripcion": "Sin que el rival lo sepa, la siguiente carta que él use no tendrá ningún efecto.",
+      "descripcion": "La siguiente carta que el rival use no tendrá el mismo efecto que la mosca.",
       "mana": 70
     },
     "7": {
@@ -187,7 +187,7 @@
     "8": {
       "id": 8,
       "nombre": "Robo de vida",
-      "descripcion": "Roba 200 puntos de vida del rival.",
+      "descripcion": "Roba 150 puntos de vida del rival.",
       "mana": 60
     },
     "9": {

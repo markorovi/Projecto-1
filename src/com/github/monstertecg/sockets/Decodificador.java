@@ -134,7 +134,7 @@ public class Decodificador {
     public static void DecodificarMiscelaneos(JsonNode mensajeCodificado) {
         int vida = mensajeCodificado.get("vida").asInt();
         int mana = mensajeCodificado.get("mana").asInt();
-        boolean saltar = mensajeCodificado.get("abandonar").asBoolean();
+        boolean saltar = mensajeCodificado.get("saltar").asBoolean();
 
 
         // llama al mediador para actualizar datos
@@ -149,14 +149,18 @@ public class Decodificador {
             try {
                 String mensaje = mensajeCodificado.get("mensaje").asText();
 
+                System.out.println("MENSAJE " + mensaje);
                 if (mensaje.equals("robar")) {
                     ListaCircularDoble<Cartas> cartas = MediadorMyCards.obtenerInstancia().getHand();
                     Cartas carta = cartas.Obtener(new Random().nextInt(cartas.Largo()));
                     Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(carta)));
                 } else if (mensaje.equals("congelar")) {
+                    MediadorServidor.obtenerInstancia().setMyTurn(false);
                     Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
-                } else if (mensaje.equals("saltar")) {
+                } else if (mensaje.equals("jugar")) {
                     MediadorServidor.obtenerInstancia().saltado();
+                } else if (mensaje.equals("saltar")){
+                    MediadorServidor.obtenerInstancia().noJugar();
                 }
 
             } catch (Exception e) {

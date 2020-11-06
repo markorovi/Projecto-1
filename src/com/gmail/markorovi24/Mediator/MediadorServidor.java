@@ -31,18 +31,24 @@ public class MediadorServidor {
 
     public void enviarCarta(Cartas card){
         String tipo = card.getTipo();
-        String paquete = Json.VarToString(tipo, card.getId(), ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), false, "funca");
+        String paquete = Json.VarToString(tipo, card.getId(), ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), false, "jugar");
         Conectividad.obtenerInstancia().EnviarMensaje(paquete);
     }
 
     public void noJugar(){
-        String paquete = Json.VarToString("", "", ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), true, "funca2");
+        String paquete = Json.VarToString("", "", ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), true, "jugar");
+        Conectividad.obtenerInstancia().EnviarMensaje(paquete);
+    }
+
+
+    public void congelado(){
+        String paquete = Json.VarToString("", "", ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), true, "saltar");
         Conectividad.obtenerInstancia().EnviarMensaje(paquete);
     }
 
     public void recibido(Cartas card){
         MediadorEfectos.obtenerInstancia().verificarEfectos();
-        MediadorServidor.obtenerInstancia().setMyTurn(true);
+        //MediadorServidor.obtenerInstancia().setMyTurn(true);
         MediadorMyCards.obtenerInstancia().setRemainingCards(1);
         MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
         String tipo = card.getTipo();
@@ -56,6 +62,8 @@ public class MediadorServidor {
             Hechizos hechizo = (Hechizos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(hechizo);
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
+            MediadorHechizos.obtenerInstancia().setHechizosEn(Integer.parseInt(card.getId()), true);
+            MediadorHechizos.obtenerInstancia().verificarHechizos();
         } else if (tipo.equals("secretos")){
             Secretos secreto = (Secretos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(secreto);
