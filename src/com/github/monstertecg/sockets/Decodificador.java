@@ -3,13 +3,18 @@ package com.github.monstertecg.sockets;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
+import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
 import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
+import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
+import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorServidor;
+import com.gmail.markorovi24.Mediator.MediadorVidaMana;
 
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Decodifica los mensajes referentes a las cartas lanzadas.
@@ -97,14 +102,31 @@ public class Decodificador {
                 carta = Decodificador.DecodificadorSecretos(mensajeCodificado);
                 break;
 
-            case "saltar":
-                System.out.println("se ha saltado el turno");
+            case "carta robada":
+                JsonNode nodoCarta = mensajeCodificado.get("mensaje");
+                switch (nodoCarta.get("tipo").asText()) {
+
+                    case "esbirros":
+
+                        carta = Decodificador.DecodificarEsbirro(nodoCarta);
+                        break;
+
+                    case "hechizos":
+                        carta = Decodificador.DecodificadorHechizos(nodoCarta);
+                        break;
+
+                    case "secretos":
+                        carta = Decodificador.DecodificadorSecretos(nodoCarta);
+                        break;
+                }
+                MediadorMyCards.obtenerInstancia().agregarHand(carta);
+                MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards() + 1);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
+                return;
 
             default:
                 System.out.println("sin carta");
-        }
-        if (carta == null){
-            return;
+                return;
         }
         MediadorServidor.obtenerInstancia().recibido(carta);
     }
@@ -112,7 +134,7 @@ public class Decodificador {
     public static void DecodificarMiscelaneos(JsonNode mensajeCodificado) {
         int vida = mensajeCodificado.get("vida").asInt();
         int mana = mensajeCodificado.get("mana").asInt();
-        boolean abandnar = mensajeCodificado.get("abandonar").asBoolean();
+        boolean saltar = mensajeCodificado.get("abandonar").asBoolean();
 
 
         // llama al mediador para actualizar datos
@@ -122,17 +144,24 @@ public class Decodificador {
 
             Conectividad.obtenerInstancia().EstablecerDestino(infoInvitado.get("puerto").asText(), infoInvitado.get("ip").asText());
 
-        } catch (JsonProcessingException jsonProcessingException) { // ya no es el primer mensaje}
+        } catch (JsonProcessingException jsonProcessingException) { // ya no es el primer mensaje }
 
             try {
                 String mensaje = mensajeCodificado.get("mensaje").asText();
 
-                System.out.println("MENSAJE " + mensaje);
+                if (mensaje.equals("robar")) {
+                    ListaCircularDoble<Cartas> cartas = MediadorMyCards.obtenerInstancia().getHand();
+                    Cartas carta = cartas.Obtener(new Random().nextInt(cartas.Largo()));
+                    Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(carta)));
+                } else if (mensaje.equals("congelar")) {
+                    Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
+                } else if (mensaje.equals("saltar")) {
+                    MediadorServidor.obtenerInstancia().saltado();
+                }
 
             } catch (Exception e) {
                 System.out.println("no había mensaje secreto");
             }
         }
-        MediadorServidor.obtenerInstancia().saltado();
     }
 }

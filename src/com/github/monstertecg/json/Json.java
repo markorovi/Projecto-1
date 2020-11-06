@@ -56,13 +56,13 @@ public class Json {
         return parse(json);
     }
 
-     public static String VarToString(String tipoCarta, String id, int vida, int mana, boolean abandonar, String mensaje) {
+     public static String VarToString(String tipoCarta, String id, int vida, int mana, boolean saltar, String mensaje) {
          JSONObject jsonObject = new JSONObject();
          jsonObject.put("carta seleccionada", tipoCarta);
          jsonObject.put("id", id);
          jsonObject.put("vida", vida);
          jsonObject.put("mana", mana);
-         jsonObject.put("abandonar", abandonar);
+         jsonObject.put("saltar", saltar);
          jsonObject.put("mensaje", mensaje);
 
          return jsonObject.toString();
@@ -89,22 +89,12 @@ public class Json {
         return jsonNode;
      }
 
-     public static String CartasToString(ListaSimple<Cartas> cartas){
-        JSONObject jsonObject = new JSONObject();
+     public static String CartaToString(Cartas carta){
+        JSONObject cartaTemp = new JSONObject();
 
-        int largo = cartas.Largo();
-        for (int i = 0; i < largo; i++){
+        cartaTemp.put("tipo", carta.getTipo());
+        cartaTemp.put("id", carta.getId());
 
-            Cartas carta = cartas.ObtenerValor(i);
-            JSONObject cartaTemp = new JSONObject();
-            cartaTemp.put("carta Seleccionada", carta.getTipo());
-            cartaTemp.put("id", carta.getId());
-
-
-
-            jsonObject.put(String.valueOf(i), cartaTemp.toString());
-        }
-
-        return jsonObject.toString();
+        return cartaTemp.toString();
      }
 }
