@@ -183,7 +183,7 @@ public class Decodificador {
                 //tipo 9
                 // no hase nada equis de
             }
-        } else if (MediadorServidor.obtenerInstancia().getContadorBloqueos != 0) {
+        } else if (MediadorServidor.obtenerInstancia().getContadorBloqueos() != 0) {
             Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
             MediadorServidor.obtenerInstancia().setMyTurn(false);
         }
