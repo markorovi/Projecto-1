@@ -73,7 +73,7 @@
     "10": {
       "nombre": "La mosca",
       "descripcion": "Una mosca a estrado al campo de batalla.",
-      "frase": "...",
+      "frase": "bzzz",
       "daño": 1,
       "mana": 10
     },
@@ -166,7 +166,7 @@
     },
     "4": {
       "nombre": "Sacrificio",
-      "descripcion": "Por hacerte 50 de daño, hazle 250 de daño al rival.",
+      "descripcion": "Te haces 50 de daño, pero le haces 250 de daño al rival.",
       "mana": 50
     },
     "5": {
@@ -176,7 +176,7 @@
     },
     "6": {
       "nombre": "Karma",
-      "descripcion": "La siguiente carta que el rival use no tendrá el mismo efecto que la mosca.",
+      "descripcion": "El enemigo recibe el daño del esbirrlo más poderoso en el historial. Si no hay esbirros lanzados recibe 500 de daño.",
       "mana": 70
     },
     "7": {
