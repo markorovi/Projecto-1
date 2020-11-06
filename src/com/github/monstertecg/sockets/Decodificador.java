@@ -128,11 +128,14 @@ public class Decodificador {
                 System.out.println("sin carta");
                 return;
         }
-        if (carta instanceof Hechizos) {
+        if (carta.getTipo().equals("hechizos")) {
             if (carta.getId().equals("0")){
-                MediadorServidor.obtenerInstancia().setMyTurn(false);
                 Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
+                MediadorServidor.obtenerInstancia().setMyTurn(false);
             }
+        } else {
+            MediadorServidor.obtenerInstancia().setMyTurn(true);
+            MediadorMyCards.obtenerInstancia().setRemainingCards(1);
         }
         MediadorServidor.obtenerInstancia().recibido(carta);
     }
@@ -165,6 +168,8 @@ public class Decodificador {
                     case "jugar":
                         MediadorServidor.obtenerInstancia().saltado();
                         break;
+                    case "saltado":
+                        MediadorServidor.obtenerInstancia().setMyTurn(true);
                 }
 
             } catch (Exception e) {

@@ -43,7 +43,6 @@ public class VentanaIP extends Ventana{
                 MediadorMyCards Control4 = MediadorMyCards.obtenerInstancia();
                 MediadorServidor Control5 = MediadorServidor.obtenerInstancia();
                 MediadorEfectos Control6 = MediadorEfectos.obtenerInstancia();
-                MediadorHechizos Control7 = MediadorHechizos.obtenerInstancia();
 
                 Control1.setVentana(Juego);
                 Control4.setMyDeck(Control3.ramdomizadorDeck());
@@ -52,7 +51,6 @@ public class VentanaIP extends Ventana{
                 Control4.setRemainingCards(0);
                 Control5.setMyTurn(false);
                 Control6.generarLista();
-                Control7.generarLista();
 
                 Juego.configurarMenu();
             }

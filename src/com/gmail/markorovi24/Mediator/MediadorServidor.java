@@ -48,8 +48,6 @@ public class MediadorServidor {
 
     public void recibido(Cartas card){
         MediadorEfectos.obtenerInstancia().verificarEfectos();
-        //MediadorServidor.obtenerInstancia().setMyTurn(true);
-        MediadorMyCards.obtenerInstancia().setRemainingCards(1);
         MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
         String tipo = card.getTipo();
 
@@ -62,8 +60,6 @@ public class MediadorServidor {
             Hechizos hechizo = (Hechizos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(hechizo);
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
-            MediadorHechizos.obtenerInstancia().setHechizosEn(Integer.parseInt(card.getId()), true);
-            MediadorHechizos.obtenerInstancia().verificarHechizos();
         } else if (tipo.equals("secretos")){
             Secretos secreto = (Secretos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(secreto);
