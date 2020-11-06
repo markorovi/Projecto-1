@@ -4,43 +4,43 @@
       "nombre": "La vaca",
       "descripcion": "Desde San Carlos, este animal te embiste a una gran velocidad.",
       "frase": "Mu.",
-      "daño": 15,
-      "mana": 300
+      "daño": 200,
+      "mana": 200
     },
     "1": {
       "nombre": "El pato",
       "descripcion": "Recibes varios picotazos por parte de esta feroz ave.",
       "frase": "Cuak.",
-      "daño": 30,
-      "mana": 300
+      "daño": 50,
+      "mana": 50
     },
     "2": {
       "nombre": "El tigre",
       "descripcion": "Dudas de si va primero la leche o el cereal.",
       "frase": "Gana con garra",
-      "daño": 30,
-      "mana": 300
+      "daño": 100,
+      "mana": 30
     },
     "3": {
       "nombre": "La oveja",
       "descripcion": "Sufres del frío al ser teletransportado a un lugar extremadamente frío, donde solo está esta oveja que te admira sufrir.",
       "frase": "Hoooooooooooola amigo, ¿qué te has puesto una bufanda?, ah, ¿andás con frío?",
       "daño": 40,
-      "mana": 300
+      "mana": 40
     },
     "4": {
       "nombre": "Correcaminos",
       "descripcion": "Al intentar perseguir a este veloz animal, un yunque te ha caído encima.",
       "frase": "Yunque patrocinado por la marca ACME.",
       "daño": 70,
-      "mana": 300
+      "mana": 30
     },
     "5": {
       "nombre": "Picapiedra",
       "descripcion": "Sin querer has viajado en el tiempo, y este cavernícola te ha agarrado a garrotazos.",
       "frase": "Yabba dabba doo.",
-      "daño": 40,
-      "mana": 300
+      "daño": 70,
+      "mana": 30
     },
     "6": {
       "nombre": "Hormiga atomica",
@@ -60,70 +60,70 @@
       "nombre": "Steve",
       "descripcion": "Siendo capaz de llevar más de 10 toneladas de roca encima, no eres rival ninguno para este personaje icónico.",
       "frase": "**te da un puñetazo**",
-      "daño": 45,
-      "mana": 300
+      "daño": 85,
+      "mana": 30
     },
     "9": {
       "nombre": "Lion-o",
       "descripcion": "Con la Espada de los Presagios, este Thunderiano te ha acabado en tan solo un instante.",
       "frase": "Si fueras tan inteligente como repugnante,, quizá me causarías problemas.",
-      "daño": 90,
-      "mana": 300
+      "daño": 300,
+      "mana": 500
     },
     "10": {
       "nombre": "La mosca",
       "descripcion": "Una mosca a estrado al campo de batalla.",
       "frase": "...",
       "daño": 1,
-      "mana": 300
+      "mana": 10
     },
     "11": {
       "nombre": "Shaggy",
       "descripcion": "Los poderes de este mero humano estan más allá de nuestro entendimientos.",
       "frase": "Yikes.",
-      "daño": 100,
-      "mana": 300
+      "daño": 700,
+      "mana": 500
     },
     "12": {
       "nombre": "Tazer",
       "descripcion": "Perfecto para electrificar.",
       "frase": "haha, tazer go brrrrrrrr",
-      "daño": 35,
-      "mana": 300
+      "daño": 55,
+      "mana": 30
     },
     "13": {
       "nombre": "Pistola de agua",
       "descripcion": "Obviamente, no la mejor elección para un juego tan caótico como este.",
       "frase": "Splash.",
       "daño": 10,
-      "mana": 300
+      "mana": 10
     },
     "14": {
       "nombre": "La platina",
       "descripcion": "Te has quedado atrapado en el tráfico por más de medio día.",
       "frase": "Ya veremos cuando se arregla.",
-      "daño": 30,
+      "daño": 300,
       "mana": 300
     },
     "15": {
       "nombre": "Saitama",
       "descripcion": "100 lagartijas, 100 sentadillas, 100 abdominales y 10km todos los días hacen de este hombre el más fuerte de todos.",
       "frase": "Solo un héroe por diversión.",
-      "daño": 150,
-      "mana": 300
+      "daño": 900,
+      "mana": 700
     },
     "16": {
       "nombre": "El lago del TEC",
       "descripcion": "No sabes donde te encuentras, solo puedes ver un lago desconocido frente a ti.",
       "frase": "**se tira al lago**",
       "daño": 15,
-      "mana": 300
+      "mana": 30
     },
     "17": {
       "nombre": "La polilla",
       "descripcion": "Información no disponible.",
       "frase": "LA LUZ ES LA RESPUESTA",
-      "daño": 30,
+      "daño": 300,
       "mana": 300
     },
     "18": {
@@ -137,126 +137,126 @@
       "nombre": "John Wick",
       "descripcion": "Un lapicero es arma suficiente para este señor.",
       "frase": "Es personal.",
-      "daño": 80,
-      "mana": 300
+      "daño": 500,
+      "mana": 100
     }
   },
 
 
   "hechizos": {
     "0": {
-      "nombre": "Congelar",
+      "nombre":   "Congelar",
       "descripcion": "Deniegas el siguiente turno del rival.",
-      "mana": 15
+      "mana": 60
     },
     "1": {
       "nombre": "Robar",
       "descripcion": "Robas una carta al azar del rival.",
-      "mana": 15
+      "mana": 20
     },
     "2": {
       "nombre": "Poder supremo",
       "descripcion": "Puedes lanzar 3 cartas seguidas en tu siguiente turno.",
-      "mana": 15
+      "mana": 40
     },
     "3": {
       "nombre": "Curar",
       "descripcion": "Recibes una curación de 100 de vida. Puedes recibir más vida que el máximo.",
-      "mana": 15
+      "mana": 30
     },
     "4": {
       "nombre": "Sacrificio",
-      "descripcion": "Por auto mitigarte 50 de daño, puedes lanzar 2 cartas en el siguiente turno.",
-      "mana": 15
+      "descripcion": "Por hacerte 100 de daño, puedes lanzar 2 cartas más.",
+      "mana": 50
     },
     "5": {
       "nombre": "Polimorfia",
       "descripcion": "Convierte una carta al azar del rival en La Mosca.",
-      "mana": 15
+      "mana": 50
     },
     "6": {
       "nombre": "Karma",
-      "descripcion": "Sin que el rival lo sepa, la siguiente carta que el use no tendrá ningún efecto.",
-      "mana": 15
+      "descripcion": "Sin que el rival lo sepa, la siguiente carta que él use no tendrá ningún efecto.",
+      "mana": 70
     },
     "7": {
       "nombre": "Ceguera",
       "descripcion": "Deniega visión al rival de sus propias cartas en su siguiente turno.",
-      "mana": 15
+      "mana": 20
     },
     "8": {
       "id": 8,
       "nombre": "Robo de vida",
-      "descripcion": "Roba 50 puntos de vida del rival.",
-      "mana": 15
+      "descripcion": "Roba 200 puntos de vida del rival.",
+      "mana": 60
     },
     "9": {
       "nombre": "Escudo sagrado",
-      "descripcion": "Si el rival usa un esbirro en su siguiente turno, este no hará nada de daño.",
-      "mana": 15
+      "descripcion": "No recibes ningún tipo de daño en el siguiente turno.",
+      "mana": 50
     }
   },
 
   "secretos": {
     "0": {
       "nombre": "Marco Salvaje",
-      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes.",
+      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes. Si te quedas sin cartas, obtienes un esbirro y un hechizo.",
       "frase": "Hola buenas.",
-      "mana": 15
+      "mana": 75
     },
     "1": {
       "nombre": "Lucho el del cartucho",
-      "descripcion": "Si un jugador tiene 10 cartas en mano y más de 500 de vida, recibe un daño de 499.",
+      "descripcion": "Si un jugador tienes 7 cartas en mano y tu contrincante tiene más de 500 de vida, le haces 499 de daño.",
       "frase": "Prepárate chiquita.",
-      "mana": 15
+      "mana": 70
     },
     "2": {
       "nombre": "El tecVegetal",
       "descripcion": "Cada vez que juegas una carta de ahora en adelante, existe la posilibidad de que esa carta no se juegue debido a problemas de conexión.",
       "frase": "El tecDigital se ha caído, de nuevo.",
-      "mana": 15
+      "mana": 10
     },
     "3": {
       "nombre": "Ruleta rusa",
-      "descripcion": "Si el jugador rival acepta, ambos jugaran 1 turno a la ruleta rusa. Ya sabemos que pasa si alguien tiene mala suerte.",
+      "descripcion": "Al lanzar esta carta, tienes una posibilidad de 1 en 999 de hacer one shot a tu adversario.",
       "frase": "1/6",
-      "mana": 15
+      "mana": 200
     },
     "4": {
       "nombre": "Fat yoshi",
-      "descripcion": "Cuando uno de los jugadores esté llegue a estar a menos de 50 de vida, yoshi hará su aparición.",
+      "descripcion": "Cuando estés a menos de 50 de vida, yoshi hará su aparición. Todos los espacios vacíos de tu mano se llenarán de la carta la mosca.",
       "frase": "YOSHIIIIIII",
-      "mana": 15
+      "mana": 50
     },
     "5": {
       "nombre": "Omae wa mo shindeiru",
-      "descripcion": "Si se juega la carta de la mosca, esta será potenciada hasta tal punto que 1 de los jugadores morirá instantáneamente",
+      "descripcion": "Si se juega la carta de la mosca, esta será potenciada hasta tal punto que el adversario morirá instantáneamente.",
       "frase": "nani?",
-      "mana": 15
+      "mana": 60
     },
     "6": {
       "nombre": "Chayanne",
-      "descripcion": "Si el jugador rival regenera vida, una marivillosa pieza de este cantante sonará para felicitarle.",
+      "descripcion": "Si ganas, una marivillosa pieza de este cantante sonará para felicitarle.",
       "frase": "Chayannazo.",
-      "mana": 15
+      "mana": 20
     },
     "7": {
       "nombre": "Hernan Jimenez",
-      "descripcion": "Si le ganas a tu oponente, un mega chistesote le aparecerá en pantalla a él para que así sufra aún más.",
+      "descripcion": "Al lanzar una carta, contará un chiste que duplicará el daño de la carta.",
       "frase": "Chistes, chistes everywhere.",
-      "mana": 15
+      "mana": 70
     },
     "8": {
       "nombre": "El gordo navideño",
-      "descripcion": "asdf",
+      "descripcion": "¡Has ganado el gordo navideño! Recuperas el 50% de tu vida si tu oponente salta.",
       "frase": "asdf",
       "mana": 15
     },
     "9": {
       "nombre": "100 colones",
-      "descripcion": "as",
-      "frase": "asdf",
-      "mana": 15
+      "descripcion": "100 colones. Ganas 100 de maná cada vez que saltes un turno.",
+      "frase": "100 colones",
+      "mana": 100
     }
   }
 }

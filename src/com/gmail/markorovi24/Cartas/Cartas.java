@@ -9,46 +9,6 @@ public class Cartas {
     protected int dano;
     protected int mana;
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getFrase() {
-        return frase;
-    }
-
-    public void setFrase(String frase) {
-        this.frase = frase;
-    }
-
-    public int getDano() {
-        return dano;
-    }
-
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
-
-    public int getMana() {
-        return mana;
-    }
-
-    public void setMana(int mana) {
-        this.mana = mana;
-    }
-
     public Cartas(String id, String nombre, String descripcion, String frase, int dano, int mana) {
         // Constructor de esbirros
 
@@ -88,11 +48,56 @@ public class Cartas {
         System.out.println("daño: " + dano + ", mana: " + mana);
     }
 
+    public boolean ComprobarYHacerEvento(int vida, int mana, int vidaOponente, boolean saltado) {
+        System.out.println();
+        return false;
+    }
+
     public String getTipo() {
         return tipo;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getFrase() {
+        return frase;
+    }
+
+    public void setFrase(String frase) {
+        this.frase = frase;
+    }
+
+    public int getDano() {
+        return dano;
+    }
+
+    public void setDano(int dano) {
+        this.dano = dano;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }
