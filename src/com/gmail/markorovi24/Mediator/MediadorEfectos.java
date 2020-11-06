@@ -1,5 +1,6 @@
 package com.gmail.markorovi24.Mediator;
 
+import com.github.monstertecg.Reproductor.Reproductor;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 
 import java.util.Random;
@@ -46,7 +47,7 @@ public class MediadorEfectos {
                     case 1:
                         if (MediadorMyCards.obtenerInstancia().getHandCards() > 7 && MediadorVidaMana.obtenerInstancia().getRivalHP() > 500){
                             setEfectosEn(1, false);
-
+                            Reproductor.ObtenerInstancia().Safaera();
                         }
                         break;
 

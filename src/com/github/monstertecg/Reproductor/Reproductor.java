@@ -35,6 +35,12 @@ public class Reproductor {
         Reproducir(path + "chayanne.ogg");
     }
 
+    public void Safaera(){
+        String path = Paths.get("").toAbsolutePath().toString();
+        path = path + "\\src\\main\\resources\\musica\\";
+        Reproducir(path + "safaera.ogg");
+    }
+
     private void Reproducir(String ruta) {
         final File archivo = new File(ruta);
 

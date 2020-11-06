@@ -22,8 +22,8 @@ public class Main {
 
         Reproductor reproductor = Reproductor.ObtenerInstancia();
 
-        System.out.println("ESCUCHANDO CHAYANNE");
-        reproductor.Chayanne();
+        System.out.println("ESCUCHANDO SAFAERA");
+        reproductor.Safaera();
 
         // Probando conectividad
 
