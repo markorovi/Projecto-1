@@ -127,10 +127,10 @@ public class Conectividad {
 
                 jnode = Json.parse(entrada);
 
+                Decodificador.DecodificarMiscelaneos(jnode);
+
                 // Comprueba cartas
                 Decodificador.DecodificarCartas(jnode);
-
-                Decodificador.DecodificarMiscelaneos(jnode);
 
                 try {
                     inputStream.close();

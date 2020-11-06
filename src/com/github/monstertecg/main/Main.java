@@ -2,6 +2,8 @@ package com.github.monstertecg.main;
 
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.sockets.Conectividad;
+import com.gmail.markorovi24.Cartas.Cartas;
+import com.gmail.markorovi24.Cartas.Hechizos;
 
 import java.util.Scanner;
 
