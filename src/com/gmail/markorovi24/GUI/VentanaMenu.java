@@ -29,6 +29,7 @@ public class VentanaMenu extends Ventana{
             MediadorGeneradorCartas Control3 = MediadorGeneradorCartas.obtenerInstancia();
             MediadorMyCards Control4 = MediadorMyCards.obtenerInstancia();
             MediadorServidor Control5 = MediadorServidor.obtenerInstancia();
+            MediadorEfectos Control6 = MediadorEfectos.obtenerInstancia();
 
 
             Control1.setVentana(Juego);
@@ -36,6 +37,7 @@ public class VentanaMenu extends Ventana{
             Control4.setHand(Control3.ramdomizadorHand());
             Control4.setVentana(Juego);
             Control5.setMyTurn(true);
+            Control6.generarLista();
 
             Juego.configurarMenu();
         });

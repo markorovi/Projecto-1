@@ -41,6 +41,7 @@ public class MediadorServidor {
     }
 
     public void recibido(Cartas card){
+        MediadorEfectos.obtenerInstancia().verificarEfectos();
         MediadorServidor.obtenerInstancia().setMyTurn(true);
         MediadorMyCards.obtenerInstancia().setRemainingCards(1);
         MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
@@ -59,8 +60,14 @@ public class MediadorServidor {
             Secretos secreto = (Secretos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(secreto);
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
+            for(int i = 0; i < 10; i++){
+                if(Integer.parseInt(card.getId()) == i){
+                    MediadorEfectos.obtenerInstancia().setEfectosEn(i, true);
+                }
+            }
         }
         MediadorCartasHUD.obtenerInstancia().getVentana().actualizarCartaHistorial();
+        MediadorCartasHUD.obtenerInstancia().getVentana().actualizarEfectos();
         if (MediadorMyCards.obtenerInstancia().getContadorHistorial() > 1){
             temporal.setMyMana(temporal.getMyMana() + (int) (temporal.getMyMana()*0.25));
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();

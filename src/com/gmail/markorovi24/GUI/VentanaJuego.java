@@ -140,6 +140,7 @@ public class VentanaJuego extends Ventana{
                             }
                             Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
                             actualizarCartaSeleccionada();
+                            actualizarEfectos();
                             break;
                         }
                     }
@@ -308,4 +309,55 @@ public class VentanaJuego extends Ventana{
         ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
     }
 
+    public void actualizarEfectos(){
+        String texto = "";
+        ActiveCards.setText(texto);
+        for(int i = 0; i < 10; i++) {
+            if (MediadorEfectos.obtenerInstancia().getEfectos().Obtener(i)) {
+                switch (i) {
+                    case 0:
+                        texto += "Marco salvaje \n";
+                        break;
+
+                    case 1:
+                        texto += "Lucho el del cartucho \n";
+                        break;
+
+                    case 2:
+                        texto += "El tecVegetal \n";
+                        break;
+
+                    case 3:
+                        texto += "Ruleta rusa \n";
+                        break;
+
+                    case 4:
+                        texto += "Fat yoshi \n";
+                        break;
+
+                    case 5:
+                        texto += "Omae wa mo shindeiru \n";
+                        break;
+
+                    case 6:
+                        texto += "Chayanne \n";
+                        break;
+
+                    case 7:
+                        texto += "Hernan Jimenez \n";
+                        break;
+
+                    case 8:
+                        texto += "El gordo navideño \n";
+                        break;
+
+                    case 9:
+                        texto += "100 colones \n";
+                        break;
+
+                }
+            }
+            ActiveCards.setText(texto);
+        }
+    }
 }

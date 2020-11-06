@@ -120,6 +120,7 @@ public class MediadorMyCards {
     }
 
     public void jugarCarta(Cartas card){
+        MediadorEfectos.obtenerInstancia().verificarEfectos();
         String type = card.getTipo();
 
         if(type.equals("esbirros")){
@@ -136,6 +137,11 @@ public class MediadorMyCards {
             Secretos secreto = (Secretos) card;
             MediadorVidaMana.obtenerInstancia().producirDano(card.getDano());
             Ventana.actualizarDano();
+            for(int i = 0; i < 10; i++){
+                if(Integer.parseInt(card.getId()) == i){
+                    MediadorEfectos.obtenerInstancia().setEfectosEn(i, true);
+                }
+            }
 
         }
     }
