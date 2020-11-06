@@ -85,7 +85,7 @@ public class MediadorEfectos {
                     case 6:
                         if (MediadorVidaMana.obtenerInstancia().getRivalHP() < 0) {
                             setEfectosEn(6, false);
-
+                            Reproductor.ObtenerInstancia().Chayanne();
                         }
                         break;
 
