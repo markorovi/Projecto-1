@@ -141,6 +141,8 @@ public class VentanaJuego extends Ventana{
                             Hand.Obtener(ControlDecks.getHandCards()).setImage("Interrogacion.jpg");
                             actualizarCartaSeleccionada();
                             actualizarEfectos();
+
+                            MediadorEfectos.obtenerInstancia().verificarEfectos();
                             break;
                         }
                     }

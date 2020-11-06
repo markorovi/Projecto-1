@@ -10,6 +10,15 @@ import com.gmail.markorovi24.Cartas.Secretos;
 public class MediadorServidor {
     MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
     private boolean MyTurn;
+    private int contadorBloqueos = 0;
+
+    public int getContadorBloqueos() {
+        return contadorBloqueos;
+    }
+
+    public void setContadorBloqueos(int contadorBloqueos) {
+        this.contadorBloqueos = contadorBloqueos;
+    }
 
 
     //Contructor singleton
@@ -36,6 +45,7 @@ public class MediadorServidor {
     }
 
     public void noJugar(){
+        MediadorEfectos.obtenerInstancia().verificarEfectos();
         String paquete = Json.VarToString("", "", ControlVidaMana.getMyHP(),ControlVidaMana.getMyMana(), true, "jugar");
         Conectividad.obtenerInstancia().EnviarMensaje(paquete);
     }
@@ -47,7 +57,6 @@ public class MediadorServidor {
     }
 
     public void recibido(Cartas card){
-        MediadorEfectos.obtenerInstancia().verificarEfectos();
         MediadorVidaMana temporal = MediadorVidaMana.obtenerInstancia();
         String tipo = card.getTipo();
 
@@ -64,11 +73,6 @@ public class MediadorServidor {
             Secretos secreto = (Secretos) card;
             MediadorMyCards.obtenerInstancia().agregarHistorial(secreto);
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
-            for(int i = 0; i < 10; i++){
-                if(Integer.parseInt(card.getId()) == i){
-                    MediadorEfectos.obtenerInstancia().setEfectosEn(i, true);
-                }
-            }
         }
         MediadorCartasHUD.obtenerInstancia().getVentana().actualizarCartaHistorial();
         MediadorCartasHUD.obtenerInstancia().getVentana().actualizarEfectos();
@@ -76,6 +80,8 @@ public class MediadorServidor {
             temporal.setMyMana(temporal.getMyMana() + (int) (temporal.getMyMana()*0.25));
             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
         }
+
+        MediadorEfectos.obtenerInstancia().verificarEfectos();
     }
 
     public void saltado(){

@@ -206,13 +206,13 @@
     },
     "1": {
       "nombre": "Lucho el del cartucho",
-      "descripcion": "Si un jugador tienes 7 cartas en mano y tu contrincante tiene más de 500 de vida, le haces 499 de daño.",
+      "descripcion": "Si tienes 7 cartas en mano, tu fondo de pantalla será actualizado.",
       "frase": "Prepárate chiquita.",
       "mana": 70
     },
     "2": {
       "nombre": "El tecVegetal",
-      "descripcion": "Cada vez que juegas una carta de ahora en adelante, existe la posilibidad de que esa carta no se juegue debido a problemas de conexión.",
+      "descripcion": "Cada vez que se juegue una carta de ahora en adelante, existe la posilibidad de que el tecDigital se caiga hasta aqui mismo.",
       "frase": "El tecDigital se ha caído, de nuevo.",
       "mana": 10
     },
@@ -230,7 +230,7 @@
     },
     "5": {
       "nombre": "Omae wa mo shindeiru",
-      "descripcion": "Si se juega la carta de la mosca, esta será potenciada hasta tal punto que el adversario morirá instantáneamente.",
+      "descripcion": "Si juegas la carta de la mosca, esta será potenciada hasta tal punto que el adversario morirá instantáneamente.",
       "frase": "nani?",
       "mana": 60
     },
@@ -242,19 +242,19 @@
     },
     "7": {
       "nombre": "Hernan Jimenez",
-      "descripcion": "Al lanzar una carta, contará un chiste que duplicará el daño de la carta.",
+      "descripcion": "Cuando un 'hechiste'  sea lanzado, un chiste tan malo es contado que tu maná es establecido en 500.",
       "frase": "Chistes, chistes everywhere.",
       "mana": 70
     },
     "8": {
       "nombre": "El gordo navideño",
-      "descripcion": "¡Has ganado el gordo navideño! Recuperas el 50% de tu vida si tu oponente salta.",
-      "frase": "asdf",
+      "descripcion": "¡Has ganado el gordo navideño! Tu maná es establecido en 1000 cuando se juega un esbirro.",
+      "frase": "Felicidades,",
       "mana": 15
     },
     "9": {
       "nombre": "100 colones",
-      "descripcion": "100 colones. Ganas 100 de maná cada vez que saltes un turno.",
+      "descripcion": "100 colones. Si tienes menos de 100 de maná, este sube a 800.",
       "frase": "100 colones",
       "mana": 100
     }

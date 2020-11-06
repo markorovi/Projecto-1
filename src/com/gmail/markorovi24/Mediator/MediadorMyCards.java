@@ -120,7 +120,6 @@ public class MediadorMyCards {
     }
 
     public void jugarCarta(Cartas card){
-        MediadorEfectos.obtenerInstancia().verificarEfectos();
         String type = card.getTipo();
 
         if(type.equals("esbirros")){

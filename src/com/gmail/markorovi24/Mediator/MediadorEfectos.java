@@ -2,6 +2,8 @@ package com.gmail.markorovi24.Mediator;
 
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 
+import java.util.Random;
+
 public class MediadorEfectos {
     static MediadorEfectos Mediador;
     public static synchronized MediadorEfectos obtenerInstancia(){
@@ -26,52 +28,83 @@ public class MediadorEfectos {
 
     public void generarLista(){
         for (int i = 0; i < 10; i++){
-            Efectos.Agregar(false);
+            Efectos.Agregar(true);
         }
     }
 
     public void verificarEfectos(){
         for(int i = 0; i < 10; i++) {
             if(Efectos.Obtener(i)){
+                Random rand = new Random();
                 switch (i){
                     case 0:
-                        System.out.println(i);
+                        if (MediadorMyCards.obtenerInstancia().getHandCards() == 0){
+
+                        }
                         break;
 
                     case 1:
-                        System.out.println(i);
+                        if (MediadorMyCards.obtenerInstancia().getHandCards() > 7 && MediadorVidaMana.obtenerInstancia().getRivalHP() > 500){
+                            setEfectosEn(1, false);
+
+                        }
                         break;
 
                     case 2:
-                        System.out.println(i);
+                        int azar = rand.nextInt(50);
+                        if(azar == 0){
+
+                        }
                         break;
 
                     case 3:
-                        System.out.println(i);
+                        int azar2 = rand.nextInt(2);
+                        if (azar2 == 0){
+
+                        }
                         break;
 
                     case 4:
-                        System.out.println(i);
+                        if(MediadorVidaMana.obtenerInstancia().getMyHP() < 50){
+                            setEfectosEn(4, false);
+
+                        }
                         break;
 
                     case 5:
-                        System.out.println(i);
+                        System.out.println(MediadorMyCards.obtenerInstancia().getContadorHistorial());
+                        if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1).getNombre().equals("La mosca")){
+                            setEfectosEn(5, false);
+
+                        }
                         break;
 
                     case 6:
-                        System.out.println(i);
+                        if (MediadorVidaMana.obtenerInstancia().getRivalHP() < 0) {
+                            setEfectosEn(6, false);
+
+                        }
                         break;
 
                     case 7:
-                        System.out.println(i);
+                        if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1 ).getTipo().equals("hechizos")) {
+                            setEfectosEn(7, false);
+
+                        }
                         break;
 
                     case 8:
-                        System.out.println(i);
+                        if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() - 1).getTipo().equals("esbirros")) {
+                            setEfectosEn(8, false);
+
+                        }
                         break;
 
                     case 9:
-                        System.out.println(i);
+                        if (MediadorVidaMana.obtenerInstancia().getMyMana() < 100) {
+                            setEfectosEn(9, false);
+
+                        }
                         break;
 
                 }

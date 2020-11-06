@@ -47,16 +47,14 @@ public class MediadorGeneradorCartas {
         ListaStack<Cartas> Pila = new ListaStack<>();
 
         for (int i = 0; i < 16; i++) {
-            //int type = rand.nextInt(1);
-            int type = 1;
+            int type = rand.nextInt(3);
             if (type == 0) {
                 int card = rand.nextInt(20);
                 JsonNode attr = Diccionario.get("esbirros").get(String.valueOf(card));
                 Pila.Agregar(createCard("esbirros", String.valueOf(card), attr));
 
             } else if (type == 1) {
-                //int card = rand.nextInt(10);
-                int card = 0;
+                int card = rand.nextInt(10);
                 Diccionario.get("hechizos").get(String.valueOf(card));
                 JsonNode attr = Diccionario.get("hechizos").get(String.valueOf(card));
                 Pila.Agregar(createCard("hechizos", String.valueOf(card), attr));
