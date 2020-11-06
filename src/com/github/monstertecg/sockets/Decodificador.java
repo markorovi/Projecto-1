@@ -128,6 +128,12 @@ public class Decodificador {
                 System.out.println("sin carta");
                 return;
         }
+        if (carta instanceof Hechizos) {
+            if (carta.getId().equals("0")){
+                MediadorServidor.obtenerInstancia().setMyTurn(false);
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
+            }
+        }
         MediadorServidor.obtenerInstancia().recibido(carta);
     }
 
@@ -155,12 +161,12 @@ public class Decodificador {
                     Cartas carta = cartas.Obtener(new Random().nextInt(cartas.Largo()));
                     Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(carta)));
                 } else if (mensaje.equals("congelar")) {
-                    MediadorServidor.obtenerInstancia().setMyTurn(false);
-                    Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
+                    //MediadorServidor.obtenerInstancia().setMyTurn(false);
+                    //Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
                 } else if (mensaje.equals("jugar")) {
                     MediadorServidor.obtenerInstancia().saltado();
                 } else if (mensaje.equals("saltar")){
-                    MediadorServidor.obtenerInstancia().noJugar();
+                    MediadorServidor.obtenerInstancia().saltado();
                 }
 
             } catch (Exception e) {
