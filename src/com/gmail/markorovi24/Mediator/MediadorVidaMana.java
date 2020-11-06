@@ -50,9 +50,9 @@ public class MediadorVidaMana {
 
     public void checkWinCondition(){
         if (this.RivalHP <= 0){
-
+            System.out.println("ganaste");
         } else if (this.MyHP <= 0){
-
+            System.out.println("perdiste");
         }
     }
 
