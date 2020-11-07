@@ -10,6 +10,7 @@ import com.gmail.markorovi24.Mediator.*;
 import com.gmail.markorovi24.GUI.Widgets.*;
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -229,7 +230,11 @@ public class VentanaJuego extends Ventana{
         for (int k = 0; k < ControlDecks.getHandCards(); k++){
             Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
         }
+        for(int index = MediadorMyCards.obtenerInstancia().getHandCards(); index < 10; index++){
+            Hand.Obtener(index).setImage("Interrogacion.jpg");
+        }
     }
+
 
     public void actualizarCartaSeleccionada(){
         for (int i = 0; i < ControlDecks.getHandCards(); i++){
@@ -295,6 +300,7 @@ public class VentanaJuego extends Ventana{
 
     public void actualizarVida(){
         this.Texto5.setValue(this.ControlVidaMana.getMyHP());
+        System.out.println(this.ControlVidaMana.getMyHP());
     }
 
     public void actualizarMana() {
@@ -365,5 +371,9 @@ public class VentanaJuego extends Ventana{
 
     public ListaDoble<MyCards> obtenerCartas() {
         return this.Hand;
+    }
+
+    public void setGanar(){
+        Ventana.setContentPane(new JLabel(new ImageIcon("\\src\\main\\resources\\images\\")));
     }
 }

@@ -1,5 +1,7 @@
 package com.gmail.markorovi24.Mediator;
 
+import com.gmail.markorovi24.GUI.Ventana;
+
 public class MediadorVidaMana {
     int MyHP = 1000;
     int MyMana = 200;
@@ -50,7 +52,8 @@ public class MediadorVidaMana {
 
     public void checkWinCondition(){
         if (this.RivalHP <= 0){
-            System.out.println("ganaste");
+            Ventana ventana = MediadorCartasHUD.obtenerInstancia().getVentana();
+
         } else if (this.MyHP <= 0){
             System.out.println("perdiste");
         }

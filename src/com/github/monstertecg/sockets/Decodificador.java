@@ -10,10 +10,7 @@ import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
 import com.gmail.markorovi24.HUDCards.MyCards;
-import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
-import com.gmail.markorovi24.Mediator.MediadorMyCards;
-import com.gmail.markorovi24.Mediator.MediadorServidor;
-import com.gmail.markorovi24.Mediator.MediadorVidaMana;
+import com.gmail.markorovi24.Mediator.*;
 
 import java.io.IOException;
 import java.util.Random;
@@ -105,13 +102,39 @@ public class Decodificador {
                 break;
 
             case "curar":
-                MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() + Integer.parseInt(mensajeCodificado.asText()));
+                MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() + Integer.parseInt(mensajeCodificado.get("id").asText()));
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
+                System.out.println(MediadorVidaMana.obtenerInstancia().getMyHP());
                 return;
 
             case "dañar":
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() - Integer.parseInt(mensajeCodificado.get("id").asText()));
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
+                return;
+
+            case "actualizar vida":
+                MediadorVidaMana.obtenerInstancia().setRivalHP(mensajeCodificado.get("vida").asInt());
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarDano();
+                return;
+
+            case "regalar carta":
+                String tipo = mensajeCodificado.get("mensaje").asText();
+                switch (tipo) {
+                    case "esbirros":
+                        carta = DecodificarEsbirro(mensajeCodificado);
+                        break;
+                    case "hechizos":
+                        carta = DecodificadorHechizos(mensajeCodificado);
+                        break;
+                    case "secretos":
+                        carta = DecodificadorSecretos(mensajeCodificado);
+                        break;
+
+                }
+                MediadorMyCards.obtenerInstancia().agregarHand(carta);
+                MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards() + 1);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
+                return;
 
             default:
                 System.out.println("sin carta");
@@ -129,42 +152,43 @@ public class Decodificador {
                 ListaCircularDoble<Cartas> cartas = MediadorMyCards.obtenerInstancia().getHand();
                 int randInt = new Random().nextInt(cartas.Largo());
                 Cartas cartaADar = cartas.Obtener(randInt);
-                cartas.Eliminar(randInt);
-                MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards());
-                MediadorMyCards.obtenerInstancia().setHand(cartas);
-                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(cartaADar)));
+                MediadorMyCards.obtenerInstancia().eliminarHandCard(randInt);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("regalar carta", cartaADar.getId(), 0, 0, false, cartaADar.getTipo()));
             } else if(id.equals("2")) {
                 //tipo 2
                 // añadir contador en la vara esta del servidor, para decirle que se sostenga la picha dos turnos más
                 MediadorServidor.obtenerInstancia().setContadorBloqueos(2);
+                MediadorMyCards.obtenerInstancia().agregarHistorial(carta);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHistorial();
                 Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
                 MediadorServidor.obtenerInstancia().setMyTurn(false);
                 return;
             } else if(id.equals("3")) {
                 //tipo 3
-                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("curar", "100", 0, 0,false,""));
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("curar", "100", 0, 0,false,"hoalbuenas"));
+                MediadorVidaMana.obtenerInstancia().setRivalHP(MediadorVidaMana.obtenerInstancia().getRivalHP() + 100);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarDano();
             } else if(id.equals("4")) {
                 //tipo 4
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP()-250);
+                MediadorVidaMana.obtenerInstancia().setRivalHP(MediadorVidaMana.obtenerInstancia().getRivalHP()-50);
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("dañar", "50", MediadorVidaMana.obtenerInstancia().getMyHP(), 0,false,"hoalbuenas"));
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("actualizar vida", "50", MediadorVidaMana.obtenerInstancia().getMyHP(), 0,false,"hoalbuenas"));
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarDano();
             } else if(id.equals("5")) {
                 //tipo 5
                 ListaCircularDoble<Cartas> cartasMano = MediadorMyCards.obtenerInstancia().getHand();
-                JsonNode diccionario = null;
-                try {
-                    diccionario = Json.getFromFile("card.json");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                assert diccionario != null;
-                JsonNode laMosca = diccionario.get("esbirros").get("10");
-                cartasMano.CambiarValor(new Random().nextInt(cartasMano.Largo()), new Esbirros("10", laMosca.get("nombre").asText(), laMosca.get("descripcion").asText(), laMosca.get("frase").asText(), laMosca.get("daño").asInt(), laMosca.get("mana").asInt()));
+
+                cartasMano.CambiarValor(new Random().nextInt(cartasMano.Largo()), new Esbirros("10", "La mosca", "Una mosca a entrado al cambo de batalla", "bzzz", 1, 10));
                 MediadorMyCards.obtenerInstancia().setHand(cartasMano);
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
             } else if(id.equals("6")) {
                 //tipo 6
                 ListaDoble<Cartas> historial = MediadorMyCards.obtenerInstancia().getHistorial();
                 int vidaACambiar = 0;
-                for (int i = 0; i == historial.Largo(); i++) {
+                for (int i = 0; i < historial.Largo(); i++) {
                     if (historial.Obtener(i).getDano()>vidaACambiar){
                         vidaACambiar = historial.Obtener(i).getDano();
                     }
@@ -174,6 +198,8 @@ public class Decodificador {
                 }
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP()-vidaACambiar);
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("actualizar vida", "50", MediadorVidaMana.obtenerInstancia().getMyHP(), 0,false,"hoalbuenas"));
+
             } else if(id.equals("7")) {
                 //tipo 7
                 // programar que esta vaina cambie las cartas por ??? durante un turno
@@ -185,6 +211,10 @@ public class Decodificador {
             } else if(id.equals("8")) {
                 //tipo 8
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP()-150);
+                MediadorVidaMana.obtenerInstancia().setRivalHP(MediadorVidaMana.obtenerInstancia().getRivalHP()+150);
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("curar", "150", MediadorVidaMana.obtenerInstancia().getMyHP(), 0,false,"hoalbuenas"));
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("actualizar vida", "50", MediadorVidaMana.obtenerInstancia().getMyHP(), 0,false,"hoalbuenas"));
+                MediadorCartasHUD.obtenerInstancia().getVentana().actualizarDano();
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
             } else if(id.equals("9")) {
                 //tipo 9
@@ -197,8 +227,7 @@ public class Decodificador {
                     }
                 }
                 if (mayor[0] > 0) {
-                    mano.Eliminar(mayor[1]);
-                    MediadorMyCards.obtenerInstancia().setHand(mano);
+                    MediadorMyCards.obtenerInstancia().eliminarHandCard(mayor[1]);
                     MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
                 }
             }
@@ -226,9 +255,9 @@ public class Decodificador {
                 System.out.println("MENSAJE " + mensaje);
                 switch (mensaje) {
                     case "robar":
-                        // ListaCircularDoble<Cartas> cartas = MediadorMyCards.obtenerInstancia().getHand();
-                        // Cartas carta = cartas.Obtener(new Random().nextInt(cartas.Largo()));
-                        // Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(carta)));
+//                         ListaCircularDoble<Cartas> cartas = MediadorMyCards.obtenerInstancia().getHand();
+//                         Cartas carta = cartas.Obtener(new Random().nextInt(cartas.Largo()));
+//                         Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", Json.CartaToString(carta), 0, 0, false, "holabuenas"));
                         break;
                     case "congelar":
                         // MediadorServidor.obtenerInstancia().setMyTurn(false);

@@ -200,7 +200,7 @@
   "secretos": {
     "0": {
       "nombre": "Marco Salvaje",
-      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes. Si te quedas sin cartas, obtienes a La mosca.",
+      "descripcion": "Desde un arbusto, este personaje hace manionbras extravagantes. Si te quedas sin cartas, la siguiete vez que tomes una del deck, recibes tambien a La mosca.",
       "frase": "Hola buenas.",
       "mana": 75
     },
@@ -224,13 +224,13 @@
     },
     "4": {
       "nombre": "Fat yoshi",
-      "descripcion": "Cuando estés a menos de 50 de vida, yoshi hará su aparición. Todos los espacios vacíos de tu mano se llenarán de la carta la mosca.",
+      "descripcion": "Cuando estés a menos de 200 de vida, yoshi hará su aparición. Todos los espacios vacíos de tu mano se llenarán de la carta la mosca.",
       "frase": "YOSHIIIIIII",
       "mana": 50
     },
     "5": {
       "nombre": "Omae wa mo shindeiru",
-      "descripcion": "Si juegas la carta de la mosca, esta será potenciada hasta tal punto que el adversario morirá instantáneamente.",
+      "descripcion": "Si juegas la carta de la mosca, esta será potenciada hasta tal punto que ambos jugadores perderán 1 punto de vida.",
       "frase": "nani?",
       "mana": 60
     },
