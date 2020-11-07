@@ -19,7 +19,7 @@ public class ListaSimple<T> {
 
     public ListaSimple() { this.primero = null; }
 
-    public ListaSimple(T value) {
+    private ListaSimple(T value) {
         this.value = value;
     }
 

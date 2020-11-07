@@ -23,7 +23,7 @@ public class ListaStack<T> {
      *
      * @param valor
      */
-    public ListaStack(T valor, ListaStack<T> referencia){
+    private ListaStack(T valor, ListaStack<T> referencia){
         this.valor = valor;
         this.ultimo = this;
         this.referencia = referencia;
@@ -35,7 +35,7 @@ public class ListaStack<T> {
      * @param valor
      */
     public void Agregar(T valor){
-        ListaStack siguienteTemporal = new ListaStack(valor, this.referencia);
+        ListaStack<T> siguienteTemporal = new ListaStack<T>(valor, this.referencia);
         siguienteTemporal.EstablecerAnterior(this.ultimo);
         ActualizarUltimo(siguienteTemporal);
     }
@@ -69,7 +69,6 @@ public class ListaStack<T> {
     private void ActualizarUltimo (ListaStack<T> ultimo){
         if (this.anterior == null){
             this.ultimo = ultimo;
-            return;
         } else {
             this.ultimo = ultimo;
             this.anterior.ActualizarUltimo(ultimo);

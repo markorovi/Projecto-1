@@ -18,7 +18,7 @@ public class ListaDoble<T> {
 
     public ListaDoble() { }
 
-    public ListaDoble(T value) {
+    private ListaDoble(T value) {
         this.valor = value;
     }
 

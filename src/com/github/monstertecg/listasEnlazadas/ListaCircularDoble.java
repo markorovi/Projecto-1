@@ -16,7 +16,7 @@ public class ListaCircularDoble<T> {
 
     public ListaCircularDoble() { }
 
-    public ListaCircularDoble(T value) {
+    private ListaCircularDoble(T value) {
         this.valor = value;
     }
 
