@@ -4,7 +4,19 @@ import com.gmail.markorovi24.Mediator.*;
 
 import javax.swing.*;
 
+/**
+ * Clase que se encarga de generar la ventana del menu
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.4.1
+ */
 public class VentanaMenu extends Ventana{
+
+    /**
+     * Se encarga de generar una ventana con todos los widgets necesarios para funcioanar, ademas de asignarles a los mismos
+     * sus respectivas funciones y generar la ventana.
+     */
     public void configurarMenu(){
         JButton b1 = new JButton("Hostear");
         JButton b2 = new JButton("Conectarse");

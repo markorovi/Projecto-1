@@ -16,7 +16,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Paths;
 
-
+/**
+ * Clase que se encarga de crear la ventana del juego
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.4.5
+ */
 public class VentanaJuego extends Ventana {
     private final MyCards MyCard1 = new MyCards();
     private final MyCards MyCard2 = new MyCards();
@@ -61,6 +67,10 @@ public class VentanaJuego extends Ventana {
     private final MediadorMyCards ControlDecks = MediadorMyCards.obtenerInstancia();
     private final MediadorServidor ControlServidor = MediadorServidor.obtenerInstancia();
 
+    /**
+     * Se encarga de generar y asignar todos los widgets que el juego necesita a la ventana,
+     * ademas de sus respectivas acciones y de mostrarlo en pantalla.
+     */
     public void configurarMenu() {
 
         this.MyCard1.builder(180, 490, 120, 160, this.ControlCartas);
@@ -227,6 +237,9 @@ public class VentanaJuego extends Ventana {
         habilitarVentana();
     }
 
+    /**
+     * Se encarga de actualizar las imagenes de las cartas pertenecientes al usuario
+     */
     public void actualizarHand() {
         for (int k = 0; k < ControlDecks.getHandCards(); k++) {
             Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
@@ -236,7 +249,10 @@ public class VentanaJuego extends Ventana {
         }
     }
 
-
+    /**
+     * Se encarga de actualizar la caja de texto que describe la carta ubicada
+     * en el historial
+     */
     public void actualizarCartaSeleccionada() {
         for (int i = 0; i < ControlDecks.getHandCards(); i++) {
             if (Hand.Obtener(i).getIsUp()) {
@@ -271,6 +287,9 @@ public class VentanaJuego extends Ventana {
         }
     }
 
+    /**
+     * Se encarga de actualizar la imagen del label que funciona como historial de jugadas.
+     */
     public void actualizarCartaHistorial() {
         int i = ControlDecks.getIndex();
 
@@ -299,25 +318,41 @@ public class VentanaJuego extends Ventana {
         }
     }
 
+    /**
+     * Actualiza el valor en pantalla de Vida propia
+     */
     public void actualizarVida() {
         this.Texto5.setValue(this.ControlVidaMana.getMyHP());
         System.out.println(this.ControlVidaMana.getMyHP());
     }
 
+    /**
+     * Actualiza el valor en pantalla del maná propio
+     */
     public void actualizarMana() {
         this.Texto6.setValue(this.ControlVidaMana.getMyMana());
     }
 
+    /**
+     * Actualiza el valor en pantalla de la vida del oponente
+     */
     public void actualizarDano() {
         this.Texto4.setValue(this.ControlVidaMana.getRivalHP());
     }
 
+
+    /**
+     * Se encarga de actualizar el contador del historial
+     */
     public void actualizarHistorial() {
         CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getContadorHistorial()).getNombre() + ".jpg");
         ControlDecks.setIndex(ControlDecks.getContadorHistorial());
         ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
     }
 
+    /**
+     * Se encarga de actualizar la caja de texto en donde se muestran los efectos de los secretos activos.
+     */
     public void actualizarEfectos() {
         String texto = "";
         ActiveCards.setText(texto);

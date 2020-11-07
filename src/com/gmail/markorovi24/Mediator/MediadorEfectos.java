@@ -10,34 +10,62 @@ import com.gmail.markorovi24.HUDCards.MyCards;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Singleton y mediador para t0do lo relacionado con los efectos de los hechizos
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.5.0
+ */
 public class MediadorEfectos {
     static MediadorEfectos Mediador;
-    public static synchronized MediadorEfectos obtenerInstancia(){
-        if (Mediador == null){
+
+    /**
+     * Singleton
+     *
+     * @return Mediador
+     */
+    public static synchronized MediadorEfectos obtenerInstancia() {
+        if (Mediador == null) {
             Mediador = new MediadorEfectos();
-        } return Mediador;
+        }
+        return Mediador;
     }
 
     ListaDoble<Boolean> Efectos = new ListaDoble<>();
 
+    /**
+     * Get para obtener la lista de flags de los eventos
+     *
+     * @return Lista de eventos activos
+     */
     public ListaDoble<Boolean> getEfectos() {
         return Efectos;
     }
 
-    public void setEfectos(ListaDoble<Boolean> efectos) {
-        Efectos = efectos;
-    }
-
-    public void setEfectosEn(int i, boolean value){
+    /**
+     * Set para una flag especifica contenida en la lista de efectos activos
+     *
+     * @param i     Valor a cambiar
+     * @param value El valor a asignar
+     */
+    public void setEfectosEn(int i, boolean value) {
         Efectos.CambiarValor(i, value);
     }
 
-    public void generarLista(){
-        for (int i = 0; i < 10; i++){
+    /**
+     * Genera la lista de flags con todos los efectos desactivados
+     */
+    public void generarLista() {
+        for (int i = 0; i < 10; i++) {
             Efectos.Agregar(false);
         }
     }
 
+    /**
+     * Método que se encarga de verificar cuales efectos están activos, y si lo están, de verificar si los mismos deben de ser disparados o no
+     * Además contiene los efectos de cada uno.
+     */
     public void verificarEfectos(){
         for(int i = 0; i < 10; i++) {
             if(Efectos.Obtener(i)){

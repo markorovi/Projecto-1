@@ -10,27 +10,52 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.nio.file.Paths;
 
-
+/**
+ * Clase que hace referencia a todas los label que funcionan como la mano de cartas del usuario
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.4.5
+ */
 public class MyCards {
-    JLabel Card = new JLabel();
-    boolean moving = false;
-    MediadorCartasHUD Control;
-    boolean isUp;
+    private JLabel Card = new JLabel();
+    private boolean moving = false;
+    private MediadorCartasHUD Control;
+    private boolean isUp;
 
+    /**
+     * Get para el JLabel que el JFrame necesita para agregarlo a la ventana
+     * @return el Jlabel
+     */
     public JLabel getCard(){
         return Card;
     }
 
+    /**
+     * Get de si la carta esta seleccionada o no
+     * @return boolean value
+     */
     public boolean getIsUp(){
         return isUp;
     }
 
+    /**
+     * Set para la imagen que muestra el JLabel
+     * @param name Nombre de la imagen a asignar
+     */
     public void setImage(String name) {
         String path = Paths.get("").toAbsolutePath().toString();
         path = path + "\\src\\main\\resources\\images\\";
         Card.setIcon(new ImageIcon(path + name));
     }
 
+    /**
+     * Método que se encarga de dar la animación a los JLabels para hacerlos pareces como si fueran seleccionados
+     * @param component JLabel a animar
+     * @param newPoint Punto al donde llevar el JLabel
+     * @param frames Framerate en el que animarlo
+     * @param interval Tiempo en el que se realice la animación
+     */
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
         Rectangle compBounds = component.getBounds();
 
@@ -55,6 +80,10 @@ public class MyCards {
             }
         }).start();
     }
+
+    /**
+     * Método que se encarga de animar solo las cartas con ciertas restricciones.
+     */
     public void publicAnimate(){
         if (!Control.getCardsState() && !moving) {
             moving = true;
@@ -69,6 +98,14 @@ public class MyCards {
         }
     }
 
+    /**
+     * Constructor para cada uno de los JLabels, además de que incluye el detector de eventos para cuando se clickean los mismos, los párametros son auto-explicatorios
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param mediador
+     */
     public void builder(int x, int y, int width, int height, MediadorCartasHUD mediador){
         this.Control = mediador;
         Card.setOpaque(true);

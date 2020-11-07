@@ -5,13 +5,18 @@ import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
 import com.gmail.markorovi24.GUI.Widgets.TextBox;
 import com.gmail.markorovi24.Mediator.*;
-
 import javax.naming.ldap.Control;
 import javax.print.attribute.standard.Media;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Clase que se encarga de generar la ventana en donde el usuario ingresa datos para conectarse a un juego
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.4.1
+ */
 public class VentanaIP extends Ventana{
     private final Button Boton = new Button();
     private final TextBox IP = new TextBox();
@@ -19,6 +24,10 @@ public class VentanaIP extends Ventana{
     private final Label Texto1 = new Label();
     private final Label Texto2 = new Label();
 
+    /**
+     * Se encarga de generar una ventana con todas las caracteristicas necesarias para que el usuario
+     * consiga acceder a la ventana de juego
+     */
     public void configurarMenu(){
         this.IP.builder(25,75, 100, 30);
         this.Port.builder(175, 75, 100, 30);

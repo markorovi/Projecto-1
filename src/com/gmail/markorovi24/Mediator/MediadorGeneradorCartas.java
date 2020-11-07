@@ -12,11 +12,18 @@ import com.gmail.markorovi24.Cartas.Secretos;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Singleton y mediador para t0do lo relacionado con la generación de las cartas
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.5.0
+ */
 public class MediadorGeneradorCartas {
 
     static MediadorGeneradorCartas Mediador;
-    Random rand = new Random();
-    JsonNode Diccionario;
+    private Random rand = new Random();
+    private JsonNode Diccionario;
 
     {
         try {
@@ -26,6 +33,10 @@ public class MediadorGeneradorCartas {
         }
     }
 
+    /**
+     * Singleton
+     * @return Mediador
+     */
     public static synchronized MediadorGeneradorCartas obtenerInstancia() {
         if (Mediador == null) {
             Mediador = new MediadorGeneradorCartas();
@@ -33,6 +44,13 @@ public class MediadorGeneradorCartas {
         return Mediador;
     }
 
+    /**
+     * Genera una carta de un tipo especifico
+     * @param type Tipo de carta a crear
+     * @param card Id de la carta
+     * @param canvas Contenido de la carta almacenado en el .json
+     * @return La carta creada
+     */
     private Cartas createCard(String type, String card, JsonNode canvas) {
         switch (type) {
             case "esbirros":
@@ -46,6 +64,10 @@ public class MediadorGeneradorCartas {
         }
     }
 
+    /**
+     * Genera 16 cartas al azar para agragarlas a la pila
+     * @return La pila de cartas al azar
+     */
     public ListaStack<Cartas> ramdomizadorDeck() {
         ListaStack<Cartas> Pila = new ListaStack<>();
 
@@ -72,6 +94,10 @@ public class MediadorGeneradorCartas {
         return Pila;
     }
 
+    /**
+     * Genera 4 cartas al azar que son con las que inicia el jugador en su mano
+     * @return Lista que contiene las 4 cartas generadas
+     */
     public ListaCircularDoble<Cartas> ramdomizadorHand() {
         ListaCircularDoble<Cartas> Lista = new ListaCircularDoble<>();
 
