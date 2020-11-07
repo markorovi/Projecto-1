@@ -6,8 +6,8 @@ public class Cartas {
     protected String nombre;
     protected String descripcion;
     protected String frase;
-    protected int dano;
-    protected int mana;
+    protected int dano = 0;
+    protected int mana = 0;
 
     public Cartas(String id, String nombre, String descripcion, String frase, int dano, int mana) {
         // Constructor de esbirros
