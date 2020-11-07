@@ -3,7 +3,7 @@ package com.github.monstertecg.listasEnlazadas;
 import java.util.logging.Logger;
 
 /**
- * Crea lista tipo pila
+ * Crea lista simple
  *
  * @author Luis Delgado
  * @version 1.0
