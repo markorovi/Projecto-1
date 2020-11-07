@@ -1,11 +1,14 @@
 package com.gmail.markorovi24.Mediator;
 
 import com.github.monstertecg.Reproductor.Reproductor;
+import com.github.monstertecg.json.Json;
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
+import com.github.monstertecg.sockets.Conectividad;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.HUDCards.MyCards;
 
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MediadorEfectos {
     static MediadorEfectos Mediador;
@@ -69,7 +72,7 @@ public class MediadorEfectos {
                     case 3:
                         int azar2 = rand.nextInt(999);
                         if (azar2 == 0){
-                            //dano
+                            Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("dañar", "20000",MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(),false,"HEADSHOOOOT"));
                         }
                         break;
 
@@ -89,7 +92,7 @@ public class MediadorEfectos {
                         System.out.println(MediadorMyCards.obtenerInstancia().getContadorHistorial());
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1).getNombre().equals("La mosca")){
                             setEfectosEn(5, false);
-                            //dano
+                            Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("dañar", "20000",MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(),false,"HEADSHOOOOT"));
                         }
                         break;
 

@@ -109,7 +109,7 @@ public class Decodificador {
                 return;
 
             case "dañar":
-                MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() - Integer.parseInt(mensajeCodificado.asText()));
+                MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() - Integer.parseInt(mensajeCodificado.get("id").asText()));
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
 
             default:
