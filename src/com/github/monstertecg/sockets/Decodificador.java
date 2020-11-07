@@ -131,13 +131,14 @@ public class Decodificador {
                 cartas.Eliminar(randInt);
                 MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards());
                 MediadorMyCards.obtenerInstancia().setHand(cartas);
-                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(carta)));
+                Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", 0, 0, false, Json.CartaToString(cartaADar)));
             } else if(id.equals("2")) {
                 //tipo 2
                 // añadir contador en la vara esta del servidor, para decirle que se sostenga la picha dos turnos más
                 MediadorServidor.obtenerInstancia().setContadorBloqueos(2);
                 Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
                 MediadorServidor.obtenerInstancia().setMyTurn(false);
+                return;
             } else if(id.equals("3")) {
                 //tipo 3
                 Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("curar", "100", 0, 0,false,""));
@@ -182,9 +183,21 @@ public class Decodificador {
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
             } else if(id.equals("9")) {
                 //tipo 9
-                // no hase nada equis de
+                ListaCircularDoble<Cartas> mano = MediadorMyCards.obtenerInstancia().getHand();
+                int[] mayor = {0, 0}; // [daño, índice de carta con mayor daño]
+                for (int i = 0; i < mano.Largo(); i++) {
+                    if (mano.Obtener(i).getDano() > mayor[0]) {
+                        mayor[0] = mano.Obtener(i).getDano();
+                        mayor[1] = i;
+                    }
+                }
+                if (mayor[0] > 0) {
+                    mano.Eliminar(mayor[1]);
+                    MediadorMyCards.obtenerInstancia().setHand(mano);
+                    MediadorCartasHUD.obtenerInstancia().getVentana().actualizarHand();
+                }
             }
-        } else if (MediadorServidor.obtenerInstancia().getContadorBloqueos() != 0) {
+        } else if (MediadorServidor.obtenerInstancia().getContadorBloqueos() > 0) {
             Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("", "", MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(), true, "saltado"));
             MediadorServidor.obtenerInstancia().setMyTurn(false);
         }

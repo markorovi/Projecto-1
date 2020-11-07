@@ -20,6 +20,24 @@ public class Main {
 
         System.out.println("Funciona, tenga un buen día.");
 
+        System.out.println("bucle en hilo");
+
+        new Thread() {
+            public void run(){
+                int i = 0;
+                while(i < 3){
+                    System.out.println("prueba");
+                    i++;
+                }
+            }
+        }.start();
+
+        System.out.println("después del bucle");
+
+
+
+        // prueba reproductor
+        /*
         Reproductor reproductor = Reproductor.ObtenerInstancia();
 
         Scanner scanner = new Scanner(System.in);
@@ -45,7 +63,7 @@ public class Main {
             eleccion = scanner.nextLine();
             if (eleccion.equals("salir")){ break; }
         }
-
+*/
         // Probando conectividad
 /*
         Conectividad conexion;
