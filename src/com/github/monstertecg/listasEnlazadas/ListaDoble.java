@@ -3,7 +3,7 @@ package com.github.monstertecg.listasEnlazadas;
 import java.util.logging.Logger;
 
 /**
- * Crea lista tipo pila
+ * Crea lista doble
  *
  * @author Luis Delgado
  * @version 1.0
@@ -196,6 +196,7 @@ public class ListaDoble<T> {
             return this.siguiente.ObtenerSiguienteDeElementoAux(elemento);
         }
     }
+
 
 
     public T ObtenerSiguienteDeElemento(T elemento){

@@ -27,10 +27,6 @@ public class Json {
         return objectMapper.readTree(jsonSource);
     }
 
-    public static JSONObject parseJSONObject(String jsonSource) {
-        return new JSONObject(jsonSource);
-    }
-
     public static JsonNode getFromFile(String path) throws IOException {
 
         String json = null;
@@ -66,27 +62,6 @@ public class Json {
          jsonObject.put("mensaje", mensaje);
 
          return jsonObject.toString();
-     }
-
-     public static JsonNode getCartas(String cartas){
-        JsonNode jsonNode = null;
-        JSONObject temporal = new JSONObject();
-        int i = 0;
-        boolean bucle = true;
-
-        try{
-            Json.parse(cartas);
-        } catch (Exception e) {
-            bucle = false;
-        }
-        while (true) {
-            try {
-
-            } catch (Exception e) {
-                break;
-            }
-        }
-        return jsonNode;
      }
 
      public static String CartaToString(Cartas carta){
