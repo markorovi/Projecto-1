@@ -37,6 +37,9 @@ public class Conectividad {
     private int puertoEnUso;
 
 
+    /**
+     * constructor
+     */
     public Conectividad() {
         try {
             this.ipPropia = InetAddress.getLocalHost().getHostAddress();
@@ -54,16 +57,31 @@ public class Conectividad {
         return instancia;
     }
 
+    /**
+     * genera una instancia y establece el estado de anfitrión
+     *
+     * @return
+     */
     public static Conectividad SerAnfitrion() {
         obtenerInstancia().EstablecerAnfitrion(true);
         return instancia;
     }
 
+    /**
+     * genera una instancia y establece el estado de invitado
+     *
+     * @return
+     */
     public static Conectividad SerInvitado() {
         obtenerInstancia().EstablecerAnfitrion(false);
         return instancia;
     }
 
+    /**
+     * Envía una cadena a través de socekets
+     *
+     * @param mensaje
+     */
     public void EnviarMensaje(String mensaje) {
 
         try {
@@ -86,7 +104,6 @@ public class Conectividad {
     /**
      * Genera el bucle para la espera de paquetes.
      */
-
     public void BucleDeConexion() {
 
         this.puertoEnUso = this.BuscaPuerto();
@@ -111,6 +128,9 @@ public class Conectividad {
         }
     }
 
+    /**
+     * revisa constantemente si hay mensajes nuevos
+     */
     private void Conectado() {
 
         JsonNode jnode;
@@ -155,7 +175,6 @@ public class Conectividad {
      * @param puerto de prueba
      * @return valor buleano de si el puerto está disponible
      */
-
     private boolean RevisaPuerto(int puerto) {
         boolean resultado;
 
@@ -203,6 +222,11 @@ public class Conectividad {
         return puerto;
     }
 
+    /**
+     * revuelve un array de strings con los datos del origen
+     *
+     * @return
+     */
     public String[] ObtenerOrigen() {
         return new String[]{Integer.toString(puertoEnUso), this.ipPropia};
     }
@@ -212,18 +236,38 @@ public class Conectividad {
         this.ipDestino = ipDestino;
     }
 
+    /**
+     * revuelve un array de strings con los datos del destino
+     *
+     * @return
+     */
     public String[] ObtenerDestino() {
         return new String[]{Integer.toString(puertoDestino), ipDestino};
     }
 
+    /**
+     * cambia el estado de anfitrión-invitado
+     *
+     * @param anfitrion
+     */
     public void EstablecerAnfitrion(boolean anfitrion) {
         this.anfitrion = anfitrion;
     }
 
+    /**
+     * obtiene el estado de anfitrión-invitado
+     *
+     * @return
+     */
     public boolean ObtenerAnfitrion() {
         return this.anfitrion;
     }
 
+    /**
+     * devuelve un booleano que especifica si ya tiene con quién realizar comunicación
+     *
+     * @return
+     */
     public boolean isConnected() {
         return !ipDestino.equals("");
     }

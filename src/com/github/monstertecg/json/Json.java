@@ -27,6 +27,13 @@ public class Json {
         return objectMapper.readTree(jsonSource);
     }
 
+    /**
+     * convierte un archivo .json a JsonNode
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public static JsonNode getFromFile(String path) throws IOException {
 
         String json = null;
@@ -52,6 +59,17 @@ public class Json {
         return parse(json);
     }
 
+    /**
+     * encapsula los mensajes como json
+     *
+     * @param tipoCarta
+     * @param id
+     * @param vida
+     * @param mana
+     * @param saltar
+     * @param mensaje
+     * @return
+     */
      public static String VarToString(String tipoCarta, String id, int vida, int mana, boolean saltar, String mensaje) {
          JSONObject jsonObject = new JSONObject();
          jsonObject.put("carta seleccionada", tipoCarta);
@@ -64,6 +82,12 @@ public class Json {
          return jsonObject.toString();
      }
 
+    /**
+     * Encapsula una carta para ser enviada por sockets
+     *
+      * @param carta
+     * @return
+     */
      public static String CartaToString(Cartas carta){
         JSONObject cartaTemp = new JSONObject();
 
