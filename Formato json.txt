@@ -14,8 +14,10 @@ Las posibles son las siguientes:
 "carta seleccionada": "esbirros"
 "carta seleccionada": "hechizos"
 "carta seleccionada": "secretos"
-"carta seleccionada": "salto"
-"carta seleccionada": null
+"carta seleccionada": "curar"
+"carta seleccionada": "dañar"
+"carta seleccionada": "actualizar vida"
+"carta seleccionada": "regalar carta"
 
 Si el tipo de carta es esbirros, hechizos o secretos,
 obligatoriamente debe incluir la id en forma de String:
@@ -42,9 +44,10 @@ Se debe incluir el maná actual del jugador:
 --------------------------------------------------------------------------------
                         Informe de abandono.
 
-Si el jugador abandona o no, se debe informar así:
-"abandonar": false
-
+Si el jugador salta su turno, se debe informar así:
+"saltar": true
+caso contrario si desea continuar
+"saltar": false
 
 --------------------------------------------------------------------------------
                         Otros objetos no obligatorios
@@ -53,9 +56,8 @@ Si el jugador abandona o no, se debe informar así:
 no es necesario, sirve para especificar el afitrión al inicio de la partida.
 
 "ip": "127.0.0.1" (valor representantivo)
-solo lo envía el invitado al inicio de la partida
+solo lo envía el invitado al inicio de la partida para generar conexión
 
 "puerto": "40000" (valor representantivo)
-solo lo envía el invitado al inicio de la partida
-
+solo lo envía el invitado al inicio de la partida para generar conexión
 
