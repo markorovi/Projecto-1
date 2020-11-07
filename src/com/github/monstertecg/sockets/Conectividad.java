@@ -31,7 +31,6 @@ public class Conectividad {
     private Socket socket;
     private ServerSocket serverSocket;
     private boolean anfitrion;
-    private boolean conectado;
 
     // Aspectos de host
     private String ipPropia;
