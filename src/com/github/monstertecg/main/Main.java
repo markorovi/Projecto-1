@@ -22,15 +22,36 @@ public class Main {
 
         Reproductor reproductor = Reproductor.ObtenerInstancia();
 
-        System.out.println("ESCUCHANDO SAFAERA");
-        reproductor.Safaera();
-
-        // Probando conectividad
-
-        Conectividad conexion;
-
         Scanner scanner = new Scanner(System.in);
         String eleccion;
+
+        // Prueba de reproductor
+
+        System.out.println("Escoja entre chayanne o safaera");
+
+        eleccion = scanner.nextLine();
+
+        if (eleccion.equals("chayanne")){
+            System.out.println("ESCUCHANDO CHAYANNE");
+            reproductor.Chayanne();
+        } else if (eleccion.equals("safaera")) {
+
+            System.out.println("ESCUCHANDO SAFAERA");
+            reproductor.Safaera();
+        }
+
+
+        while (true) {
+            eleccion = scanner.nextLine();
+            if (eleccion.equals("salir")){ break; }
+        }
+
+        // Probando conectividad
+/*
+        Conectividad conexion;
+
+
+
         String eleccion1;
         String textoMensaje;
 
@@ -74,7 +95,7 @@ public class Main {
         while (!salir) {
             eleccion = scanner.nextLine();
             conexion.EnviarMensaje(Json.VarToString("","",0,0,false,eleccion));
-        }
+        }*/
 
     }
 
