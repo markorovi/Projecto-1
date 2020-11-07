@@ -3,8 +3,10 @@ package com.github.monstertecg.sockets;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.logs.LoggingHandler;
+import com.gmail.markorovi24.GUI.Ventana;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -96,7 +98,8 @@ public class Conectividad {
         if (!anfitrion){ EnviarMensaje(Json.VarToString(
                 "","",0,0,false,(
                         new JSONObject("{\"ip\":\"" + this.ipPropia + "\"," +
-                                " \"puerto\":\"" + this.puertoEnUso + "\"}").toString()))); }
+                                " \"puerto\":\"" + this.puertoEnUso + "\"}").toString())));
+        }
 
         try {
             this.serverSocket = new ServerSocket(puertoEnUso);

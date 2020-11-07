@@ -9,6 +9,7 @@ import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.Cartas.Esbirros;
 import com.gmail.markorovi24.Cartas.Hechizos;
 import com.gmail.markorovi24.Cartas.Secretos;
+import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.Mediator.MediadorCartasHUD;
 import com.gmail.markorovi24.Mediator.MediadorMyCards;
 import com.gmail.markorovi24.Mediator.MediadorServidor;
@@ -176,6 +177,10 @@ public class Decodificador {
             } else if(id.equals("7")) {
                 //tipo 7
                 // programar que esta vaina cambie las cartas por ??? durante un turno
+                for(int k = 0; k < 10; k++){
+                    ListaDoble<MyCards> lista = MediadorCartasHUD.obtenerInstancia().getVentana().obtenerCartas();
+                    lista.Obtener(k).setImage("Interrogacion.jpg");
+                }
 
             } else if(id.equals("8")) {
                 //tipo 8

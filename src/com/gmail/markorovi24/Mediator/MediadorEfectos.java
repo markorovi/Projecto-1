@@ -47,6 +47,7 @@ public class MediadorEfectos {
                         if (MediadorMyCards.obtenerInstancia().getHandCards() == 0){
                             MediadorMyCards.obtenerInstancia().agregarHand(new Esbirros("10", "La mosca", "Una mosca a estrado al campo de batalla.", "bzzz", 1, 10));
                             MediadorMyCards.obtenerInstancia().setHandCards(MediadorMyCards.obtenerInstancia().getHandCards() + 1);
+                            System.out.println("0");
                         }
                         break;
 
@@ -54,6 +55,7 @@ public class MediadorEfectos {
                         if (MediadorMyCards.obtenerInstancia().getHandCards() > 7 && MediadorVidaMana.obtenerInstancia().getRivalHP() > 500){
                             setEfectosEn(1, false);
                             Reproductor.ObtenerInstancia().Safaera();
+                            System.out.println("1");
                         }
                         break;
 
@@ -65,7 +67,7 @@ public class MediadorEfectos {
                             for(int k = 0; k < 10; k++){
                                 lista.Obtener(k).setImage("se cae.jpg");
                             }
-                            System.out.println("funciona");
+                            System.out.println("2");
                         }
                         break;
 
@@ -73,11 +75,13 @@ public class MediadorEfectos {
                         int azar2 = rand.nextInt(999);
                         if (azar2 == 0){
                             Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("dañar", "20000",MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(),false,"HEADSHOOOOT"));
+                            System.out.println("3");
                         }
                         break;
 
                     case 4:
                         if(MediadorVidaMana.obtenerInstancia().getMyHP() < 50){
+                            System.out.println("4");
                             setEfectosEn(4, false);
                             int restantes = 10 - MediadorMyCards.obtenerInstancia().getHandCards();
                                 for(int j = 0; j < restantes; j++){
@@ -91,6 +95,8 @@ public class MediadorEfectos {
                     case 5:
                         System.out.println(MediadorMyCards.obtenerInstancia().getContadorHistorial());
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1).getNombre().equals("La mosca")){
+
+                            System.out.println("5");
                             setEfectosEn(5, false);
                             Conectividad.obtenerInstancia().EnviarMensaje(Json.VarToString("dañar", "20000",MediadorVidaMana.obtenerInstancia().getMyHP(), MediadorVidaMana.obtenerInstancia().getMyMana(),false,"HEADSHOOOOT"));
                         }
@@ -98,6 +104,8 @@ public class MediadorEfectos {
 
                     case 6:
                         if (MediadorVidaMana.obtenerInstancia().getRivalHP() < 0) {
+
+                            System.out.println("6");
                             setEfectosEn(6, false);
                             Reproductor.ObtenerInstancia().Chayanne();
                         }
@@ -105,6 +113,8 @@ public class MediadorEfectos {
 
                     case 7:
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() -1 ).getTipo().equals("hechizos")) {
+
+                            System.out.println("7");
                             setEfectosEn(7, false);
                             MediadorVidaMana.obtenerInstancia().setMyMana(500);
                             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
@@ -113,6 +123,8 @@ public class MediadorEfectos {
 
                     case 8:
                         if (MediadorMyCards.obtenerInstancia().getHistorial().Obtener(MediadorMyCards.obtenerInstancia().getContadorHistorial() - 1).getTipo().equals("esbirros")) {
+
+                            System.out.println("8");
                             setEfectosEn(8, false);
                             MediadorVidaMana.obtenerInstancia().setMyMana(1000);
                             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();
@@ -121,6 +133,8 @@ public class MediadorEfectos {
 
                     case 9:
                         if (MediadorVidaMana.obtenerInstancia().getMyMana() < 100) {
+
+                            System.out.println("9");
                             setEfectosEn(9, false);
                             MediadorVidaMana.obtenerInstancia().setMyMana(800);
                             MediadorCartasHUD.obtenerInstancia().getVentana().actualizarMana();

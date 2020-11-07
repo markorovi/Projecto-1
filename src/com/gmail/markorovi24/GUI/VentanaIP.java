@@ -61,7 +61,7 @@ public class VentanaIP extends Ventana{
         Ventana.add(this.Port.getBox());
         Ventana.add(this.Texto1.getLabel());
         Ventana.add(this.Texto2.getLabel());
-        crearVentana("test", 300,250);
+        crearVentana("Conectarse", 300,250);
         habilitarVentana();
     }
 

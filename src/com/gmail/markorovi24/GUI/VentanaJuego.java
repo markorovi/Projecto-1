@@ -221,7 +221,7 @@ public class VentanaJuego extends Ventana{
         Ventana.add(this.Texto5.getLabel());
         Ventana.add(this.Texto6.getLabel());
 
-        crearVentana("test", 1110,910);
+        crearVentana("Juego", 1110,910);
         habilitarVentana();
     }
 

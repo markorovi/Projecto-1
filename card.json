@@ -192,7 +192,7 @@
     },
     "9": {
       "nombre": "Escudo sagrado",
-      "descripcion": "No recibes ningún tipo de daño en el siguiente turno.",
+      "descripcion": "La carta del oponente con mayor daño se elimina.",
       "mana": 50
     }
   },
