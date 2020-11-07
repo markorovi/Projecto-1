@@ -66,6 +66,10 @@ public class ListaSimple<T> {
         }
     }
 
+    /**
+     * Funcion recursiva para eliminar un elemento de la lista
+     * @param indice Indice del elemento a eliminar
+     */
     private void EliminarAux (int indice) {
         if (indice -1 == 0) {
             if (this.siguiente == null){
@@ -89,6 +93,10 @@ public class ListaSimple<T> {
         }
     }
 
+    /**
+     * Función recursiva que permite llegar al final de la lista
+     * @return El objeto siguiete
+     */
     private int LargoAux(){
         if (this.siguiente == null){
             return 1;
@@ -124,14 +132,27 @@ public class ListaSimple<T> {
         }
     }
 
+    /**
+     * Set para el value del objeto actual
+     * @param value Valor el cual settear
+     */
     public void setValue(T value) {
         this.value = value;
     }
 
+    /**
+     * Obtiene el objeto siguiente al actual
+     * @return Siguiente
+     */
     public ListaSimple<T> ObtenerSiguiente() {
         return siguiente;
     }
 
+
+    /**
+     * Set para el objeto siguiente del actual
+     * @param siguiente Valor el cual settear
+     */
     public void EstablecerSiguiente(ListaSimple<T> siguiente) {
         this.siguiente = siguiente;
     }

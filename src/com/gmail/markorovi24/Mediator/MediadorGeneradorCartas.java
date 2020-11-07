@@ -1,4 +1,5 @@
 package com.gmail.markorovi24.Mediator;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.listasEnlazadas.ListaCircularDoble;
@@ -14,14 +15,9 @@ import java.util.Random;
 public class MediadorGeneradorCartas {
 
     static MediadorGeneradorCartas Mediador;
-    public static synchronized MediadorGeneradorCartas obtenerInstancia(){
-        if (Mediador == null){
-            Mediador = new MediadorGeneradorCartas();
-        } return Mediador;
-    }
-
     Random rand = new Random();
     JsonNode Diccionario;
+
     {
         try {
             Diccionario = Json.getFromFile("card.json");
@@ -30,7 +26,14 @@ public class MediadorGeneradorCartas {
         }
     }
 
-    private Cartas createCard(String type, String card, JsonNode canvas){
+    public static synchronized MediadorGeneradorCartas obtenerInstancia() {
+        if (Mediador == null) {
+            Mediador = new MediadorGeneradorCartas();
+        }
+        return Mediador;
+    }
+
+    private Cartas createCard(String type, String card, JsonNode canvas) {
         switch (type) {
             case "esbirros":
                 return new Esbirros(card, canvas.get("nombre").asText(), canvas.get("descripcion").asText(), canvas.get("frase").asText(), canvas.get("daño").asInt(), canvas.get("mana").asInt());
@@ -43,7 +46,7 @@ public class MediadorGeneradorCartas {
         }
     }
 
-    public ListaStack<Cartas> ramdomizadorDeck(){
+    public ListaStack<Cartas> ramdomizadorDeck() {
         ListaStack<Cartas> Pila = new ListaStack<>();
 
         for (int i = 0; i < 16; i++) {
@@ -69,7 +72,7 @@ public class MediadorGeneradorCartas {
         return Pila;
     }
 
-    public ListaCircularDoble<Cartas> ramdomizadorHand(){
+    public ListaCircularDoble<Cartas> ramdomizadorHand() {
         ListaCircularDoble<Cartas> Lista = new ListaCircularDoble<>();
 
         for (int i = 0; i < 4; i++) {

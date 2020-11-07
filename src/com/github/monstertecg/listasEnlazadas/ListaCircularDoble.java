@@ -40,6 +40,11 @@ public class ListaCircularDoble<T> {
         }
     }
 
+    /**
+     * Se encarga de agregar un elemento en un indice específico
+     * @param indice Indice en el cual se desea agregar el elemento
+     * @param elemento Elemento a agregar
+     */
     public void AgregarEn(int indice, T elemento) {
         if (this.primero == null && indice != 0) {
             throw new IndexOutOfBoundsException("La lista está vacía");
@@ -69,7 +74,7 @@ public class ListaCircularDoble<T> {
 
     /**
      * Elimina el elemento número índice
-     * @param indice
+     * @param indice Indice de la lista a eliminar
      */
     public void Eliminar (int indice) {
         if (indice == 0) {
@@ -88,6 +93,12 @@ public class ListaCircularDoble<T> {
             this.primero.EliminarAux(indice, this.primero);
         }
     }
+
+    /**
+     * Elimina el elemento en la lista en el indice indicado
+     * @param indice Indice en el cual se eliminará el elemento
+     * @param primero La cabeza de la lista
+     */
 
     private void EliminarAux (int indice, ListaCircularDoble<T> primero) {
         if (indice -1 == 0) {
@@ -150,6 +161,11 @@ public class ListaCircularDoble<T> {
         }
     }
 
+    /**
+     * Obtiene el objeto en el indice indicado
+     * @param indice Indice que hace referencia al objeto a devolver
+     * @return Objeto de la lista
+     */
     private ListaCircularDoble<T> ObtenerObjeto(int indice) {
         if (this.primero == null) {
             throw new IndexOutOfBoundsException("El el índice solicitado sobrepasa el largo de la lista.");
@@ -167,24 +183,11 @@ public class ListaCircularDoble<T> {
         }
     }
 
-
-
-
-
-
-
-
-    public Object asd(){
-        return this.primero.siguiente.ObtenerElemento();
-    }
-
-    public T ObtenerAnteriorDe(int indice){
-        if (this.primero == null) {
-                throw new IndexOutOfBoundsException("La lista está vacía.");
-        }
-        return this.ObtenerObjeto(indice).ObtenerObjetoAnterior().ObtenerElemento();
-    }
-
+    /**
+     * Busca el objeto siguiente al del indice ingresado
+     * @param indice Indice que hace referencia al objeto que se le buca el siguiente
+     * @return
+     */
     public T ObtenerSiguienteDe(int indice){
         if (this.primero == null) {
             throw new IndexOutOfBoundsException("La lista está vacía.");
@@ -192,6 +195,11 @@ public class ListaCircularDoble<T> {
         return this.ObtenerObjeto(indice).ObtenerObjetoSiguiente().ObtenerElemento();
     }
 
+    /**
+     * Sustituye un objeto de la lista por el que se desee
+     * @param indice Objeto a reemplazar
+     * @param valor Objeto que reemplazará
+     */
     public void CambiarValor(int indice, T valor){
         if (indice == 0 && this.primero == null) {
             throw new IndexOutOfBoundsException("El elemento no existe todavía");
@@ -199,7 +207,11 @@ public class ListaCircularDoble<T> {
         this.primero.EstablecerValorAObjeto(indice, valor);
     }
 
-
+    /**
+     * Establece el valor a un objeto de la lista
+     * @param indice Objeto a modificar
+     * @param valor Valor por el cual se desea modifica
+     */
     private void EstablecerValorAObjeto(int indice, T valor) {
         if (indice == 0) {
             this.valor = valor;
@@ -210,22 +222,42 @@ public class ListaCircularDoble<T> {
         }
     }
 
+    /**
+     * Obtiene el objeto siguiente al actual
+     * @return Siguiente en la lista
+     */
     private ListaCircularDoble<T> ObtenerObjetoSiguiente() {
         return this.siguiente;
     }
 
+    /**
+     * Obtiene el objeto anterior del actual
+     * @return Anterior en la lista
+     */
     private ListaCircularDoble<T> ObtenerObjetoAnterior() {
         return this.anterior;
     }
 
+    /**
+     * Obtiene el valor correspondiente al objeto actual
+     * @return Valor del objeto actual
+     */
     private T ObtenerElemento(){
         return this.valor;
     }
 
+    /**
+     * Asigna que objeto será el siguiente para el objeto actual
+     * @param siguiente Objeto a asignar
+     */
     private void EstablecerObjetoSiguiente(ListaCircularDoble<T> siguiente) {
         this.siguiente = siguiente;
     }
 
+    /**
+     * Asigna que objeto será el anterior para el objeto actual
+     * @param anterior Objeto a asignar
+     */
     private void EstablecerObjetoAnterior(ListaCircularDoble<T> anterior){
         this.anterior = anterior;
     }

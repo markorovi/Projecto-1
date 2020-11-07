@@ -15,4 +15,8 @@ public class Ventana {
     public void habilitarVentana() {
         Ventana.setVisible(true);
     }
+
+    public JFrame getFrame(){
+        return Ventana;
+    }
 }

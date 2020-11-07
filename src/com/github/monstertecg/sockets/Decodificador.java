@@ -110,11 +110,13 @@ public class Decodificador {
             case "dañar":
                 MediadorVidaMana.obtenerInstancia().setMyHP(MediadorVidaMana.obtenerInstancia().getMyHP() - Integer.parseInt(mensajeCodificado.get("id").asText()));
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarVida();
+                MediadorVidaMana.obtenerInstancia().checkWinCondition();
                 return;
 
             case "actualizar vida":
                 MediadorVidaMana.obtenerInstancia().setRivalHP(mensajeCodificado.get("vida").asInt());
                 MediadorCartasHUD.obtenerInstancia().getVentana().actualizarDano();
+                MediadorVidaMana.obtenerInstancia().checkWinCondition();
                 return;
 
             case "regalar carta":

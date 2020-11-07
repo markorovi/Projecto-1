@@ -3,10 +3,8 @@ package com.github.monstertecg.sockets;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.monstertecg.json.Json;
 import com.github.monstertecg.logs.LoggingHandler;
-import com.gmail.markorovi24.GUI.Ventana;
 import org.json.JSONObject;
 
-import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,8 +24,8 @@ import java.util.logging.Logger;
  */
 public class Conectividad {
 
-    private static Conectividad instancia;
     private static final Logger LOGGER = Logger.getLogger(Conectividad.class.getName());
+    private static Conectividad instancia;
     private Socket socket;
     private ServerSocket serverSocket;
     private boolean anfitrion;
@@ -40,8 +38,7 @@ public class Conectividad {
     private int puertoEnUso;
 
 
-
-    public Conectividad(){
+    public Conectividad() {
         try {
             this.ipPropia = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
@@ -58,12 +55,12 @@ public class Conectividad {
         return instancia;
     }
 
-    public static Conectividad SerAnfitrion(){
+    public static Conectividad SerAnfitrion() {
         obtenerInstancia().EstablecerAnfitrion(true);
         return instancia;
     }
 
-    public static Conectividad SerInvitado(){
+    public static Conectividad SerInvitado() {
         obtenerInstancia().EstablecerAnfitrion(false);
         return instancia;
     }
@@ -95,10 +92,11 @@ public class Conectividad {
 
         this.puertoEnUso = this.BuscaPuerto();
 
-        if (!anfitrion){ EnviarMensaje(Json.VarToString(
-                "","",0,0,false,(
-                        new JSONObject("{\"ip\":\"" + this.ipPropia + "\"," +
-                                " \"puerto\":\"" + this.puertoEnUso + "\"}").toString())));
+        if (!anfitrion) {
+            EnviarMensaje(Json.VarToString(
+                    "", "", 0, 0, false, (
+                            new JSONObject("{\"ip\":\"" + this.ipPropia + "\"," +
+                                    " \"puerto\":\"" + this.puertoEnUso + "\"}").toString())));
         }
 
         try {
@@ -206,24 +204,28 @@ public class Conectividad {
         return puerto;
     }
 
-    public String[] ObtenerOrigen(){ return new String[] {Integer.toString(puertoEnUso), this.ipPropia}; }
+    public String[] ObtenerOrigen() {
+        return new String[]{Integer.toString(puertoEnUso), this.ipPropia};
+    }
 
-    public void EstablecerDestino(String puertoDestino, String ipDestino){
+    public void EstablecerDestino(String puertoDestino, String ipDestino) {
         this.puertoDestino = Integer.parseInt(puertoDestino);
         this.ipDestino = ipDestino;
     }
 
-    public String[] ObtenerDestino (){ return new String[] {Integer.toString(puertoDestino), ipDestino}; }
+    public String[] ObtenerDestino() {
+        return new String[]{Integer.toString(puertoDestino), ipDestino};
+    }
 
-    public void EstablecerAnfitrion(boolean anfitrion){ this.anfitrion = anfitrion; }
+    public void EstablecerAnfitrion(boolean anfitrion) {
+        this.anfitrion = anfitrion;
+    }
 
-    public boolean ObtenerAnfitrion(){ return this.anfitrion; }
+    public boolean ObtenerAnfitrion() {
+        return this.anfitrion;
+    }
 
-    public boolean isConnected(){
-        if(ipDestino.equals("")){
-            return false;
-        } else {
-            return true;
-        }
+    public boolean isConnected() {
+        return !ipDestino.equals("");
     }
 }

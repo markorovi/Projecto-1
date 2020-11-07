@@ -1,22 +1,23 @@
 package com.gmail.markorovi24.GUI;
+
 import com.github.monstertecg.listasEnlazadas.ListaDoble;
 import com.gmail.markorovi24.Cartas.Cartas;
 import com.gmail.markorovi24.GUI.Widgets.Button;
 import com.gmail.markorovi24.GUI.Widgets.Label;
+import com.gmail.markorovi24.GUI.Widgets.Text;
 import com.gmail.markorovi24.HUDCards.Deck;
 import com.gmail.markorovi24.HUDCards.MyCards;
 import com.gmail.markorovi24.HUDCards.RivalCards;
 import com.gmail.markorovi24.Mediator.*;
-import com.gmail.markorovi24.GUI.Widgets.*;
-
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Paths;
 
 
-public class VentanaJuego extends Ventana{
+public class VentanaJuego extends Ventana {
     private final MyCards MyCard1 = new MyCards();
     private final MyCards MyCard2 = new MyCards();
     private final MyCards MyCard3 = new MyCards();
@@ -55,12 +56,12 @@ public class VentanaJuego extends Ventana{
     private final Button Boton3 = new Button();
     private final Button Boton4 = new Button();
 
-    private MediadorCartasHUD ControlCartas = MediadorCartasHUD.obtenerInstancia();
-    private MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
-    private MediadorMyCards ControlDecks = MediadorMyCards.obtenerInstancia();
-    private MediadorServidor ControlServidor = MediadorServidor.obtenerInstancia();
+    private final MediadorCartasHUD ControlCartas = MediadorCartasHUD.obtenerInstancia();
+    private final MediadorVidaMana ControlVidaMana = MediadorVidaMana.obtenerInstancia();
+    private final MediadorMyCards ControlDecks = MediadorMyCards.obtenerInstancia();
+    private final MediadorServidor ControlServidor = MediadorServidor.obtenerInstancia();
 
-    public void configurarMenu(){
+    public void configurarMenu() {
 
         this.MyCard1.builder(180, 490, 120, 160, this.ControlCartas);
         this.MyCard2.builder(330, 490, 120, 160, this.ControlCartas);
@@ -71,7 +72,7 @@ public class VentanaJuego extends Ventana{
         this.MyCard7.builder(330, 700, 120, 160, this.ControlCartas);
         this.MyCard8.builder(480, 700, 120, 160, this.ControlCartas);
         this.MyCard9.builder(630, 700, 120, 160, this.ControlCartas);
-        this. MyCard10.builder(780, 700, 120, 160, this.ControlCartas);
+        this.MyCard10.builder(780, 700, 120, 160, this.ControlCartas);
 
         this.Hand.Agregar(MyCard1);
         this.Hand.Agregar(MyCard2);
@@ -114,14 +115,14 @@ public class VentanaJuego extends Ventana{
         this.Texto6.builder(925, 500, 150, 30, Color.white, "Maná: ");
         this.Texto6.setValue(this.ControlVidaMana.getMyMana());
 
-        this.Boton1.builder(950, 800, 100,50, "Lanzar", Color.white);
+        this.Boton1.builder(950, 800, 100, 50, "Lanzar", Color.white);
         this.Boton1.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ControlServidor.getMyTurn()){
-                    for (int i = 0; i < ControlDecks.getHandCards(); i++){
+                if (ControlServidor.getMyTurn()) {
+                    for (int i = 0; i < ControlDecks.getHandCards(); i++) {
                         if (Hand.Obtener(i).getIsUp() && ControlDecks.getHand().Obtener(i).getMana() < ControlVidaMana.getMyMana()) {
-                            Cartas card =  ControlDecks.getHand().Obtener(i);
+                            Cartas card = ControlDecks.getHand().Obtener(i);
                             ControlServidor.setMyTurn(false);
                             Hand.Obtener(i).publicAnimate();
                             ControlDecks.agregarHistorial(card);
@@ -151,11 +152,11 @@ public class VentanaJuego extends Ventana{
             }
         });
 
-        this.Boton2.builder(630, 412, 50,35, "←", Color.white);
+        this.Boton2.builder(630, 412, 50, 35, "←", Color.white);
         this.Boton2.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ControlDecks.getIndex() - 1 <= -1){
+                if (ControlDecks.getIndex() - 1 <= -1) {
                 } else {
                     ControlDecks.setIndex(ControlDecks.getIndex() - 1);
                     CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getIndex()).getNombre() + ".jpg");
@@ -164,11 +165,11 @@ public class VentanaJuego extends Ventana{
             }
         });
 
-        this.Boton3.builder(700, 412, 50,35, "→", Color.white);
+        this.Boton3.builder(700, 412, 50, 35, "→", Color.white);
         this.Boton3.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (ControlDecks.getIndex() + 1 >= ControlDecks.getContadorHistorial()){
+                if (ControlDecks.getIndex() + 1 >= ControlDecks.getContadorHistorial()) {
                 } else {
                     ControlDecks.setIndex(ControlDecks.getIndex() + 1);
                     CardsPlayed.setImage(ControlDecks.getHistorial().Obtener(ControlDecks.getIndex()).getNombre() + ".jpg");
@@ -177,7 +178,7 @@ public class VentanaJuego extends Ventana{
             }
         });
 
-        this.Boton4.builder(950, 730, 100,50, "Saltar", Color.white);
+        this.Boton4.builder(950, 730, 100, 50, "Saltar", Color.white);
         this.Boton4.getBoton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,7 +188,7 @@ public class VentanaJuego extends Ventana{
         });
 
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             this.Hand.Obtener(i).setImage(this.ControlDecks.getHand().Obtener(i).getNombre() + ".jpg");
         }
 
@@ -222,46 +223,46 @@ public class VentanaJuego extends Ventana{
         Ventana.add(this.Texto5.getLabel());
         Ventana.add(this.Texto6.getLabel());
 
-        crearVentana("Juego", 1110,910);
+        crearVentana("Juego", 1110, 910);
         habilitarVentana();
     }
 
-    public void actualizarHand(){
-        for (int k = 0; k < ControlDecks.getHandCards(); k++){
+    public void actualizarHand() {
+        for (int k = 0; k < ControlDecks.getHandCards(); k++) {
             Hand.Obtener(k).setImage(ControlDecks.getHand().Obtener(k).getNombre() + ".jpg");
         }
-        for(int index = MediadorMyCards.obtenerInstancia().getHandCards(); index < 10; index++){
+        for (int index = MediadorMyCards.obtenerInstancia().getHandCards(); index < 10; index++) {
             Hand.Obtener(index).setImage("Interrogacion.jpg");
         }
     }
 
 
-    public void actualizarCartaSeleccionada(){
-        for (int i = 0; i < ControlDecks.getHandCards(); i++){
-            if (Hand.Obtener(i).getIsUp()){
+    public void actualizarCartaSeleccionada() {
+        for (int i = 0; i < ControlDecks.getHandCards(); i++) {
+            if (Hand.Obtener(i).getIsUp()) {
                 String tipo = ControlDecks.getHand().Obtener(i).getTipo();
                 if (tipo.equals("esbirros")) {
-                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();
                     String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
                     String frase = ControlDecks.getHand().Obtener(i).getFrase();
                     int dano = ControlDecks.getHand().Obtener(i).getDano();
                     int mana = ControlDecks.getHand().Obtener(i).getMana();
-                    SelectedCardEffects.setText(nombre + "\n" + descripcion + "\n" +frase +"\nDaño: " +dano +"\nManá: " + mana);
+                    SelectedCardEffects.setText(nombre + "\n" + descripcion + "\n" + frase + "\nDaño: " + dano + "\nManá: " + mana);
                     break;
-                } else if (tipo.equals("hechizos")){
-                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                } else if (tipo.equals("hechizos")) {
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();
                     String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
                     int mana = ControlDecks.getHand().Obtener(i).getMana();
 
-                    SelectedCardEffects.setText(nombre + "\n" +descripcion + "\nManá: " +mana);
+                    SelectedCardEffects.setText(nombre + "\n" + descripcion + "\nManá: " + mana);
                     break;
-                } else if (tipo.equals("secretos")){
-                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();;
+                } else if (tipo.equals("secretos")) {
+                    String nombre = ControlDecks.getHand().Obtener(i).getNombre();
                     String descripcion = ControlDecks.getHand().Obtener(i).getDescripcion();
                     String frase = ControlDecks.getHand().Obtener(i).getFrase();
                     int mana = ControlDecks.getHand().Obtener(i).getMana();
 
-                    SelectedCardEffects.setText(nombre + "\n" +descripcion + "\n" +frase +"\nManá: " + mana);
+                    SelectedCardEffects.setText(nombre + "\n" + descripcion + "\n" + frase + "\nManá: " + mana);
                     break;
                 }
             } else {
@@ -270,35 +271,35 @@ public class VentanaJuego extends Ventana{
         }
     }
 
-    public void actualizarCartaHistorial(){
+    public void actualizarCartaHistorial() {
         int i = ControlDecks.getIndex();
 
         String tipo = ControlDecks.getHistorial().Obtener(i).getTipo();
         if (tipo.equals("esbirros")) {
-            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();
             String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
             String frase = ControlDecks.getHistorial().Obtener(i).getFrase();
             int dano = ControlDecks.getHistorial().Obtener(i).getDano();
             int mana = ControlDecks.getHistorial().Obtener(i).getMana();
-            ListCardEffect.setText(nombre + "\n" + descripcion + "\n" +frase +"\nDaño: " +dano +"\nManá: " + mana);
-        } else if (tipo.equals("hechizos")){
-            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            ListCardEffect.setText(nombre + "\n" + descripcion + "\n" + frase + "\nDaño: " + dano + "\nManá: " + mana);
+        } else if (tipo.equals("hechizos")) {
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();
             String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
             int mana = ControlDecks.getHistorial().Obtener(i).getMana();
 
-            ListCardEffect.setText(nombre + "\n" +descripcion + "\nManá: " +mana);
-        } else if (tipo.equals("secretos")){
-            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();;
+            ListCardEffect.setText(nombre + "\n" + descripcion + "\nManá: " + mana);
+        } else if (tipo.equals("secretos")) {
+            String nombre = ControlDecks.getHistorial().Obtener(i).getNombre();
             String descripcion = ControlDecks.getHistorial().Obtener(i).getDescripcion();
             String frase = ControlDecks.getHistorial().Obtener(i).getFrase();
             int mana = ControlDecks.getHistorial().Obtener(i).getMana();
 
-            ListCardEffect.setText(nombre + "\n" +descripcion + "\n" +frase +"\nManá: " + mana);
+            ListCardEffect.setText(nombre + "\n" + descripcion + "\n" + frase + "\nManá: " + mana);
 
         }
     }
 
-    public void actualizarVida(){
+    public void actualizarVida() {
         this.Texto5.setValue(this.ControlVidaMana.getMyHP());
         System.out.println(this.ControlVidaMana.getMyHP());
     }
@@ -307,7 +308,7 @@ public class VentanaJuego extends Ventana{
         this.Texto6.setValue(this.ControlVidaMana.getMyMana());
     }
 
-    public void actualizarDano(){
+    public void actualizarDano() {
         this.Texto4.setValue(this.ControlVidaMana.getRivalHP());
     }
 
@@ -317,10 +318,10 @@ public class VentanaJuego extends Ventana{
         ControlDecks.setContadorHistorial(ControlDecks.getContadorHistorial() + 1);
     }
 
-    public void actualizarEfectos(){
+    public void actualizarEfectos() {
         String texto = "";
         ActiveCards.setText(texto);
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             if (MediadorEfectos.obtenerInstancia().getEfectos().Obtener(i)) {
                 switch (i) {
                     case 0:
@@ -373,7 +374,4 @@ public class VentanaJuego extends Ventana{
         return this.Hand;
     }
 
-    public void setGanar(){
-        Ventana.setContentPane(new JLabel(new ImageIcon("\\src\\main\\resources\\images\\")));
-    }
 }

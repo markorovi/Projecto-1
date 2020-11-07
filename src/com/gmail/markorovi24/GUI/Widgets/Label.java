@@ -3,10 +3,21 @@ package com.gmail.markorovi24.GUI.Widgets;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Clase que se encarga de crear los botones que se ven en la pantalla
+ *
+ * @author Marco Rodríguez
+ * @version 1.0
+ * @since 0.4.2
+ */
 public class Label {
     JLabel Label = new JLabel();
     String string;
 
+    /**
+     * Get de la instancia
+     * @return
+     */
     public JLabel getLabel(){
         return Label;
     }
